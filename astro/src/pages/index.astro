@@ -1,7 +1,7 @@
 ---
 // src/pages/index.astro
 // Homepage — Complete ZyrithTech landing page
-// Matches the HTML design exactly with Sanity CMS integration.
+// Matches the HTML design exactly with Sanity CMS integration
 
 import Layout from '../layouts/Layout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
@@ -318,7 +318,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
                   </div>
                   <h3 class="blog-card-title">{post.title}</h3>
                   <p class="blog-card-excerpt">{post.excerpt}</p>
-                  <a href={`/blog/${post.slug.current}/`} class="blog-read-more">Read Article</a>
+                  <span class="blog-read-more">Read Article</span>
                 </div>
               </a>
             );
@@ -777,7 +777,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
