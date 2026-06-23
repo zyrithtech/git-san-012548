@@ -1,7 +1,7 @@
 ---
 // src/pages/index.astro
 // Homepage — Complete ZyrithTech landing page
-// Matches the HTML design exactly with Sanity CMS integration
+// Matches the HTML design exactly with Sanity CMS integration.
 
 import Layout from '../layouts/Layout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
@@ -647,6 +647,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
     display: flex;
     flex-direction: column;
     text-decoration: none;
+    color: inherit;
   }
 
   .blog-card:hover {
@@ -656,6 +657,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
 
   .blog-card-img-wrap {
     height: 180px;
+    flex-shrink: 0;
     overflow: hidden;
     background-color: var(--navy-50);
   }
