@@ -1,0 +1,72 @@
+---
+// src/components/ProcessStep.astro
+// Reusable process step component
+// Used in "How It Works" sections with numbered steps
+// Features: number, title, description + staggered reveal animation
+
+interface Props {
+  number: string;
+  title: string;
+  description: string;
+  delay?: 0 | 1 | 2 | 3;
+}
+
+const {
+  number,
+  title,
+  description,
+  delay = 0
+} = Astro.props;
+
+const delayClass = delay > 0 ? `reveal-delay-${delay}` : '';
+---
+
+<div class={`process-step reveal ${delayClass}`}>
+  <div class="process-step__number">{number}</div>
+  <h3 class="process-step__title">{title}</h3>
+  <p class="process-step__description">{description}</p>
+</div>
+
+<style>
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .process-step__number {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--sky-300);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .process-step__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .process-step__description {
+    font-size: var(--text-base);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* On dark backgrounds */
+  :global(.on-dark) .process-step__number {
+    color: var(--sky-300);
+  }
+
+  :global(.on-dark) .process-step__title {
+    color: var(--white);
+  }
+
+  :global(.on-dark) .process-step__description {
+    color: var(--navy-100);
+  }
+</style>

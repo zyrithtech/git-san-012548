@@ -1,0 +1,753 @@
+---
+// src/components/Nav.astro
+// Sticky navigation with centered links, mega dropdown for Services, and taglines
+// Desktop: centered links with mega dropdown on hover
+// Mobile: hamburger menu with dropdown
+
+const servicesData = {
+  label: 'Services',
+  tagline: 'Integrated digital solutions for growth',
+  categories: [
+    {
+      title: 'Digital Marketing',
+      href: '/services/digital-marketing',
+      tagline: 'Drive qualified leads and growth',
+      services: [
+        { label: 'SEO', href: '/services/digital-marketing/search-engine-optimization-seo/', tagline: 'Rank higher, attract organic traffic' },
+        { label: 'Social Media Marketing', href: '/services/digital-marketing/social-media-marketing/', tagline: 'Build engaged communities online' },
+        { label: 'PPC Advertising', href: '/services/digital-marketing/ppc-advertising/', tagline: 'Quick wins with paid campaigns' },
+        { label: 'Email Marketing', href: '/services/digital-marketing/email-marketing/', tagline: 'Convert subscribers into customers' },
+        { label: 'Content Marketing', href: '/services/digital-marketing/content-marketing/', tagline: 'Establish authority through content' },
+        { label: 'Analytics & Reporting', href: '/services/digital-marketing/analytics-and-performance-reporting/', tagline: 'Measure, optimize, scale results' },
+      ]
+    },
+    {
+      title: 'Web Development',
+      href: '/services/web-development',
+      tagline: 'Conversion-focused websites that work',
+      services: [
+        { label: 'Website Design & Development', href: '/services/web-development/website-design-and-development/', tagline: 'Beautiful sites that convert visitors' },
+        { label: 'E-commerce Solutions', href: '/services/web-development/e-commerce-solutions/', tagline: 'Sell online with confidence' },
+        { label: 'Website Hosting & Maintenance', href: '/services/web-development/website-hosting-and-maintenance/', tagline: 'Keep your site fast and secure' },
+      ]
+    },
+    {
+      title: 'Creative & Branding',
+      href: '/services/creative-branding',
+      tagline: 'Visual identity that stands out',
+      services: [
+        { label: 'Graphic & Visual Design', href: '/services/creative-branding/graphic-visual-design/', tagline: 'Professional designs that impress' },
+        { label: 'Logo & Brand Identity', href: '/services/creative-branding/logo-and-brand-identity/', tagline: 'Build a memorable brand' },
+      ]
+    }
+  ]
+};
+
+const mainNavLinks = [
+  { label: 'Work', href: '/work', tagline: 'See what we\'ve built' },
+  { label: 'Blog', href: '/blog', tagline: 'Learn digital strategy' },
+  { label: 'About', href: '/about', tagline: 'Meet the ZyrithTech team' },
+  { label: 'Contact', href: '/contact', tagline: 'Let\'s talk growth' },
+];
+---
+
+<nav class="nav">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="ZyrithTech home">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+        <path d="M16 8V16M16 16L22 22M16 16L10 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-brand">ZyrithTech</span>
+    </a>
+
+    <!-- Desktop Links (Centered) -->
+    <div class="nav-links-desktop">
+      <!-- Services with Mega Dropdown -->
+      <div class="nav-item-group">
+        <button class="nav-link nav-link-with-dropdown" aria-label="Services menu">
+          <span>{servicesData.label}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav-dropdown-icon">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="nav-tagline">{servicesData.tagline}</div>
+
+        <!-- Mega Dropdown Menu -->
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-content">
+            {servicesData.categories.map((category) => (
+              <div class="mega-dropdown-column">
+                <a href={category.href} class="mega-dropdown-category-link">
+                  <h4 class="mega-dropdown-title">{category.title}</h4>
+                  <p class="mega-dropdown-tagline">{category.tagline}</p>
+                </a>
+                <ul class="mega-dropdown-services">
+                  {category.services.map((service) => (
+                    <li>
+                      <a href={service.href} class="mega-dropdown-service-link">
+                        <span class="service-name">{service.label}</span>
+                        <span class="service-tagline">{service.tagline}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Navigation Links -->
+      {mainNavLinks.map((link) => (
+        <div class="nav-item-group">
+          <a href={link.href} class="nav-link">
+            {link.label}
+          </a>
+          <div class="nav-tagline">{link.tagline}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA Button (desktop) -->
+    <a href="/contact" class="btn btn-primary nav-cta">
+      Get Started
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="nav-mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="nav-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu (drawer) -->
+  <div class="nav-mobile-menu" id="mobile-menu">
+    <div class="nav-mobile-content">
+      <!-- Mobile Services Section -->
+      <div class="nav-mobile-section">
+        <button class="nav-mobile-section-toggle" id="mobile-services-toggle" aria-expanded="false">
+          <span>{servicesData.label}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-mobile-submenu" id="mobile-services-submenu">
+          {servicesData.categories.map((category) => (
+            <div class="nav-mobile-category">
+              <a href={category.href} class="nav-mobile-category-link">
+                {category.title}
+              </a>
+              <ul class="nav-mobile-services-list">
+                {category.services.map((service) => (
+                  <li>
+                    <a href={service.href} class="nav-mobile-service-link">
+                      {service.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Other Mobile Links -->
+      {mainNavLinks.map((link) => (
+        <a href={link.href} class="nav-mobile-link">
+          {link.label}
+        </a>
+      ))}
+
+      <!-- Mobile CTA -->
+      <a href="/contact" class="btn btn-primary nav-mobile-cta">
+        Get Started
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* ===============================
+     STICKY NAV CONTAINER
+     =============================== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-base) var(--ease-out), 
+                background-color var(--duration-base) var(--ease-out);
+  }
+
+  .nav.scrolled {
+    border-bottom-color: var(--color-border-default);
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-nav);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+    height: var(--nav-height);
+  }
+
+  /* ===============================
+     LOGO
+     =============================== */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    transition: opacity var(--duration-fast) var(--ease-out);
+    flex-shrink: 0;
+    margin-right: auto;
+  }
+
+  .nav-logo:hover {
+    opacity: 0.8;
+  }
+
+  .nav-logo svg {
+    width: 28px;
+    height: 28px;
+    color: var(--navy-500);
+  }
+
+  .nav-brand {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--navy-900);
+    letter-spacing: -0.01em;
+  }
+
+  /* ===============================
+     DESKTOP LINKS (CENTERED)
+     =============================== */
+  .nav-links-desktop {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-12);
+    margin: 0 var(--space-8);
+  }
+
+  @media (min-width: 1025px) {
+    .nav-links-desktop {
+      display: flex;
+    }
+  }
+
+  .nav-item-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    position: relative;
+    padding-bottom: var(--space-2);
+  }
+
+  /* Extend hover area to mega dropdown */
+  .nav-item-group::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -20px;
+    right: -20px;
+    height: var(--space-4);
+    pointer-events: auto;
+  }
+
+  .nav-item-group:hover::after {
+    pointer-events: auto;
+  }
+
+  /* Hide first-level taglines in main nav */
+  .nav-links-desktop .nav-item-group .nav-tagline {
+    display: none;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-body);
+    text-decoration: none;
+    position: relative;
+    transition: color var(--duration-fast) var(--ease-out);
+    padding: var(--space-2) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--sky-500);
+    transition: width var(--duration-base) var(--ease-out);
+  }
+
+  .nav-link:hover {
+    color: var(--sky-500);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link-with-dropdown {
+    position: relative;
+  }
+
+  .nav-link-with-dropdown:hover::after {
+    width: 0;
+  }
+
+  .nav-dropdown-icon {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .nav-item-group:hover .nav-dropdown-icon {
+    transform: rotateZ(180deg);
+  }
+
+  .nav-tagline {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+    white-space: nowrap;
+  }
+
+  .nav-item-group:hover .nav-tagline {
+    opacity: 1;
+  }
+
+  /* ===============================
+     MEGA DROPDOWN MENU
+     =============================== */
+  .mega-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-8);
+    margin-top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: opacity 150ms var(--ease-out), 
+                visibility 150ms var(--ease-out),
+                transform 150ms var(--ease-out);
+    pointer-events: none;
+    z-index: 100;
+    min-width: 900px;
+  }
+
+  .nav-item-group:hover .mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  .mega-dropdown-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .mega-dropdown-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .mega-dropdown-category-link {
+    text-decoration: none;
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-border-default);
+    transition: border-color var(--duration-base) var(--ease-out);
+  }
+
+  .mega-dropdown-category-link:hover {
+    border-bottom-color: var(--sky-300);
+  }
+
+  .mega-dropdown-title {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-900);
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-1);
+  }
+
+  .mega-dropdown-tagline {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: var(--leading-snug);
+    font-weight: 400;
+  }
+
+  .mega-dropdown-services {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .mega-dropdown-service-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+
+  .mega-dropdown-service-link:hover {
+    background-color: var(--navy-50);
+  }
+
+  .service-name {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--sky-500);
+  }
+
+  .service-tagline {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: var(--leading-snug);
+  }
+
+  /* ===============================
+     DESKTOP CTA BUTTON
+     =============================== */
+  .nav-cta {
+    display: none;
+    flex-shrink: 0;
+    margin-left: var(--space-8);
+  }
+
+  @media (min-width: 1025px) {
+    .nav-cta {
+      display: inline-flex;
+    }
+  }
+
+  /* ===============================
+     MOBILE TOGGLE BUTTON
+     =============================== */
+  .nav-mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  @media (min-width: 1025px) {
+    .nav-mobile-toggle {
+      display: none;
+    }
+  }
+
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 24px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--navy-900);
+    border-radius: 1px;
+    transition: transform var(--duration-base) var(--ease-out),
+                opacity var(--duration-base) var(--ease-out);
+  }
+
+  .nav-mobile-toggle[aria-expanded="true"] .nav-hamburger span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .nav-mobile-toggle[aria-expanded="true"] .nav-hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-mobile-toggle[aria-expanded="true"] .nav-hamburger span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* ===============================
+     MOBILE MENU
+     =============================== */
+  .nav-mobile-menu {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--color-border-default);
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    animation: slideDown var(--duration-base) var(--ease-out) forwards;
+  }
+
+  @media (max-width: 1024px) {
+    .nav-mobile-menu.active {
+      display: block;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-mobile-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .nav-mobile-section {
+    border-top: 1px solid var(--color-border-default);
+    padding-top: var(--space-4);
+  }
+
+  .nav-mobile-section:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .nav-mobile-section-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text-body);
+    padding: var(--space-3);
+    cursor: pointer;
+    transition: background-color var(--duration-base) var(--ease-out);
+    border-radius: var(--radius-md);
+  }
+
+  .nav-mobile-section-toggle:hover {
+    background-color: var(--navy-50);
+  }
+
+  .nav-mobile-section-toggle svg {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .nav-mobile-section-toggle[aria-expanded="true"] svg {
+    transform: rotateZ(180deg);
+  }
+
+  .nav-mobile-submenu {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-left: var(--space-4);
+    padding-top: var(--space-3);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-base) var(--ease-out);
+  }
+
+  .nav-mobile-submenu.active {
+    display: flex;
+    max-height: 1000px;
+  }
+
+  .nav-mobile-category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .nav-mobile-category-link {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky-500);
+    text-decoration: none;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-base) var(--ease-out);
+  }
+
+  .nav-mobile-category-link:hover {
+    background-color: var(--navy-50);
+  }
+
+  .nav-mobile-services-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-left: var(--space-4);
+  }
+
+  .nav-mobile-service-link {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    text-decoration: none;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-base) var(--ease-out),
+                color var(--duration-base) var(--ease-out));
+  }
+
+  .nav-mobile-service-link:hover {
+    background-color: var(--sky-50);
+    color: var(--sky-500);
+  }
+
+  .nav-mobile-link {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text-body);
+    text-decoration: none;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-base) var(--ease-out)),
+                color var(--duration-base) var(--ease-out));
+  }
+
+  .nav-mobile-link:hover {
+    background-color: var(--navy-50);
+    color: var(--sky-500);
+  }
+
+  .nav-mobile-cta {
+    width: 100%;
+    margin-top: var(--space-4);
+  }
+
+  /* ===============================
+     ACCESSIBILITY
+     =============================== */
+  @media (prefers-reduced-motion: reduce) {
+    .nav,
+    .nav-link::after,
+    .nav-hamburger span,
+    .nav-mobile-menu,
+    .mega-dropdown,
+    .nav-dropdown-icon {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const servicesToggle = document.getElementById('mobile-services-toggle');
+  const servicesSubmenu = document.getElementById('mobile-services-submenu');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      menu.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    const links = menu.querySelectorAll('.nav-mobile-link, .nav-mobile-category-link, .nav-mobile-service-link');
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('active');
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('.nav');
+      if (nav && !nav.contains(e.target as Node)) {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('active');
+      }
+    });
+  }
+
+  // Mobile services submenu toggle
+  if (servicesToggle && servicesSubmenu) {
+    servicesToggle.addEventListener('click', () => {
+      const isOpen = servicesToggle.getAttribute('aria-expanded') === 'true';
+      servicesToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      servicesSubmenu.classList.toggle('active');
+    });
+  }
+
+  // Scroll state for nav
+  const nav = document.querySelector('.nav');
+  let lastScrollTop = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    if (scrollTop > 50) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+    lastScrollTop = scrollTop;
+  });
+</script>

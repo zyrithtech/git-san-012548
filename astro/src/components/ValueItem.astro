@@ -1,0 +1,94 @@
+---
+// src/components/ValueItem.astro
+// Reusable value proposition card
+// Used in "Why Choose Us" sections with icon + title + description
+// Features: icon SVG, border styling, dark background support + staggered reveal
+
+interface Props {
+  icon: string; // SVG code or icon HTML
+  title: string;
+  description: string;
+  delay?: 0 | 1 | 2 | 3;
+  variant?: 'default' | 'dark'; // dark = on dark background
+}
+
+const {
+  icon,
+  title,
+  description,
+  delay = 0,
+  variant = 'default'
+} = Astro.props;
+
+const delayClass = delay > 0 ? `reveal-delay-${delay}` : '';
+const isDark = variant === 'dark';
+---
+
+<div class={`value-item reveal ${delayClass} ${isDark ? 'value-item--dark' : ''}`}>
+  <div class="value-item__icon" aria-hidden="true" set:html={icon} />
+  <h3 class="value-item__title">{title}</h3>
+  <p class="value-item__description">{description}</p>
+</div>
+
+<style>
+  .value-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: 1px solid var(--navy-300);
+    border-radius: var(--radius-lg);
+    background-color: transparent;
+    transition: background-color var(--duration-base) var(--ease-out),
+                border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .value-item:hover {
+    background-color: rgba(91, 170, 255, 0.05);
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .value-item--dark {
+    border-color: var(--navy-300);
+    background-color: rgba(91, 170, 255, 0.02);
+  }
+
+  .value-item--dark:hover {
+    border-color: var(--sky-300);
+    background-color: rgba(91, 170, 255, 0.08);
+  }
+
+  .value-item__icon {
+    width: 24px;
+    height: 24px;
+    color: var(--sky-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .value-item__title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .value-item--dark .value-item__title {
+    color: var(--white);
+  }
+
+  .value-item__description {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  .value-item--dark .value-item__description {
+    color: var(--navy-200);
+  }
+</style>

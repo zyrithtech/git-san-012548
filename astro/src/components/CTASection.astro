@@ -1,0 +1,124 @@
+---
+// src/components/CTASection.astro
+// Reusable CTA section — used before footer on all pages
+// Features: eyebrow, heading, description, button actions, reveal animation
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  subtext?: string;
+  primaryBtn?: {
+    text: string;
+    href: string;
+  };
+  secondaryBtn?: {
+    text: string;
+    href: string;
+  };
+  variant?: 'default' | 'dark'; // default = navy-500, dark = navy-700
+}
+
+const {
+  eyebrow = 'Ready to grow?',
+  heading,
+  subtext,
+  primaryBtn = { text: 'Start a Project', href: '/contact/' },
+  secondaryBtn = { text: 'See Our Work', href: '/work/' },
+  variant = 'default'
+} = Astro.props;
+
+const bgColor = variant === 'dark' ? 'var(--navy-700)' : 'var(--navy-500)';
+---
+
+<section class="cta-section" style={`background-color: ${bgColor}`}>
+  <div class="container cta-section__inner">
+    {eyebrow && (
+      <span class="eyebrow cta-section__eyebrow reveal">{eyebrow}</span>
+    )}
+    
+    <h2 class="cta-section__heading reveal reveal-delay-1">{heading}</h2>
+    
+    {subtext && (
+      <p class="cta-section__subtext reveal reveal-delay-2">{subtext}</p>
+    )}
+    
+    <div class="cta-section__actions reveal reveal-delay-3">
+      <a href={primaryBtn.href} class="btn btn-primary btn-lg">
+        {primaryBtn.text}
+      </a>
+      <a href={secondaryBtn.href} class="btn btn-ghost btn-lg">
+        {secondaryBtn.text}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding-block: var(--space-24);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(91, 170, 255, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 50%, rgba(255, 123, 53, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-section__eyebrow {
+    color: var(--sky-300);
+    margin-bottom: var(--space-4);
+    display: block;
+  }
+
+  .cta-section__heading {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.10;
+    margin-bottom: var(--space-5);
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .cta-section__subtext {
+    font-size: var(--text-lg);
+    color: var(--navy-100);
+    max-width: 560px;
+    margin-inline: auto;
+    margin-bottom: var(--space-10);
+    line-height: var(--leading-relaxed);
+  }
+
+  .cta-section__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 640px) {
+    .cta-section__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cta-section__actions .btn {
+      width: 100%;
+    }
+  }
+</style>

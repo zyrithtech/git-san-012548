@@ -1,0 +1,95 @@
+---
+// src/components/Breadcrumb.astro
+// Reusable breadcrumb navigation with BreadcrumbList JSON-LD schema
+// Usage: <Breadcrumb items={[{label: "Home", href: "/"}, {label: "Page"}]} currentPage="Current" />
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  currentPage: string;
+}
+
+const { items, currentPage } = Astro.props;
+
+// Build JSON-LD BreadcrumbList schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    ...items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      item: item.href ? `https://zyrithtech.com${item.href}` : undefined
+    })),
+    {
+      '@type': 'ListItem',
+      position: items.length + 1,
+      name: currentPage
+    }
+  ]
+};
+---
+
+<nav class="breadcrumb" aria-label="Breadcrumb navigation">
+  {items.map((item, index) => (
+    <>
+      {item.href ? (
+        <a href={item.href} class="breadcrumb__link">{item.label}</a>
+      ) : (
+        <span class="breadcrumb__current">{item.label}</span>
+      )}
+      {index < items.length - 1 && (
+        <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      )}
+    </>
+  ))}
+  {items.length > 0 && (
+    <span class="breadcrumb__sep" aria-hidden="true">›</span>
+  )}
+  <span class="breadcrumb__current">{currentPage}</span>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb__link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .breadcrumb__link:hover {
+    color: var(--sky-500);
+  }
+
+  .breadcrumb__link:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .breadcrumb__sep {
+    color: var(--lt-stroke);
+    font-size: 0.75rem;
+  }
+
+  .breadcrumb__current {
+    color: var(--dark-slate);
+    font-weight: 500;
+  }
+</style>

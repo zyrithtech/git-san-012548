@@ -1,0 +1,195 @@
+---
+// src/components/FAQAccordion.astro
+// Reusable FAQ accordion component with FAQPage JSON-LD schema
+// Features: expandable questions/answers, SEO schema, keyboard accessible
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  faqs: FAQ[];
+  variant?: 'default' | 'compact';
+}
+
+const { title, faqs, variant = 'default' } = Astro.props;
+
+// Build JSON-LD FAQPage schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+};
+---
+
+<section class={`faq-accordion faq-accordion--${variant}`}>
+  {title && <h2 class="faq-accordion__title">{title}</h2>}
+  
+  <div class="faq-accordion__list">
+    {faqs.map((faq, index) => (
+      <details class="faq-item" key={index}>
+        <summary class="faq-item__question">
+          {faq.question}
+          <svg class="faq-item__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="faq-item__answer">
+          {faq.answer}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<script>
+  // Ensure only one accordion item is open at a time (optional)
+  const details = document.querySelectorAll('.faq-item');
+  details.forEach(detail => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        details.forEach(other => {
+          if (other !== detail && other.open) {
+            other.open = false;
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .faq-accordion {
+    margin-bottom: var(--space-12);
+  }
+
+  .faq-accordion__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-8);
+    line-height: var(--leading-snug);
+  }
+
+  .faq-accordion__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq-item {
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-bg-surface);
+    transition: all var(--duration-base) var(--ease-out);
+  }
+
+  .faq-item[open] {
+    background-color: var(--white);
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq-item__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    font-family: var(--font-body);
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .faq-item__question:hover {
+    background-color: var(--navy-50);
+  }
+
+  .faq-item[open] .faq-item__question {
+    background-color: var(--white);
+    color: var(--sky-500);
+  }
+
+  .faq-item__chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-muted);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .faq-item[open] .faq-item__chevron {
+    color: var(--sky-500);
+    transform: rotate(180deg);
+  }
+
+  .faq-item__answer {
+    padding: 0 var(--space-6) var(--space-5);
+    font-size: var(--text-base);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    animation: slideDown var(--duration-base) var(--ease-out);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Compact variant */
+  .faq-accordion--compact .faq-item__question {
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--text-sm);
+  }
+
+  .faq-accordion--compact .faq-item__answer {
+    padding: 0 var(--space-5) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  /* Accessibility */
+  .faq-item__question:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: -2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item,
+    .faq-item__chevron,
+    .faq-item__answer {
+      transition: none;
+      animation: none;
+    }
+
+    .faq-item[open] .faq-item__chevron {
+      transform: none;
+    }
+  }
+</style>

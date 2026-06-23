@@ -1,0 +1,48 @@
+---
+// src/components/Button.astro
+// Reusable button component with all variants
+// Usage: <Button href="/path" variant="primary" size="lg">Click Me</Button>
+
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'ghost-navy' | 'text';
+  size?: 'sm' | 'base' | 'lg';
+  class?: string;
+  ariaLabel?: string;
+  rel?: string;
+  target?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'base',
+  class: className = '',
+  ariaLabel,
+  rel,
+  target
+} = Astro.props;
+
+// Build class list
+const btnClasses = [
+  'btn',
+  `btn-${variant}`,
+  size !== 'base' && `btn-${size}`,
+  className
+].filter(Boolean).join(' ');
+---
+
+<a
+  href={href}
+  class={btnClasses}
+  aria-label={ariaLabel}
+  rel={rel}
+  target={target}
+>
+  <slot />
+</a>
+
+<style is:global>
+  /* Styles are defined in global.css */
+  /* This component just applies the classes */
+</style>

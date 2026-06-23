@@ -1,0 +1,68 @@
+---
+// src/components/SectionHeader.astro
+// Reusable section header pattern
+// Used at the top of sections with: eyebrow + H2 heading + body description + scroll reveal
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  centered?: boolean;
+  variant?: 'default' | 'light'; // default = on light bg, light = on dark bg
+}
+
+const {
+  eyebrow,
+  heading,
+  description,
+  centered = true,
+  variant = 'default'
+} = Astro.props;
+
+const isDark = variant === 'light';
+---
+
+<div class={`section-header ${centered ? 'section-header--centered' : ''} ${isDark ? 'section-header--on-dark' : ''} reveal`}>
+  <span class="section-header__eyebrow eyebrow">{eyebrow}</span>
+  <h2 class="section-header__heading section-h2">{heading}</h2>
+  <p class="section-header__description body-large">{description}</p>
+</div>
+
+<style>
+  .section-header {
+    margin-bottom: var(--space-16);
+  }
+
+  .section-header--centered {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .section-header__eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .section-header--on-dark .section-header__eyebrow {
+    color: var(--sky-300);
+  }
+
+  .section-header__heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-header--on-dark .section-header__heading {
+    color: var(--white);
+  }
+
+  .section-header__description {
+    color: var(--color-text-muted);
+  }
+
+  .section-header--on-dark .section-header__description {
+    color: var(--navy-100);
+  }
+</style>
