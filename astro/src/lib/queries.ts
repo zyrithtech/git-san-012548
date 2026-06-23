@@ -1,5 +1,5 @@
 // src/lib/queries.ts
-// All GROQ queries for fetching content from Sanity at build time
+// All GROQ queries for fetching content from Sanity at build time.
 
 import { client } from './sanity';
 
@@ -20,10 +20,10 @@ export async function getAllCaseStudies() {
         challenge,
         approach,
         results[] { metric, value, description },
-        gallery[],
+        gallery[] { asset-> { _id, url }, alt, hotspot, crop },
         testimonial { quote, name, role, company },
         publishedAt,
-        featuredImage { asset { url } },
+        featuredImage { asset-> { _id, url } },
         featured,
         seo { metaTitle, metaDescription, ogImage }
       }
@@ -45,7 +45,7 @@ export async function getFeaturedCaseStudies() {
         industry,
         services,
         results[] { metric, value, description },
-        featuredImage { asset { url } },
+        featuredImage { asset-> { _id, url } },
         publishedAt
       }
     `);
@@ -68,10 +68,10 @@ export async function getCaseStudyBySlug(slug: string) {
         challenge,
         approach,
         results[] { metric, value, description },
-        gallery[],
+        gallery[] { asset-> { _id, url }, alt, hotspot, crop },
         testimonial { quote, name, role, company },
         publishedAt,
-        featuredImage { asset { url } },
+        featuredImage { asset-> { _id, url } },
         seo { metaTitle, metaDescription, ogImage }
       }`,
       { slug }
@@ -106,7 +106,7 @@ export async function getCaseStudiesByService(service: string) {
         industry,
         services,
         results[] { metric, value, description },
-        featuredImage { asset { url } },
+        featuredImage { asset-> { _id, url } },
         publishedAt
       }`,
       { service }
@@ -131,8 +131,8 @@ export async function getAllPosts() {
         excerpt,
         body,
         publishedAt,
-        mainImage { asset { url } },
-        author -> { name, bio, photo { asset { url } } },
+        mainImage { asset-> { _id, url } },
+        author -> { name, bio, photo { asset-> { _id, url } } },
         categories[] -> { title, slug },
         seo { metaTitle, metaDescription, ogImage }
       }
@@ -152,7 +152,7 @@ export async function getLatestBlogPosts(limit: number = 3) {
         slug,
         excerpt,
         publishedAt,
-        mainImage { asset { url } },
+        mainImage { asset-> { _id, url } },
         categories[] -> { title, slug }
       }
     `);
@@ -172,8 +172,8 @@ export async function getPostBySlug(slug: string) {
         excerpt,
         body,
         publishedAt,
-        mainImage { asset { url } },
-        author -> { name, bio, photo { asset { url } }, linkedIn },
+        mainImage { asset-> { _id, url } },
+        author -> { name, bio, photo { asset-> { _id, url } }, linkedIn },
         categories[] -> { title, slug },
         seo { metaTitle, metaDescription, ogImage }
       }`,
@@ -207,7 +207,7 @@ export async function getPostsByCategory(categorySlug: string) {
         slug,
         excerpt,
         publishedAt,
-        mainImage { asset { url } },
+        mainImage { asset-> { _id, url } },
         categories[] -> { title, slug }
       }`,
       { slug: categorySlug }
@@ -270,7 +270,7 @@ export async function getAllAuthors() {
         name,
         role,
         bio,
-        photo { asset { url } },
+        photo { asset-> { _id, url } },
         linkedIn
       }
     `);
@@ -288,7 +288,7 @@ export async function getAuthorByName(name: string) {
         name,
         role,
         bio,
-        photo { asset { url } },
+        photo { asset-> { _id, url } },
         linkedIn
       }`,
       { name }
