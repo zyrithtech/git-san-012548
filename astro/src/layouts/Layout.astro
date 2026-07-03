@@ -16,7 +16,7 @@ interface Props {
 
 const { 
   title, 
-  description = "ZyrithTech — Digital marketing, web development, and brand identity agency for startups and SMBs",
+  description = "ZyrithTech — a digital growth partner for startups, SMBs, and professional service firms. Website development, branding, SEO, and marketing under one accountable team.",
   canonicalURL = "https://zyrithtech.com/",
   ogImage = "/images/og-default.jpg"
 } = Astro.props;
@@ -66,58 +66,13 @@ const siteName = "ZyrithTech";
 
   <!-- ============================================================
     GLOBAL JAVASCRIPT
-    Handles: nav scroll state, hamburger toggle, scroll reveal
+    Handles: scroll reveal
+    Nav scroll state, hamburger toggle, and footer year are handled by
+    Nav.astro and Footer.astro's own inline scripts — kept here previously
+    but targeted class names (.nav__hamburger, [role="dialog"], [data-year])
+    that don't exist in that markup, so they never ran.
     ============================================================ -->
   <script defer>
-    // ── NAV SCROLL STATE ──
-    // Adds .is-scrolled class to nav when scrolling down
-    const nav = document.querySelector('.nav');
-    const scrollThreshold = 20;
-
-    const updateNav = () => {
-      if (window.scrollY > scrollThreshold) {
-        nav?.classList.add('is-scrolled');
-      } else {
-        nav?.classList.remove('is-scrolled');
-      }
-    };
-
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav();
-
-    // ── HAMBURGER MENU TOGGLE ──
-    const hamburger = document.querySelector('.nav__hamburger');
-    const drawer = document.querySelector('[role="dialog"]');
-
-    if (hamburger && drawer) {
-      hamburger.addEventListener('click', () => {
-        const isActive = hamburger.classList.toggle('is-active');
-        drawer.setAttribute('aria-hidden', String(!isActive));
-        document.body.style.overflow = isActive ? 'hidden' : '';
-        hamburger.setAttribute('aria-expanded', String(isActive));
-      });
-
-      // Close drawer on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && hamburger.classList.contains('is-active')) {
-          hamburger.classList.remove('is-active');
-          drawer.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Close drawer when clicking outside
-      drawer.addEventListener('click', (e) => {
-        if (e.target === drawer) {
-          hamburger.classList.remove('is-active');
-          drawer.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
     // ── SCROLL REVEAL (IntersectionObserver) ──
     // Adds .visible class to elements with .reveal when they come into view
     if ('IntersectionObserver' in window) {
@@ -141,32 +96,11 @@ const siteName = "ZyrithTech";
         revealObserver.observe(el);
       });
     }
-
-    // ── FOOTER YEAR ──
-    // Dynamically update copyright year
-    const footerYear = document.querySelector('[data-year]');
-    if (footerYear) {
-      footerYear.textContent = new Date().getFullYear().toString();
-    }
   </script>
 </body>
 </html>
 
 <style is:global>
-  /* ── Nav scroll state styling ── */
-  .nav.is-scrolled {
-    background-color: var(--white);
-    box-shadow: var(--shadow-nav);
-  }
-
-  .nav.is-scrolled .nav__logo {
-    color: var(--navy-500);
-  }
-
-  .nav.is-scrolled .nav__link {
-    color: var(--dark-slate);
-  }
-
   /* Ensure main content respects full viewport */
   html, body {
     height: 100%;

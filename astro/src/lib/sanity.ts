@@ -2,6 +2,8 @@
 // Sanity client configuration and helper functions
 
 import { createClient } from '@sanity/client';
+import { createImageUrlBuilder } from '@sanity/image-url';
+import type { SanityImageSource } from '@sanity/image-url';
 
 const projectId = import.meta.env.SANITY_PROJECT_ID;
 const dataset = import.meta.env.SANITY_DATASET;// || 'production';
@@ -13,14 +15,15 @@ export const client = createClient({
   apiVersion,
   useCdn: false, // Always fresh data at build time
   token: import.meta.env.SANITY_API_TOKEN,
+  perspective: 'published', // never leak draft content into a static build
 });
 
-// Helper to generate Sanity image URLs
-export function sanityImageUrl(asset: any, width: number = 800): string {
-  if (!asset?._ref) return '';
-  
-  const id = asset._ref.replace('image-', '').replace(/-\d+$/, '');
-  const format = asset._ref.split('-').pop();
-  
-  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${width}w.${format}`;
+const builder = createImageUrlBuilder(client);
+
+// Helper to generate Sanity image URLs. Accepts a raw image field
+// ({ asset: { _ref } }), a raw asset reference ({ _ref }), or a
+// dereferenced asset (the `asset-> { _id, url }` shape used throughout queries.ts).
+export function sanityImageUrl(source: SanityImageSource, width: number = 800): string {
+  if (!source) return '';
+  return builder.image(source).width(width).auto('format').url();
 }

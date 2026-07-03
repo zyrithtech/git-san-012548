@@ -1,0 +1,82 @@
+---
+// src/pages/work/index.astro
+// Work / Case Studies listing page
+
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import CTASection from '../../components/CTASection.astro';
+
+let caseStudies: any[] = [];
+try {
+  const { getAllCaseStudies } = await import('../../lib/queries');
+  caseStudies = await getAllCaseStudies().catch(() => []);
+} catch (error) {
+  // Sanity not configured — page still renders with an empty state
+}
+
+const title = "Case Studies — Web Development & Digital Growth";
+const description = "See how ZyrithTech has helped startups, SMBs, and professional service firms across India, the US, UK, and beyond build conversion-focused websites and digital growth systems.";
+const canonicalURL = "https://zyrithtech.com/work/";
+const ogImage = "https://zyrithtech.com/images/og-work.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <section class="section bg-white work-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="Work" />
+      <SectionHeader
+        eyebrow="Our Work"
+        heading="Case Studies"
+        description="Real projects for real clients — website development, branding, and digital marketing under one accountable partner."
+        centered={false}
+      />
+    </div>
+  </section>
+
+  <section class="section bg-surface work-grid-section">
+    <div class="container">
+      {caseStudies.length > 0 ? (
+        <div class="grid-3">
+          {caseStudies.map((cs) => (
+            <CaseStudyCard caseStudy={cs} />
+          ))}
+        </div>
+      ) : (
+        <div class="work-empty">
+          <p class="body-default">Case studies loading from Sanity...</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Let's Build Your Digital Growth Engine"
+    subtext="Book a discovery call and let's map out how strategy, design, development, and marketing can work together for your business."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "View Our Services", href: "/services" }}
+  />
+</Layout>
+
+<style>
+  .work-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .work-grid-section {
+    padding-top: var(--space-8);
+  }
+
+  .work-empty {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-text-muted);
+  }
+</style>

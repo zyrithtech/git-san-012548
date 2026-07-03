@@ -1,0 +1,170 @@
+---
+// src/components/CaseStudyCard.astro
+// Case study card — used on /work listing and "more work" sections
+import { sanityImageUrl } from '../lib/sanity';
+
+interface Props {
+  caseStudy: {
+    title: string;
+    client: string;
+    industry?: string;
+    services?: string[];
+    slug: { current: string };
+    featuredImage?: any;
+    results?: { metric: string; value: string; description: string }[];
+  };
+}
+
+const { caseStudy } = Astro.props;
+const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImage, 600) : null;
+---
+
+<a href={`/work/${caseStudy.slug.current}/`} class="cs-card">
+  <div class="cs-card-image">
+    {imageUrl ? (
+      <img
+        src={imageUrl}
+        alt={caseStudy.title}
+        width="600"
+        height="400"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div class="cs-card-image-fallback">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M3 9h18M8 4v5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    )}
+  </div>
+  <div class="cs-card-body">
+    <div class="cs-card-meta">
+      <span>{caseStudy.client}</span>
+      {caseStudy.industry && <span>{caseStudy.industry}</span>}
+    </div>
+    <h3 class="card-h3">{caseStudy.title}</h3>
+    {caseStudy.services && caseStudy.services.length > 0 && (
+      <div class="cs-card-tags">
+        {caseStudy.services.slice(0, 3).map((service) => (
+          <span class="cs-card-tag">{service}</span>
+        ))}
+      </div>
+    )}
+    {caseStudy.results && caseStudy.results[0] && (
+      <div class="cs-card-result">
+        <span class="cs-card-result-value">{caseStudy.results[0].value}</span>
+        <span class="cs-card-result-label">{caseStudy.results[0].description}</span>
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .cs-card {
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .cs-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .cs-card-image {
+    height: 220px;
+    overflow: hidden;
+    background-color: var(--navy-50);
+  }
+
+  .cs-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .cs-card:hover .cs-card-image img {
+    transform: scale(1.03);
+  }
+
+  .cs-card-image-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+  }
+
+  .cs-card-body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .cs-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-xs);
+  }
+
+  .cs-card-meta span:first-child {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--sky-500);
+  }
+
+  .cs-card-meta span:last-child {
+    color: var(--color-text-muted);
+  }
+
+  .cs-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .cs-card-tag {
+    font-size: var(--text-xs);
+    color: var(--navy-500);
+    background-color: var(--navy-50);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+  }
+
+  .cs-card-result {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .cs-card-result-value {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--orange-300);
+  }
+
+  .cs-card-result-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

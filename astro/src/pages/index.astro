@@ -10,29 +10,40 @@ import CTASection from '../components/CTASection.astro';
 import ValueItem from '../components/ValueItem.astro';
 
 const clientLogos = [
-  'NORTHPEAK', 'Vantage & Co', 'BRIGHTFIELD', 'Loomstack', 'CIVIC WORKS', 'Haloway', 'ORBITAL', 'Fernbridge'
+  'Neuriphy', 'Emry Networks', 'Regentra', 'Quick Hire', 'New Era India', 'Minerva HRD', 'Logistics Coordinators'
+];
+
+// TEMP dummy copy — replace every quote with the client's actual words before launch.
+const testimonials = [
+  { quote: "Working with ZyrithTech felt less like hiring an agency and more like adding a strategic team. The new site is finally converting the way our brand deserves.", client: 'Neuriphy', service: 'Website Development' },
+  { quote: "They took the time to understand our positioning before touching a single pixel. The brand identity feels like us — just sharper.", client: 'Emry Networks', service: 'Branding' },
+  { quote: "Our organic visibility improved steadily month over month. What stood out was how clearly they explained the strategy behind every recommendation.", client: 'Regentra', service: 'SEO & Marketing' },
+  { quote: "From requirements to launch, the process stayed structured and transparent — no surprises, no scope creep, just steady progress.", client: 'Quick Hire', service: 'Website Development' },
+  { quote: "ZyrithTech gave our brand a cohesive presence across every touchpoint. It finally feels like one company, not five vendors stitched together.", client: 'New Era India', service: 'Branding & Design' },
+  { quote: "They approached our marketing like a growth partner, not a task-taker — asking the right questions before proposing tactics.", client: 'Minerva HRD', service: 'Digital Marketing' },
+  { quote: "The new site is faster, cleaner, and easier for our team to manage, and support has been responsive whenever we've needed changes.", client: 'Logistics Coordinators', service: 'Website Maintenance & Support' },
 ];
 
 const values = [
   {
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h7l-1 8 11-14h-7l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    title: 'Fast, transparent delivery',
-    description: 'Fixed sprints, weekly check-ins, and a live project dashboard — no black-box agencies.',
-  },
-  {
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     title: 'Strategy before pixels',
-    description: 'Every engagement starts with research and positioning, so design and dev decisions compound.',
+    description: 'Every engagement starts with a structured discovery process, so design and development decisions compound toward your growth goals.',
   },
   {
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7v7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    title: 'Built to measure',
-    description: 'Every project ships with analytics baked in, so you can see the ROI, not just the output.',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h7l-1 8 11-14h-7l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Platform-agnostic execution',
+    description: 'We build on Astro, Webflow, Wix Studio, WordPress, or Shopify — whichever platform fits your business, not whichever locks you into an agency.',
   },
   {
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5" stroke-linecap="round"/></svg>',
     title: 'One team, all disciplines',
-    description: 'Strategists, engineers, and designers work in one pod — no hand-offs, no lost context.',
+    description: 'Strategy, design, development, and marketing work in one pod — no hand-offs between vendors, no lost context.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7v7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built to measure',
+    description: 'Transparent milestones and documentation at every stage, so you see progress against business outcomes — not just deliverables.',
   },
 ];
 
@@ -48,8 +59,8 @@ try {
   // Sanity not configured — page still renders with placeholders
 }
 
-const title = "ZyrithTech — Digital Marketing, Web Development & Brand Identity Agency";
-const description = "ZyrithTech is a growth-focused digital agency for startups and SMBs. We build conversion-focused websites, SEO strategies, and paid ad systems that generate predictable inbound leads.";
+const title = "ZyrithTech — Website Development, Branding & Digital Marketing Agency";
+const description = "ZyrithTech (Zyrith Technologies) is a digital growth partner for startups, SMBs, and professional service firms. Website development, branding, SEO, and marketing under one accountable team — built to turn your digital presence into a consistent inquiry pipeline.";
 const canonicalURL = "https://zyrithtech.com/";
 const ogImage = "https://zyrithtech.com/images/og-home.jpg";
 ---
@@ -68,7 +79,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
     "name": "ZyrithTech",
     "url": "https://zyrithtech.com",
     "logo": "https://zyrithtech.com/images/logo.svg",
-    "description": "Digital marketing, web development, and brand identity agency for startups and SMBs.",
+    "description": "Digital growth partner for startups and SMBs — website development, branding, SEO, and marketing under one accountable team.",
     "sameAs": [
       "https://www.linkedin.com/company/zyrithtech",
       "https://www.instagram.com/zyrithtech",
@@ -87,32 +98,32 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
       <div class="hero-content">
         <span class="eyebrow hero-eyebrow reveal">
           <span class="hero-eyebrow-dot"></span>
-          Digital Agency for Growth-Stage Companies
+          Digital Growth Partner for Startups & SMBs
         </span>
         <h1 class="hero-h1 reveal reveal-delay-1">
           Digital solutions<br />
           built for <span class="hero-h1-accent">growth.</span>
         </h1>
-        <p class="hero-sub reveal reveal-delay-2">Strategy · Web · Marketing · Identity — integrated digital systems that turn your online presence into a predictable lead generation engine.</p>
+        <p class="hero-sub reveal reveal-delay-2">Strategy, design, development, and marketing — under one accountable partner, built to turn your digital presence into a consistent inquiry pipeline.</p>
         <div class="hero-actions reveal reveal-delay-3">
-          <Button href="/contact" variant="primary" size="lg">Start a Project</Button>
+          <Button href="/contact" variant="primary" size="lg">Book a Discovery Call</Button>
           <Button href="/work" variant="ghost" size="lg">See Case Studies</Button>
         </div>
 
         <div class="hero-stats reveal reveal-delay-3">
           <div class="hero-stat">
-            <span class="hero-stat-number">200+</span>
-            <span class="hero-stat-label">Projects Delivered</span>
+            <span class="hero-stat-number">6+</span>
+            <span class="hero-stat-label">Platforms & Stacks</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
-            <span class="hero-stat-number">$15M+</span>
-            <span class="hero-stat-label">Client Revenue Generated</span>
+            <span class="hero-stat-number">5</span>
+            <span class="hero-stat-label">Markets Served</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
-            <span class="hero-stat-number">98%</span>
-            <span class="hero-stat-label">Client Satisfaction</span>
+            <span class="hero-stat-number">60 Days</span>
+            <span class="hero-stat-label">Typical Launch Timeline</span>
           </div>
         </div>
       </div>
@@ -130,7 +141,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
        ===================================================== -->
   <section class="marquee-section">
     <div class="container">
-      <p class="caption marquee-label">Trusted by growth-stage teams across industries</p>
+      <p class="caption marquee-label">Trusted by growing teams across India, the US, UK & beyond</p>
     </div>
     <div class="marquee-track-wrap">
       <div class="marquee-track">
@@ -149,7 +160,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
       <SectionHeader
         eyebrow="What We Do"
         heading="Three Pillars of Digital Growth"
-        description="We combine strategy, technology, and creativity to deliver integrated digital solutions that drive measurable results."
+        description="Strategy, design, development, and marketing under one accountable partner — not five disconnected vendors."
       />
       <div class="grid-3">
         <div class="service-card reveal">
@@ -161,7 +172,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
             </svg>
           </div>
           <h3 class="card-h3">Digital Marketing</h3>
-          <p class="body-default">SEO, paid ads, content marketing, social media, and analytics that drive qualified leads and predictable growth.</p>
+          <p class="body-default">SEO, content marketing, social media, and performance marketing that build a consistent, qualified lead pipeline.</p>
           <a href="/services/digital-marketing" class="btn-text service-link">Explore Services</a>
         </div>
 
@@ -174,7 +185,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
             </svg>
           </div>
           <h3 class="card-h3">Web Development</h3>
-          <p class="body-default">Conversion-focused website design, e-commerce solutions, and hosting that turn visitors into customers.</p>
+          <p class="body-default">Platform-agnostic website and e-commerce development — Astro, Webflow, Wix Studio, WordPress, or Shopify, built around what your business needs.</p>
           <a href="/services/web-development" class="btn-text service-link">Explore Services</a>
         </div>
 
@@ -188,7 +199,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
             </svg>
           </div>
           <h3 class="card-h3">Creative & Branding</h3>
-          <p class="body-default">Visual design, logo creation, and brand identity systems that establish authority and stand out.</p>
+          <p class="body-default">Brand identity, UI/UX design, and design systems that give a growing business a cohesive, credible presence.</p>
           <a href="/services/creative-branding" class="btn-text service-link">Explore Services</a>
         </div>
       </div>
@@ -256,7 +267,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
       <SectionHeader
         eyebrow="Why ZyrithTech"
         heading="A Different Kind of Agency"
-        description="No bloated retainers, no jargon-filled reports — just senior specialists building systems that compound."
+        description="One accountable partner across strategy, design, development, and marketing — structured delivery, real business outcomes, no jargon."
         variant="light"
       />
       <div class="value-grid">
@@ -280,62 +291,37 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
     <div class="container">
       <SectionHeader
         eyebrow="Testimonials"
-        heading="Trusted by Forward-Thinking Brands"
-        description="Our clients share how we've transformed their digital presence and driven measurable results."
+        heading="What Our Clients Say"
+        description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
       />
-      
+
       <div class="testimonials-wrap">
+        <!-- TEMP dummy quotes (see `testimonials` above) — swap in real client
+             testimonials before launch. -->
         <div class="testimonials-track" id="testimonial-track">
-          <!-- Hardcoded fallback testimonials -->
-          <article class="testimonial-slide">
-            <div class="card-testimonial">
-              <span class="quote-mark" aria-hidden="true">"</span>
-              <p class="body-large testimonial-quote">"ZyrithTech transformed our entire digital presence. Within 3 months, we saw a 150% increase in qualified leads and our website now converts at 8.2%. They're not just an agency — they're a strategic partner."</p>
-              <div style="display:flex;align-items:center;gap:var(--space-3)">
-                <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-100);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:.875rem;color:var(--navy-500);flex-shrink:0">RK</div>
-                <div>
-                  <div style="font-weight:600;font-size:var(--text-sm);color:var(--dark-slate)">Rajesh Kumar</div>
-                  <div class="caption">Founder, TechStartup Co.</div>
-                </div>
+          {testimonials.map((t, index) => (
+            <article class={`testimonial-slide${index === 0 ? ' active' : ''}`}>
+              <div class="card-testimonial">
+                <span class="quote-mark" aria-hidden="true">"</span>
+                <p class="body-large testimonial-quote">"{t.quote}"</p>
+                <div class="caption">— {t.client} · {t.service}</div>
               </div>
-            </div>
-          </article>
-
-          <article class="testimonial-slide">
-            <div class="card-testimonial">
-              <span class="quote-mark" aria-hidden="true">"</span>
-              <p class="body-large testimonial-quote">"We tried 3 other agencies before ZyrithTech. The difference is clarity and transparency. They delivered exactly what they promised, on time, and the results speak for themselves. Highly recommend."</p>
-              <div style="display:flex;align-items:center;gap:var(--space-3)">
-                <div style="width:44px;height:44px;border-radius:50%;background:var(--sky-50);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:.875rem;color:var(--sky-700);flex-shrink:0">SP</div>
-                <div>
-                  <div style="font-weight:600;font-size:var(--text-sm);color:var(--dark-slate)">Sarah Patel</div>
-                  <div class="caption">Marketing Lead, GrowthCorp</div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="testimonial-slide">
-            <div class="card-testimonial">
-              <span class="quote-mark" aria-hidden="true">"</span>
-              <p class="body-large testimonial-quote">"Best investment we made this year. Our SEO went from page 5 to page 1 for our main keywords. They explained everything clearly and never oversold. They delivered real value."</p>
-              <div style="display:flex;align-items:center;gap:var(--space-3)">
-                <div style="width:44px;height:44px;border-radius:50%;background:var(--orange-50);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:.875rem;color:var(--orange-700);flex-shrink:0">MJ</div>
-                <div>
-                  <div style="font-weight:600;font-size:var(--text-sm);color:var(--dark-slate)">Mohit Joshi</div>
-                  <div class="caption">CEO, LocalServices.in</div>
-                </div>
-              </div>
-            </div>
-          </article>
+            </article>
+          ))}
         </div>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
         <div class="testimonial-dots" id="testimonial-dots">
-          <button class="testimonial-dot active" data-index="0" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
-          <button class="testimonial-dot" data-index="1" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
-          <button class="testimonial-dot" data-index="2" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+          {testimonials.map((t, index) => (
+            <button
+              class={`testimonial-dot${index === 0 ? ' active' : ''}`}
+              data-index={index}
+              role="tab"
+              aria-selected={index === 0 ? 'true' : 'false'}
+              aria-label={`Testimonial ${index + 1}`}
+            ></button>
+          ))}
         </div>
       </div>
     </div>
@@ -416,11 +402,11 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <CTASection 
+  <CTASection
     eyebrow="Ready to Grow?"
-    heading="Let's Build Your Digital Engine"
-    subtext="Schedule a free 30-minute strategy call to explore how we can drive measurable results for your business."
-    primaryBtn={{ text: "Start Your Project", href: "/contact" }}
+    heading="Let's Build Your Digital Growth Engine"
+    subtext="Book a discovery call and let's map out how strategy, design, development, and marketing can work together for your business."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
     secondaryBtn={{ text: "View Our Services", href: "/services" }}
   />
 
@@ -747,29 +733,27 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
   .testimonials-wrap {
     position: relative;
     margin-bottom: var(--space-12);
-    min-height: 300px;
   }
 
+  /* All slides share the same grid cell, so the row auto-sizes to the tallest
+     slide and the wrap never resizes when the active slide changes. */
   .testimonials-track {
     display: grid;
     grid-template-columns: 1fr;
   }
 
   .testimonial-slide {
+    grid-column: 1;
+    grid-row: 1;
     opacity: 0;
-    transform: scale(0.95);
-    transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
+    transform: scale(0.97);
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
     pointer-events: none;
   }
 
   .testimonial-slide.active {
     opacity: 1;
     transform: scale(1);
-    position: relative;
     pointer-events: auto;
   }
 
