@@ -1,0 +1,508 @@
+---
+// src/pages/services/web-development/website-design-and-development/index.astro
+// Website Design & Development — Service detail page (child of Web Development pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="6" rx="1"/></svg>',
+    title: 'UX Wireframes & Sitemap',
+    description: 'Page structure and user flow mapped before any visual design starts, so the site is built around your buyer journey.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><circle cx="7" cy="6" r="0.8" fill="currentColor" stroke="none"/></svg>',
+    title: 'Responsive, Conversion-Focused Design',
+    description: 'Every page is designed for desktop, tablet, and mobile together — not adapted after the fact once desktop is signed off.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'CMS Integration',
+    description: 'Pages, blog posts, and case studies connect to a CMS you can edit yourself, so content updates don’t require a developer.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'On-Page SEO Foundations',
+    description: 'Meta titles, heading structure, and internal linking are set up correctly at launch, not patched in months later.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Performance Optimization',
+    description: 'Images, fonts, and code are optimized for fast load times, since page speed affects both rankings and drop-off.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Cross-Browser & Device QA',
+    description: 'Every page is tested across major browsers and screen sizes before launch, so nothing breaks the week you go live.',
+  },
+];
+
+const platforms = [
+  { name: 'Astro', description: 'Content- and performance-heavy sites that need to load fast and rank well.' },
+  { name: 'Next.js', description: 'Sites that need custom interactivity or integrate with a broader product.' },
+  { name: 'Webflow', description: 'Teams that want to make visual edits themselves without touching code.' },
+  { name: 'Wix Studio', description: 'Fast-moving teams that want a visual builder with more design control.' },
+  { name: 'WordPress', description: 'Teams already standardized on WordPress, or needing a large plugin ecosystem.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Sitemap',
+    description: 'We map your buyers and goals into a sitemap and page structure, and recommend the platform that fits — before any design starts.',
+  },
+  {
+    number: '02',
+    title: 'Wireframes & Design',
+    description: 'Low-fidelity wireframes lock the structure, then visual design is applied across desktop, tablet, and mobile together.',
+  },
+  {
+    number: '03',
+    title: 'Development & CMS Setup',
+    description: 'Approved designs are built out and connected to a CMS, so you can update content without waiting on a developer.',
+  },
+  {
+    number: '04',
+    title: 'QA & Launch',
+    description: 'Cross-browser testing, performance checks, and tracking setup happen before the site goes live, not after.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built Around Your Buyers',
+    description: 'Structure and page priority follow your buyer journey, not a generic template with sections filled in.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Fast & SEO-Ready From Day One',
+    description: 'Performance and technical SEO are part of the build, not a follow-up project once rankings underperform.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Editable Without a Developer',
+    description: 'Content updates go through a CMS built for your team, so a copy change doesn’t turn into a support ticket.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    title: 'Support Doesn’t End at Launch',
+    description: 'Hosting, maintenance, and updates are available after handoff, so the site keeps performing past go-live.',
+  },
+];
+
+const goodFit = [
+  'You need a new site or a redesign built around a specific conversion goal, not just a visual refresh.',
+  'You want a CMS your team can actually update, without filing a ticket for every content change.',
+  'You’re open to a platform recommendation based on your needs, rather than requesting one specific tool.',
+];
+
+const notFit = [
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+  'You’re looking for the cheapest possible build with no discovery or strategy step.',
+  'You need the project delivered in under a week — most engagements run 1–6+ weeks depending on scope.',
+];
+
+const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User Engagement', 'Conversion Rate Improvements'];
+
+const faqs = [
+  {
+    question: 'Do you provide the copy and images, or do we?',
+    answer: 'Either. We can write copy and source imagery as part of the engagement, or build from content you provide. We scope this during discovery so ownership is clear before design starts.',
+  },
+  {
+    question: 'Which platform is right for our project?',
+    answer: 'It depends on your content needs, team, and budget. We recommend Astro or Next.js for performance- and content-heavy sites, Webflow or Wix Studio for teams that want visual editing, and WordPress for teams already standardized on it. We confirm this during discovery, not before it.',
+  },
+  {
+    question: 'How many pages does this typically include?',
+    answer: 'Small business sites usually run 5–10 pages; corporate and CMS-driven sites often run higher depending on services, locations, and content types. Page count is scoped against your sitemap during discovery.',
+  },
+  {
+    question: 'Will we be able to update the site ourselves after launch?',
+    answer: 'Yes. Every build connects to a CMS suited to your team, so pages, blog posts, and case studies can be updated without a developer for routine content changes.',
+  },
+  {
+    question: 'What happens if we need changes after launch?',
+    answer: 'Minor content updates go through the CMS directly. For ongoing technical support, security monitoring, or larger changes, Website Hosting & Maintenance covers that as a separate plan.',
+  },
+];
+
+const title = "Website Design & Development Services — Built to Convert";
+const description = "Conversion-focused website design and development on Astro, Next.js, Webflow, WordPress, or Wix Studio — built around your buyers. Book a call.";
+const canonicalURL = "https://zyrithtech.com/services/web-development/website-design-and-development/";
+const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-development.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white wdd-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Web Development', href: '/services/web-development' },
+        ]}
+        currentPage="Website Design & Development"
+      />
+      <div class="wdd-header-content reveal">
+        <span class="eyebrow wdd-header-eyebrow">Website Design & Development</span>
+        <h1 class="section-h2 wdd-header-heading">Websites Designed to Turn Visitors Into Booked Calls</h1>
+        <p class="body-large wdd-header-sub">Wireframes, responsive design, and a CMS you can actually update — built on the platform that fits your team, not the one we’re most comfortable with.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Go From Sitemap to Launch"
+        description="Every engagement covers the same core deliverables — scoped to the size and complexity of your site."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PLATFORMS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Platforms"
+        heading="Built on the Platform That Fits, Not the One We Default To"
+        description="We recommend a platform during discovery based on your content, team, and budget — not before it."
+      />
+      <div class="platform-grid reveal reveal-delay-1">
+        {platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-card-name">{platform.name}</h3>
+            <p class="platform-card-desc">{platform.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from sitemap to launch — not a black-box build that surfaces months later."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Sites Built Around Outcomes, Not Templates"
+        description="Structure, platform, and CMS are chosen to fit your buyers and your team — not the easiest option for us to deliver."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every website engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container wdd-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build?"
+    heading="Ready for a Website That Converts?"
+    subtext="Book a discovery call and we'll map a sitemap, platform, and timeline around your buyers and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .wdd-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .wdd-header-content {
+    max-width: 720px;
+  }
+
+  .wdd-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .wdd-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .wdd-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Platforms */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 1024px) {
+    .platform-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .platform-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .platform-card {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .platform-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .platform-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .platform-card-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .wdd-faq {
+    max-width: 760px;
+  }
+</style>

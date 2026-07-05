@@ -1,0 +1,436 @@
+---
+// src/pages/services/digital-marketing/index.astro
+// Digital Marketing — Services pillar page (SEO, Social, PPC, Email, Content, Analytics)
+
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
+
+const challenges = [
+  'Search visibility is inconsistent, so qualified buyers find competitors first.',
+  'Social channels get posted to, but nothing is tied back to pipeline.',
+  'Paid spend runs without a clear read on cost per qualified lead.',
+  'Content gets published without a plan for who it needs to reach.',
+  'Every channel reports differently, so no one can say what’s actually working.',
+];
+
+const services = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'SEO',
+    description: 'Technical fixes, on-page optimization, and content structure that improve how search engines find and rank your site.',
+    href: '/services/digital-marketing/search-engine-optimization-seo/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8L15.8 7.2M8.2 13.2L15.8 16.8" stroke-linecap="round"/></svg>',
+    title: 'Social Media Marketing',
+    description: 'Consistent, on-brand posting and community management that builds engaged audiences on the platforms your buyers already use.',
+    href: '/services/digital-marketing/social-media-marketing/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
+    title: 'PPC Advertising',
+    description: 'Structured paid campaigns across search and social that generate qualified inquiries while your organic channels compound.',
+    href: '/services/digital-marketing/ppc-advertising/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Email Marketing',
+    description: 'Lifecycle and campaign email that turns subscribers and past inquiries into booked calls, not just open-rate reports.',
+    href: '/services/digital-marketing/email-marketing/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Content Marketing',
+    description: 'Blog articles, guides, and case studies that build search authority and give social and email something worth sending.',
+    href: '/services/digital-marketing/content-marketing/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Analytics & Reporting',
+    description: 'Unified dashboards across GA4 and Search Console, so you see what’s driving leads — not just what’s driving traffic.',
+    href: '/services/digital-marketing/analytics-and-performance-reporting/',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Audit & Strategy',
+    description: 'A discovery call and audit of your current channels, then a channel plan scoped to your goals and budget — not a fixed package.',
+  },
+  {
+    number: '02',
+    title: 'Setup & Launch',
+    description: 'Tracking, campaigns, and content calendars go live against agreed milestones, so you know what’s shipping and when.',
+  },
+  {
+    number: '03',
+    title: 'Optimize & Test',
+    description: 'We review performance against the metrics we agreed on and adjust targeting, creative, and content based on what’s converting.',
+  },
+  {
+    number: '04',
+    title: 'Report & Scale',
+    description: 'Monthly reporting against lead growth, traffic growth, and conversion metrics — then we scale the channels that are working.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'One Strategic Partner',
+    description: 'A single accountable team across every channel — not five vendors sending five different dashboards.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Channel Mix, Not a Package',
+    description: 'We recommend the channels that match where your buyers already are, not a bundle pulled off a shelf.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Transparent Milestones',
+    description: 'Monthly reporting is tied to the metrics agreed at kickoff, not vanity numbers pulled from a platform dashboard.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v3h-3M6 20v-3h3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built to Scale',
+    description: 'Retainers flex as budget and results grow, without renegotiating the whole engagement from scratch.',
+  },
+];
+
+const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Engagement Growth'];
+
+const faqs = [
+  {
+    question: 'How soon will we see results?',
+    answer: 'Paid channels can generate qualified leads within the first few weeks. SEO and content compound over 3–6 months as search engines index and rank new pages. We set channel-specific expectations during the discovery call, not one blanket timeline.',
+  },
+  {
+    question: 'Do we have to sign a long-term contract?',
+    answer: 'Retainers run month-to-month after an initial setup period long enough to test channels properly. You’re never locked into a package that isn’t producing results.',
+  },
+  {
+    question: 'Which channels are right for our business?',
+    answer: 'It depends on where your buyers already are. Service firms often lean on SEO, content, and email; consumer and e-commerce brands often lean harder on paid and social. We recommend the mix during the audit, not before it.',
+  },
+  {
+    question: 'Do you work with our existing website, or do we need a new one?',
+    answer: 'Most digital marketing engagements run on your existing site. If technical issues are capping your results, we’ll flag them in the audit — a website rebuild is a separate, optional engagement, not a prerequisite.',
+  },
+  {
+    question: 'How do you report on performance?',
+    answer: 'Monthly reporting is tied to the metrics we agree on at kickoff — typically lead growth, organic traffic growth, and conversion rate — through unified dashboards, not raw platform screenshots.',
+  },
+];
+
+const title = "Digital Marketing Services — SEO, PPC & Content Growth";
+const description = "SEO, content, social, paid, and email marketing run as one connected system — built to grow qualified leads, not just traffic. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/";
+const ogImage = "https://zyrithtech.com/images/og-services-digital-marketing.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white dm-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }]} currentPage="Digital Marketing" />
+      <div class="dm-header-content reveal">
+        <span class="eyebrow dm-header-eyebrow">Digital Marketing</span>
+        <h1 class="section-h2 dm-header-heading">Turn Visibility Into a Consistent Pipeline of Leads</h1>
+        <p class="body-large dm-header-sub">We run SEO, content, social, paid, and email marketing as one connected system — so every channel compounds toward the same digital growth goal, not five disconnected reports.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       THE CHALLENGE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="The Challenge"
+        heading="When Marketing Runs in Five Directions at Once"
+        description="Most businesses don’t have one marketing problem — they have several channels running independently, each reporting a different version of success."
+      />
+      <ul class="challenges-list reveal reveal-delay-1">
+        {challenges.map((item) => (
+          <li class="challenge-item">
+            <svg class="challenge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
+            </svg>
+            <span class="body-default">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICES GRID
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What We Do"
+        heading="Six Channels, One Strategy"
+        description="Every engagement starts with the channels that match your buyers — not a fixed bundle of services."
+      />
+      <div class="grid-3">
+        {services.map((service, index) => (
+          <a href={service.href} class={`service-card reveal reveal-delay-${(index % 3) + 1}`}>
+            <div class="service-card-icon" aria-hidden="true" set:html={service.icon} />
+            <h3 class="service-card-title">{service.title}</h3>
+            <p class="service-card-desc">{service.description}</p>
+            <span class="service-card-link">Explore {service.title} &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run Digital Marketing Engagements"
+        description="A structured process — not a set-and-forget retainer."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Marketing Run by One Accountable Team"
+        description="Strategy, execution, and reporting stay connected because one team owns all of it — not five vendors handing off between channels."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every retainer is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container dm-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Ready to Turn Traffic Into a Pipeline?"
+    subtext="Book a discovery call and we’ll map a channel plan around your buyers, budget, and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .dm-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .dm-header-content {
+    max-width: 720px;
+  }
+
+  .dm-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .dm-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .dm-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Challenges list */
+  .challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 640px;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  .challenge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .challenge-icon {
+    flex-shrink: 0;
+    color: var(--orange-500, var(--sky-500));
+    margin-top: 2px;
+  }
+
+  /* Services grid */
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    background-color: var(--white);
+    text-decoration: none;
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .service-card:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .service-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background-color: var(--sky-50);
+    color: var(--sky-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .service-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    flex-grow: 1;
+  }
+
+  .service-card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky-500);
+  }
+
+  .service-card:hover .service-card-link {
+    text-decoration: underline;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .dm-faq {
+    max-width: 760px;
+  }
+</style>

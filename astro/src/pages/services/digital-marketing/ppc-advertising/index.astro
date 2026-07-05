@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/ppc-advertising/index.astro
+// PPC Advertising — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
+    title: 'Campaign Strategy & Platform Selection',
+    description: 'Google Ads, Meta, and LinkedIn recommended based on your audience and goals, not run by default across every platform.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'Keyword & Audience Targeting',
+    description: 'Search intent and audience targeting built around who’s actually likely to convert, not just broad reach.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'Ad Creative & Copywriting',
+    description: 'Ad copy and creative built from your brand system, so paid campaigns look and sound like the rest of your marketing.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Landing Page Alignment',
+    description: 'The page an ad sends traffic to matches the offer in the ad, so clicks don’t land somewhere unrelated.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Budget Management & Bid Optimization',
+    description: 'Spend and bids are actively managed against performance, not set once at launch and left running.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Performance & Cost-Per-Lead Reporting',
+    description: 'Monthly reporting tracks cost per qualified lead, not just clicks and impressions with no business context.',
+  },
+];
+
+const areas = [
+  { name: 'Search Ads', description: 'Google Ads campaigns built around high-intent keywords for buyers actively searching for a solution.' },
+  { name: 'Social Ads', description: 'Meta and LinkedIn campaigns built around audience targeting, not just keyword intent.' },
+  { name: 'Retargeting', description: 'Campaigns aimed at visitors who didn’t convert the first time, so traffic isn’t wasted after one visit.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Strategy & Platform Selection',
+    description: 'We map your audience and goals to the platforms most likely to convert, then agree a budget and target cost per lead.',
+  },
+  {
+    number: '02',
+    title: 'Campaign Build & Creative',
+    description: 'Targeting, ad copy, and creative are built out and checked against the landing page before anything goes live.',
+  },
+  {
+    number: '03',
+    title: 'Launch & Optimization',
+    description: 'Campaigns launch with active monitoring, and budget and bids are adjusted against real performance data.',
+  },
+  {
+    number: '04',
+    title: 'Report & Scale',
+    description: 'Monthly reporting reviews cost per qualified lead, then budget shifts toward the campaigns that are converting.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built Around Cost Per Qualified Lead',
+    description: 'Campaigns are judged against leads that matter to your business, not clicks or impressions in isolation.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Landing Pages Matched to the Ad',
+    description: 'What a buyer clicks on is what they land on — no mismatch between the offer promised and the page shown.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v3h-3M6 20v-3h3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Actively Managed, Not Set-and-Forget',
+    description: 'Budget and bids are reviewed and adjusted regularly, instead of being launched once and left to run untouched.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Scales What’s Already Working',
+    description: 'Budget shifts toward the campaigns proving out, rather than spreading spend evenly regardless of results.',
+  },
+];
+
+const goodFit = [
+  'You want paid campaigns tied to qualified leads, not just clicks or impressions.',
+  'You have, or are open to building, a landing page that matches what the ad promises.',
+  'You’re ready to test and iterate on budget rather than expecting a fixed return from day one.',
+];
+
+const notFit = [
+  'You need a guaranteed cost per lead before any campaign data exists — no ethical provider can promise that upfront.',
+  'You want to run ads with no ongoing budget for management or optimization.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Lead Growth', 'Conversion Rate Improvements'];
+
+const faqs = [
+  {
+    question: 'Which platforms do you run ads on?',
+    answer: 'Google Ads, Meta, and LinkedIn are the primary platforms, chosen based on your audience and goals during the discovery call rather than run as a default bundle.',
+  },
+  {
+    question: 'How much should we budget for ad spend?',
+    answer: 'Budget depends on your goals, market, and competition, so we recommend a starting range during the discovery call rather than quoting a fixed number that applies to every client.',
+  },
+  {
+    question: 'Do you build the landing pages too?',
+    answer: 'We can adjust or build landing pages as part of the engagement so they match the ad’s offer. A full website build falls under Website Design & Development if that’s what’s needed.',
+  },
+  {
+    question: 'How fast will we see leads?',
+    answer: 'Paid channels can generate qualified leads within the first few weeks, since campaigns don’t need to be indexed or ranked the way organic content does.',
+  },
+  {
+    question: 'Do you guarantee a specific cost per lead?',
+    answer: 'No. We don’t promise a fixed cost per lead before real campaign data exists. Early weeks establish a baseline, and budget is optimized from there based on what’s actually converting.',
+  },
+];
+
+const title = "PPC Advertising Services — Search & Social Ad Campaigns";
+const description = "Structured paid campaigns across search and social that generate qualified inquiries while your organic channels compound. Book a call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/ppc-advertising/";
+const ogImage = "https://zyrithtech.com/images/og-services-ppc-advertising.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white ppc-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="PPC Advertising"
+      />
+      <div class="ppc-header-content reveal">
+        <span class="eyebrow ppc-header-eyebrow">PPC Advertising</span>
+        <h1 class="section-h2 ppc-header-heading">Paid Campaigns Built for Qualified Leads, Not Just Clicks</h1>
+        <p class="body-large ppc-header-sub">Structured search and social campaigns, matched landing pages, and active budget management — built to generate qualified inquiries while your organic channels compound.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Run Campaigns That Convert"
+        description="Every engagement covers the same core deliverables — scoped to the platforms and budget that fit your goals."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Campaign Types, Scoped to Your Goals"
+        description="Most engagements draw on a mix of these, weighted differently depending on your audience and budget."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from strategy to scale — not a campaign launched once and left untouched."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Campaigns Managed Against Leads, Not Vanity Metrics"
+        description="Targeting, creative, and budget all tie back to cost per qualified lead — not clicks or impressions in isolation."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every PPC engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container ppc-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready for Faster Wins?"
+    heading="Ready for Paid Campaigns That Generate Qualified Leads?"
+    subtext="Book a discovery call and we'll map a platform, budget, and landing page plan around your audience and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .ppc-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .ppc-header-content {
+    max-width: 720px;
+  }
+
+  .ppc-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .ppc-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .ppc-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ppc-faq {
+    max-width: 760px;
+  }
+</style>

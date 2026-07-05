@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/analytics-and-performance-reporting/index.astro
+// Analytics & Reporting — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'GA4 & Search Console Setup',
+    description: 'Tracking and conversion goals configured correctly from the start, so reporting isn’t built on broken data.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Unified Cross-Channel Dashboard',
+    description: 'SEO, PPC, social, email, and content performance in one view, not five separate platform logins.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Conversion & Goal Tracking',
+    description: 'Form fills, booked calls, and purchases tracked as real conversions, not just pageviews and sessions.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'CRM & Lead Source Attribution',
+    description: 'Analytics connected to your CRM, so leads are tied back to the channel that actually generated them.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h3M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Monthly Performance Reporting',
+    description: 'A recurring report tied to the metrics agreed at kickoff, not a generic export from a single platform.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Ongoing Optimization Recommendations',
+    description: 'Insights come with a recommended next step, so reporting leads to action instead of sitting in an inbox.',
+  },
+];
+
+const areas = [
+  { name: 'Tracking & Setup', description: 'GA4, Search Console, and conversion goals configured correctly from the start, not patched in after the fact.' },
+  { name: 'Cross-Channel Dashboards', description: 'SEO, PPC, social, email, and content performance in one view, not five separate platform logins.' },
+  { name: 'Attribution & CRM Sync', description: 'Leads tied back to the channel that generated them, so budget decisions are based on real data.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Audit & Tracking Setup',
+    description: 'We audit existing tracking, fix gaps, and configure GA4 and Search Console correctly before anything gets reported on.',
+  },
+  {
+    number: '02',
+    title: 'Dashboard & Goal Configuration',
+    description: 'Conversion goals and a unified dashboard are built around the channels you’re actually running.',
+  },
+  {
+    number: '03',
+    title: 'Attribution & CRM Sync',
+    description: 'Analytics are connected to your CRM so leads are attributed back to the channel that generated them.',
+  },
+  {
+    number: '04',
+    title: 'Monthly Reporting & Recommendations',
+    description: 'Performance is reviewed monthly against agreed metrics, with recommendations for where to focus next.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'One View Across Every Channel',
+    description: 'SEO, PPC, social, email, and content performance are pulled into a single dashboard, not five separate logins.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Tied to Leads, Not Just Traffic',
+    description: 'Conversion goals are configured around real actions — form fills, calls, purchases — not pageviews alone.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Attribution Connected to Your CRM',
+    description: 'Leads are tied back to the channel that generated them, so budget decisions are based on real data.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Insights You Can Act On',
+    description: 'Reports come with a recommended next step, not just a chart dump you need to interpret yourself.',
+  },
+];
+
+const goodFit = [
+  'You’re running multiple digital marketing channels and can’t tell what’s actually driving leads.',
+  'You want one dashboard instead of logging into five different platforms every month.',
+  'You’re open to connecting analytics to your CRM so leads are attributed to the right channel.',
+];
+
+const notFit = [
+  'You have no active marketing channels yet — this delivers the most value alongside an active SEO, PPC, social, or email engagement.',
+  'You want a one-time report with no ongoing tracking or monthly cadence.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Engagement Growth'];
+
+const faqs = [
+  {
+    question: 'Do you set this up even if we’re not running other digital marketing services with you?',
+    answer: 'Yes, we can set up tracking and reporting independently. It delivers the most value alongside an active SEO, PPC, social, or email engagement, since there’s more to measure and attribute.',
+  },
+  {
+    question: 'What tools do you use for tracking and reporting?',
+    answer: 'GA4 and Google Search Console are the core tools, integrated with your CRM and other marketing platforms where relevant, rather than a single fixed toolset for every client.',
+  },
+  {
+    question: 'Can you connect our CRM to see which leads come from which channel?',
+    answer: 'Yes. CRM and lead source attribution is part of the setup, so leads are tied back to the channel that actually generated them, not just the last thing someone clicked.',
+  },
+  {
+    question: 'How often do we get a report?',
+    answer: 'Monthly, tied to the metrics agreed at kickoff — typically lead growth, organic traffic growth, engagement, and conversion rate.',
+  },
+  {
+    question: 'Will you also recommend where to shift budget?',
+    answer: 'Yes. Monthly reporting includes optimization recommendations, so the numbers come with a next step rather than a chart you need to interpret alone.',
+  },
+];
+
+const title = "Analytics & Reporting Services — Unified Dashboards";
+const description = "Unified dashboards across GA4 and Search Console, so you see what's driving leads, not just traffic. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/analytics-and-performance-reporting/";
+const ogImage = "https://zyrithtech.com/images/og-services-analytics-and-performance-reporting.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white ar-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="Analytics & Reporting"
+      />
+      <div class="ar-header-content reveal">
+        <span class="eyebrow ar-header-eyebrow">Analytics & Reporting</span>
+        <h1 class="section-h2 ar-header-heading">See What’s Actually Driving Leads, Not Just Traffic</h1>
+        <p class="body-large ar-header-sub">Unified dashboards across GA4, Search Console, and your CRM tie every channel together — so you know what’s working, not just what’s producing pageviews.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to See the Whole Picture"
+        description="Every engagement covers the same core deliverables — scoped to the channels you’re actually running."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Areas That Tie Every Channel Together"
+        description="Most engagements draw on all three, since tracking, dashboards, and attribution depend on each other."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from audit to monthly recommendations — not a dashboard nobody looks at."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Reporting Built for Decisions, Not Just Dashboards"
+        description="Tracking, attribution, and monthly reporting all tie back to leads and revenue — not vanity traffic numbers."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every analytics engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container ar-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to See the Full Picture?"
+    heading="Ready to Know What’s Actually Driving Leads?"
+    subtext="Book a discovery call and we'll audit your tracking and map a dashboard around the channels you're running — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .ar-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .ar-header-content {
+    max-width: 720px;
+  }
+
+  .ar-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .ar-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .ar-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ar-faq {
+    max-width: 760px;
+  }
+</style>

@@ -134,6 +134,7 @@ export async function getAllPosts() {
         mainImage { asset-> { _id, url } },
         author -> { name, bio, photo { asset-> { _id, url } } },
         categories[] -> { title, slug },
+        cta { heading, subtext, buttonText },
         seo { metaTitle, metaDescription, ogImage }
       }
     `);

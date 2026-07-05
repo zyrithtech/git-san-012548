@@ -1,0 +1,82 @@
+---
+// src/pages/blog/index.astro
+// Blog listing page
+
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import CTASection from '../../components/CTASection.astro';
+
+let posts: any[] = [];
+try {
+  const { getAllPosts } = await import('../../lib/queries');
+  posts = await getAllPosts().catch(() => []);
+} catch (error) {
+  // Sanity not configured — page still renders with an empty state
+}
+
+const title = "Blog — Web, Marketing & Brand Insights";
+const description = "Strategies and trends on web development, SEO, social media, email marketing, and brand identity — from the team behind ZyrithTech client engagements.";
+const canonicalURL = "https://zyrithtech.com/blog/";
+const ogImage = "https://zyrithtech.com/images/og-blog.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <section class="section bg-white blog-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="Blog" />
+      <SectionHeader
+        eyebrow="Our Blog"
+        heading="Insights & Resources"
+        description="Practical strategy and trend coverage on web development, digital marketing, and brand identity — written for teams actually running these programs."
+        centered={false}
+      />
+    </div>
+  </section>
+
+  <section class="section bg-surface blog-grid-section">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="grid-3">
+          {posts.map((post) => (
+            <BlogPostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="blog-empty">
+          <p class="body-default">Blog posts loading from Sanity...</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Let's Build Your Digital Growth Engine"
+    subtext="Book a discovery call and let's map out how strategy, design, development, and marketing can work together for your business."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "View Our Services", href: "/services" }}
+  />
+</Layout>
+
+<style>
+  .blog-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .blog-grid-section {
+    padding-top: var(--space-8);
+  }
+
+  .blog-empty {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-text-muted);
+  }
+</style>

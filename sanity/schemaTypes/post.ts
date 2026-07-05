@@ -77,6 +77,32 @@ export const postType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'cta',
+      title: 'Sidebar CTA',
+      type: 'object',
+      description: 'Dynamic call-to-action shown in the article sidebar, linking to the contact page',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+          validation: (rule) => rule.max(80),
+        }),
+        defineField({
+          name: 'subtext',
+          title: 'Subtext',
+          type: 'text',
+          validation: (rule) => rule.max(200),
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'string',
+          validation: (rule) => rule.max(40),
+        }),
+      ],
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO Settings',
       type: 'object',

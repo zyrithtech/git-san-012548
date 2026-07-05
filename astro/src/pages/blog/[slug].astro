@@ -1,0 +1,482 @@
+---
+// src/pages/blog/[slug].astro
+// Individual blog post detail page
+
+import { PortableText } from 'astro-portabletext';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import PortableTextHeading2 from '../../components/PortableTextHeading2.astro';
+import { sanityImageUrl } from '../../lib/sanity';
+import { slugify } from '../../lib/slugify';
+
+const portableTextComponents = {
+  block: { h2: PortableTextHeading2 },
+};
+
+export async function getStaticPaths() {
+  const { getAllPosts } = await import('../../lib/queries');
+  const posts = await getAllPosts().catch(() => []);
+
+  return posts
+    .filter((post: any) => post.slug?.current)
+    .map((post: any) => ({
+      params: { slug: post.slug.current },
+      props: { post, allPosts: posts },
+    }));
+}
+
+const { post, allPosts } = Astro.props;
+
+const mainImageUrl = post.mainImage ? sanityImageUrl(post.mainImage, 1400) : null;
+const publishDate = post.publishedAt
+  ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  : '';
+
+const relatedPosts = allPosts
+  .filter((p: any) => p.slug.current !== post.slug.current)
+  .filter((p: any) =>
+    (p.categories || []).some((c: any) =>
+      (post.categories || []).some((pc: any) => pc.title === c.title)
+    )
+  )
+  .slice(0, 3);
+
+const fallbackRelated = relatedPosts.length > 0
+  ? relatedPosts
+  : allPosts.filter((p: any) => p.slug.current !== post.slug.current).slice(0, 3);
+
+// Extract Q&A pairs from the "Frequently Asked Questions" section of the body
+// (h2 heading followed by h3/normal pairs) to emit FAQPage structured data for AEO.
+function extractFaqs(body: any[]): { question: string; answer: string }[] {
+  if (!Array.isArray(body)) return [];
+  const blockText = (block: any) =>
+    (block.children || []).map((c: any) => c.text).join('');
+
+  const faqStart = body.findIndex(
+    (b) => b.style === 'h2' && /frequently asked questions/i.test(blockText(b))
+  );
+  if (faqStart === -1) return [];
+
+  const faqs: { question: string; answer: string }[] = [];
+  let currentQuestion: string | null = null;
+  let currentAnswer: string[] = [];
+
+  for (let i = faqStart + 1; i < body.length; i++) {
+    const block = body[i];
+    if (block.style === 'h2') break;
+    if (block.style === 'h3') {
+      if (currentQuestion) {
+        faqs.push({ question: currentQuestion, answer: currentAnswer.join(' ') });
+      }
+      currentQuestion = blockText(block);
+      currentAnswer = [];
+    } else if (currentQuestion) {
+      currentAnswer.push(blockText(block));
+    }
+  }
+  if (currentQuestion) {
+    faqs.push({ question: currentQuestion, answer: currentAnswer.join(' ') });
+  }
+  return faqs;
+}
+
+const faqs = extractFaqs(post.body);
+
+// Build the table of contents from H2 headings — ids match those the
+// PortableTextHeading2 component assigns to the rendered headings.
+function extractHeadings(body: any[]): { text: string; id: string }[] {
+  if (!Array.isArray(body)) return [];
+  return body
+    .filter((b) => b.style === 'h2')
+    .map((b) => {
+      const text = (b.children || []).map((c: any) => c.text).join('');
+      return { text, id: slugify(text) };
+    });
+}
+
+const headings = extractHeadings(post.body);
+
+const cta = {
+  heading: post.cta?.heading || "Ready to Grow?",
+  subtext: post.cta?.subtext || "Book a discovery call and let's map out your next move.",
+  buttonText: post.cta?.buttonText || 'Book a Discovery Call',
+};
+
+const title = post.seo?.metaTitle || post.title;
+const description = post.seo?.metaDescription || post.excerpt;
+const canonicalURL = `https://zyrithtech.com/blog/${post.slug.current}/`;
+const ogImage = post.seo?.ogImage ? sanityImageUrl(post.seo.ogImage, 1200) : (mainImageUrl || "https://zyrithtech.com/images/og-blog.jpg");
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description,
+  image: mainImageUrl ? [mainImageUrl] : undefined,
+  datePublished: post.publishedAt,
+  author: post.author?.name ? { '@type': 'Person', name: post.author.name } : undefined,
+};
+
+const faqSchema = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+} : null;
+
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+
+  <section class="section bg-white post-header">
+    <div class="container post-header-inner">
+      <Breadcrumb
+        items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }]}
+        currentPage={post.title}
+      />
+
+      {post.categories && post.categories.length > 0 && (
+        <div class="post-tags">
+          {post.categories.map((cat: any) => (
+            <span class="post-tag">{cat.title}</span>
+          ))}
+        </div>
+      )}
+
+      <h1 class="post-title">{post.title}</h1>
+
+      <div class="post-byline">
+        {post.author?.name && <span>By {post.author.name}</span>}
+        {publishDate && <span>{publishDate}</span>}
+      </div>
+    </div>
+  </section>
+
+  <section class="post-image-section">
+    <div class="container">
+      <div class="post-image-wrap">
+        {mainImageUrl ? (
+          <img
+            src={mainImageUrl}
+            alt={post.title}
+            width="1400"
+            height="735"
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <div class="post-image-fallback">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5">
+              <rect x="3" y="4" width="18" height="16" rx="2"/>
+              <path d="M3 9h18M8 4v5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="post-content-grid">
+        <article class="post-body">
+          <PortableText value={post.body} components={portableTextComponents} />
+        </article>
+
+        <aside class="post-sidebar">
+          {headings.length > 0 && (
+            <div class="post-toc">
+              <span class="post-toc-label">On This Page</span>
+              <ul class="post-toc-list">
+                {headings.map((heading) => (
+                  <li>
+                    <a href={`#${heading.id}`}>{heading.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div class="post-cta-card">
+            <span class="post-cta-label">Let's Talk</span>
+            <h3 class="post-cta-heading">{cta.heading}</h3>
+            <p class="post-cta-subtext">{cta.subtext}</p>
+            <a href="/contact" class="btn btn-primary post-cta-btn">{cta.buttonText}</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {fallbackRelated.length > 0 && (
+    <section class="section bg-surface">
+      <div class="container">
+        <h2 class="section-h2 post-related-heading">More From the Blog</h2>
+        <div class="grid-3">
+          {fallbackRelated.map((p: any) => (
+            <BlogPostCard post={p} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Let's Build Your Digital Growth Engine"
+    subtext="Book a discovery call and let's map out how strategy, design, development, and marketing can work together for your business."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "View Our Services", href: "/services" }}
+  />
+</Layout>
+
+<style is:global>
+  /* Portable Text body typography — scoped by parent .post-body class */
+  .post-body h2 {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+    font-weight: 600;
+    color: var(--navy-900);
+    letter-spacing: var(--tracking-snug);
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-4);
+    scroll-margin-top: calc(var(--nav-height) + var(--space-4));
+  }
+
+  .post-body h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  .post-body p {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-body);
+    margin-bottom: var(--space-5);
+  }
+
+  .post-body blockquote {
+    border-left: 3px solid var(--sky-300);
+    padding-left: var(--space-5);
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .post-body ul,
+  .post-body ol {
+    margin-bottom: var(--space-5);
+    padding-left: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .post-body ul {
+    list-style: disc;
+  }
+
+  .post-body ol {
+    list-style: decimal;
+  }
+
+  .post-body li {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-body);
+  }
+
+  .post-body p:first-of-type {
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+  }
+</style>
+
+<style>
+  .post-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .post-header-inner {
+    max-width: 800px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .post-tag {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sky-500);
+    background-color: var(--sky-50);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-3xl), 4.5vw, var(--text-5xl));
+    font-weight: 700;
+    color: var(--navy-900);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.15;
+    margin-bottom: var(--space-4);
+  }
+
+  .post-byline {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .post-image-section {
+    padding-bottom: var(--space-16);
+  }
+
+  .post-image-wrap {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .post-image-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .post-image-fallback {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
+  }
+
+  .post-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-16);
+    align-items: start;
+    max-width: 1120px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 900px) {
+    .post-content-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .post-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-6));
+  }
+
+  .post-toc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background-color: var(--navy-50);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+  }
+
+  .post-toc-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sky-500);
+  }
+
+  .post-toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .post-toc-list a {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    text-decoration: none;
+    line-height: var(--leading-snug);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .post-toc-list a:hover {
+    color: var(--sky-500);
+    text-decoration: underline;
+  }
+
+  .post-cta-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background-color: var(--navy-500);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+  }
+
+  .post-cta-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sky-300);
+  }
+
+  .post-cta-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--white);
+    line-height: var(--leading-snug);
+  }
+
+  .post-cta-subtext {
+    font-size: var(--text-sm);
+    color: var(--navy-100);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-2);
+  }
+
+  .post-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .post-related-heading {
+    margin-bottom: var(--space-10);
+  }
+</style>

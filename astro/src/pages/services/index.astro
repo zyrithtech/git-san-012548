@@ -1,0 +1,429 @@
+---
+// src/pages/services/index.astro
+// Services — top-level index linking to the three service pillars
+
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import ProcessStep from '../../components/ProcessStep.astro';
+import ValueItem from '../../components/ValueItem.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
+import CTASection from '../../components/CTASection.astro';
+
+const categories = [
+  {
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'Web Development',
+    description: 'Conversion-focused websites, e-commerce, and ongoing hosting and maintenance — built on the platform that fits your team.',
+    href: '/services/web-development',
+    services: [
+      { label: 'Website Design & Development', href: '/services/web-development/website-design-and-development/' },
+      { label: 'E-commerce Solutions', href: '/services/web-development/e-commerce-solutions/' },
+      { label: 'Website Hosting & Maintenance', href: '/services/web-development/website-hosting-and-maintenance/' },
+    ],
+  },
+  {
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Digital Marketing',
+    description: 'SEO, content, social, paid, and email marketing run as one connected system — built to grow qualified leads, not just traffic.',
+    href: '/services/digital-marketing',
+    services: [
+      { label: 'SEO', href: '/services/digital-marketing/search-engine-optimization-seo/' },
+      { label: 'Social Media Marketing', href: '/services/digital-marketing/social-media-marketing/' },
+      { label: 'PPC Advertising', href: '/services/digital-marketing/ppc-advertising/' },
+      { label: 'Email Marketing', href: '/services/digital-marketing/email-marketing/' },
+      { label: 'Content Marketing', href: '/services/digital-marketing/content-marketing/' },
+      { label: 'Analytics & Reporting', href: '/services/digital-marketing/analytics-and-performance-reporting/' },
+    ],
+  },
+  {
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Creative & Branding',
+    description: 'Logo, brand identity, and visual design systems built to stay consistent across your website, product, and marketing.',
+    href: '/services/creative-branding',
+    services: [
+      { label: 'Graphic & Visual Design', href: '/services/creative-branding/graphic-visual-design/' },
+      { label: 'Logo & Brand Identity', href: '/services/creative-branding/logo-and-brand-identity/' },
+    ],
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" stroke-linejoin="round"/></svg>',
+    title: 'Strategy-First Approach',
+    description: 'Every engagement starts with your positioning and goals, not a menu of services to choose from.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Platform-Agnostic Recommendations',
+    description: 'We recommend the platform, channel mix, and design direction that fits your business, not what we default to.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'One Team Across Every Discipline',
+    description: 'Website, marketing, and brand work stay connected because one team owns all of it, not five vendors handing off.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Focused on Business Outcomes',
+    description: 'Every engagement is measured against leads, traffic, and conversions, not deliverables for their own sake.',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery Call',
+    description: 'Tell us about your business, goals, and challenges — no pitch, just questions to understand what you actually need.',
+  },
+  {
+    number: '02',
+    title: 'Requirements Assessment',
+    description: 'We map which services actually fit your goals and budget, rather than defaulting to a fixed bundle.',
+  },
+  {
+    number: '03',
+    title: 'Proposal',
+    description: 'A clear proposal covering scope, timeline, and investment — no vague packages or hidden line items.',
+  },
+  {
+    number: '04',
+    title: 'Kickoff',
+    description: 'Work begins against agreed milestones, with one team accountable across every service involved.',
+  },
+];
+
+const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Improved User Engagement'];
+
+const faqs = [
+  {
+    question: 'Do we have to use all three service areas, or can we start with just one?',
+    answer: 'Just one. Most clients start with a single service — often web development — and expand into marketing or branding later as needs come up. Nothing requires bundling.',
+  },
+  {
+    question: 'How do you decide which services we actually need?',
+    answer: 'During the discovery call and requirements assessment, we map your goals to the services that actually address them, rather than proposing a fixed package.',
+  },
+  {
+    question: 'Do you work with businesses that already have an existing website or brand in place?',
+    answer: 'Yes. We regularly work with existing sites and brands — through Website Hosting & Maintenance, Graphic & Visual Design applied to an existing identity, or digital marketing layered on top of what’s already live.',
+  },
+  {
+    question: 'What’s the typical engagement structure?',
+    answer: 'Engagements run as one-time projects (like a website build), monthly retainers (marketing, maintenance), or a mix of both, depending on the scope agreed in the proposal.',
+  },
+  {
+    question: 'Is pricing published, or do we need to talk first?',
+    answer: 'Pricing isn’t published publicly, since scope varies by business. We walk through service packages and expected deliverables on the discovery call, then confirm pricing in a proposal.',
+  },
+];
+
+const title = "Digital Growth Services — Web, Marketing & Branding";
+const description = "Web development, digital marketing, and creative branding run as one connected engagement, not five disconnected vendors. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/";
+const ogImage = "https://zyrithtech.com/images/og-services.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white svc-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="Services" />
+      <div class="svc-header-content reveal">
+        <span class="eyebrow svc-header-eyebrow">Services</span>
+        <h1 class="section-h2 svc-header-heading">Strategy, Design, Development, and Marketing Under One Roof</h1>
+        <p class="body-large svc-header-sub">Zyrith combines web development, creative and branding, and digital marketing into one connected engagement — so you work with a single accountable partner instead of five disconnected vendors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICE CATEGORIES
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What We Do"
+        heading="Three Disciplines, One Accountable Team"
+        description="Explore each area below, or book a discovery call and we'll map the services that actually fit your goals."
+      />
+      <div class="category-grid">
+        {categories.map((category, index) => (
+          <div class={`category-card reveal reveal-delay-${index + 1}`}>
+            <div class="category-card-icon" aria-hidden="true" set:html={category.icon} />
+            <h3 class="category-card-title">
+              <a href={category.href}>{category.title}</a>
+            </h3>
+            <p class="category-card-desc">{category.description}</p>
+            <ul class="category-card-services">
+              {category.services.map((service) => (
+                <li>
+                  <a href={service.href}>{service.label}</a>
+                </li>
+              ))}
+            </ul>
+            <a href={category.href} class="category-card-link">Explore {category.title} &rarr;</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       HOW WE WORK TOGETHER
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Process"
+        heading="How We Work Together"
+        description="The same discovery-led process, whether you're starting with one service or several."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY ONE PARTNER (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why One Partner"
+        heading="One Team, Accountable Across Every Discipline"
+        description="Strategy, execution, and reporting stay connected because one team owns all of it — not five vendors handing off between channels."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container svc-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Ready to Build Your Digital Growth Plan?"
+    subtext="Book a discovery call and we'll map the services that actually fit your goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .svc-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .svc-header-content {
+    max-width: 720px;
+  }
+
+  .svc-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .svc-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .svc-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Category cards */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 1024px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+  }
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-8);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    background-color: var(--white);
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .category-card:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .category-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background-color: var(--sky-50);
+    color: var(--sky-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .category-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+  }
+
+  .category-card-title a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .category-card-title a:hover {
+    color: var(--sky-500);
+  }
+
+  .category-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  .category-card-services {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-default);
+    flex-grow: 1;
+  }
+
+  .category-card-services a {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .category-card-services a:hover {
+    color: var(--sky-500);
+    text-decoration: underline;
+  }
+
+  .category-card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky-500);
+    text-decoration: none;
+  }
+
+  .category-card-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .svc-faq {
+    max-width: 760px;
+  }
+</style>

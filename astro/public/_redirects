@@ -1,0 +1,5 @@
+# Old site used /portfolio for case studies; rebuilt site uses /work.
+# Single wildcard covers every CMS-driven case study slug so new
+# projects added in Sanity never need a redirect added manually.
+/portfolio    /work    301
+/portfolio/*  /work/:splat  301

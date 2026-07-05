@@ -1,0 +1,177 @@
+---
+// src/pages/privacy.astro
+// Privacy Policy — legal content sourced from company-provided doc
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const title = "Privacy Policy";
+const description = "How Zyrith Technologies Pvt. Ltd. collects, uses, and protects information from visitors and clients of zyrithtech.com.";
+const canonicalURL = "https://zyrithtech.com/privacy/";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white privacy-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="Privacy Policy" />
+      <div class="privacy-header-content reveal">
+        <span class="eyebrow privacy-header-eyebrow">Legal</span>
+        <h1 class="section-h2 privacy-header-heading">Privacy Policy</h1>
+        <p class="body-large privacy-header-sub">Zyrith Technologies Pvt. Ltd.</p>
+        <p class="caption privacy-header-date">Effective Date: July 4, 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       POLICY CONTENT
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container privacy-content">
+      <p class="body-default">
+        At Zyrith Technologies Pvt. Ltd. ("Zyrith Technologies", "we", "our", or "us"), accessible via
+        <a href="https://www.zyrithtech.com">https://www.zyrithtech.com</a>, safeguarding the privacy of our
+        visitors and clients is a top priority. This Privacy Policy outlines the types of information we
+        collect, how we use it, and your rights in relation to your data.
+      </p>
+      <p class="body-default">
+        If you have any questions or need further clarification regarding our Privacy Policy, please feel
+        free to contact us at <a href="mailto:info@zyrithtech.com">info@zyrithtech.com</a>.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">1. Information We Collect</h2>
+      <p class="body-default">
+        Like many websites, Zyrith Technologies uses log files to track user interactions. These files may include:
+      </p>
+      <ul class="privacy-list">
+        <li>IP (Internet Protocol) addresses</li>
+        <li>Browser type and version</li>
+        <li>Internet Service Provider (ISP)</li>
+        <li>Date and time of access</li>
+        <li>Referring/exit pages</li>
+        <li>Number of clicks</li>
+      </ul>
+      <p class="body-default">
+        This data is not personally identifiable and is used exclusively for internal purposes such as
+        analyzing trends, website administration, tracking user behavior on the site, and gathering
+        demographic insights.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">2. Use of Cookies</h2>
+      <p class="body-default">We use cookies to improve your experience on our website. Cookies allow us to:</p>
+      <ul class="privacy-list">
+        <li>Remember your preferences</li>
+        <li>Understand which pages you visit</li>
+        <li>Tailor content based on your device and browser</li>
+      </ul>
+      <p class="body-default">
+        You can choose to disable cookies through your individual browser settings. For more details,
+        consult your browser's help documentation.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">3. Third-Party Services</h2>
+      <p class="body-default">
+        Zyrith Technologies may work with third-party advertisers and analytics providers who may deploy
+        technologies such as cookies, JavaScript, or web beacons. These tools may automatically collect
+        your IP address and are used to:
+      </p>
+      <ul class="privacy-list">
+        <li>Measure the effectiveness of advertising campaigns</li>
+        <li>Deliver personalized content and ads</li>
+      </ul>
+      <p class="body-default">
+        Please note that we do not have access to or control over cookies used by third-party services.
+        We encourage you to review the privacy policies of these external providers for more information.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">4. Links to External Sites</h2>
+      <p class="body-default">
+        Our website may contain links to third-party websites. Our Privacy Policy does not extend to these
+        external platforms. We advise reviewing the privacy policies of any third-party site you visit.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">5. Children's Privacy</h2>
+      <p class="body-default">
+        Protecting the privacy of young users is very important to us. We do not knowingly collect any
+        personally identifiable information from children under the age of 13. If you believe your child
+        has provided such information on our site, please contact us immediately, and we will take steps
+        to delete it from our records.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">6. Scope of Policy</h2>
+      <p class="body-default">
+        This Privacy Policy applies exclusively to data collected through our website. It does not apply
+        to any information collected offline or through other communication channels.
+      </p>
+
+      <h2 class="card-h3 privacy-h2">7. Your Consent</h2>
+      <p class="body-default">
+        By using our website, you agree to the terms outlined in this Privacy Policy and consent to our
+        data collection and usage practices as described.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .privacy-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .privacy-header-content {
+    max-width: 720px;
+  }
+
+  .privacy-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .privacy-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .privacy-header-sub {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .privacy-header-date {
+    color: var(--color-text-muted);
+  }
+
+  .privacy-content {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .privacy-h2 {
+    margin-top: var(--space-4);
+  }
+
+  .privacy-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-left: var(--space-6);
+    list-style: disc;
+    color: var(--color-text-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+
+  .privacy-content a {
+    color: var(--sky-500);
+  }
+</style>

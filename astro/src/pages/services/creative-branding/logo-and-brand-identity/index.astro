@@ -1,0 +1,501 @@
+---
+// src/pages/services/creative-branding/logo-and-brand-identity/index.astro
+// Logo & Brand Identity — Service detail page (child of Creative & Branding pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Logo Design & Variations',
+    description: 'A primary mark, submark, and icon or favicon version, built to hold up at billboard size and 16 pixels alike.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18M12 3a9 9 0 010 18" stroke-linecap="round"/></svg>',
+    title: 'Color & Typography System',
+    description: 'A defined palette and type pairing built to hold up across digital, print, and product — not just the homepage.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Brand Guidelines Document',
+    description: 'Usage rules for logo spacing, color, and type, so anyone applying the brand later does it the same way.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18" stroke-linecap="round"/></svg>',
+    title: 'Core Brand Collateral',
+    description: 'Business cards, letterhead, and basic templates built on the new identity, ready to use from day one.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'Brand Audit (For Refreshes)',
+    description: 'A review of your current identity — logo equity, color recognition, existing assets — before anything gets replaced.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18" stroke-linecap="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Full Asset Delivery',
+    description: 'Every file format needed for web, print, and social, handed over at the end — not locked in a single source file.',
+  },
+];
+
+const paths = [
+  { name: 'New Identity', description: 'Built from scratch for a new company, or a brand that needs a complete rework, not a patch.' },
+  { name: 'Brand Refresh', description: 'Evolves what’s already working — recognizable equity, existing colors — without a full rebuild.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Brand Audit',
+    description: 'We review your positioning, audience, and (for refreshes) current identity to find what’s working and what’s ownable.',
+  },
+  {
+    number: '02',
+    title: 'Concept & Direction',
+    description: 'A small number of considered directions — not a dozen logo options — grounded in the positioning agreed at discovery.',
+  },
+  {
+    number: '03',
+    title: 'Design & Refinement',
+    description: 'The chosen direction is built out across logo, color, and type, refined through structured revision rounds.',
+  },
+  {
+    number: '04',
+    title: 'Guidelines & Delivery',
+    description: 'Final files and a usage guide ship together, so the identity is applied consistently from the first day.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" stroke-linejoin="round"/></svg>',
+    title: 'Strategy Before Style',
+    description: 'Direction is grounded in your positioning and audience, not whatever style is trending this year.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="9" width="18" height="10" rx="2"/><rect x="9" y="4" width="6" height="5" rx="1"/></svg>',
+    title: 'Every Mark Tested at Small Sizes',
+    description: 'The logo is checked as a favicon and social avatar from day one, not just as a large hero-section version.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Guidelines You Can Actually Use',
+    description: 'Rules for spacing, color, and type are documented clearly, not left implicit in a folder of design files.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v3h-3M6 20v-3h3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built to Extend as You Grow',
+    description: 'The system is built to cover new products and pages later, without needing a redesign every time you add one.',
+  },
+];
+
+const goodFit = [
+  'You’re launching a new company or product and need a logo and identity built from the ground up.',
+  'Your current brand no longer matches how the business has grown, and needs a considered refresh — not just a new logo.',
+  'You want documented guidelines your team and future vendors can follow without guessing.',
+];
+
+const notFit = [
+  'You already have a working identity and just need it applied to new pages, ads, or a website — see Graphic & Visual Design.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+  'You want dozens of logo concepts to choose from, rather than a small number of considered directions.',
+];
+
+const proofTags = ['Lead Growth', 'Conversion Rate Improvements'];
+
+const faqs = [
+  {
+    question: 'Do we need a brand refresh or a brand-new identity?',
+    answer: 'It depends on whether your current brand has recognizable equity worth keeping. We start with a brand audit to see what’s working, then recommend a refresh or a full rebuild based on what we find — not a default answer.',
+  },
+  {
+    question: 'What if we already have a logo we like — can you build around it?',
+    answer: 'Yes. If the logo itself is working, we can build the color, type, and guidelines system around it rather than replacing it just to have something new to deliver.',
+  },
+  {
+    question: 'How many logo concepts will we see?',
+    answer: 'A small number of considered directions grounded in your positioning, not a large batch to sort through. This keeps the process focused on refining the right idea rather than picking blind from many.',
+  },
+  {
+    question: 'Will we get files for both digital and print use?',
+    answer: 'Yes. Full asset delivery includes the file formats needed for web, print, and social, so you’re not stuck extracting formats from a single source file later.',
+  },
+  {
+    question: 'Does this include the website design, or just the identity?',
+    answer: 'This service covers the identity itself — logo, color, type, and guidelines. Applying it to your website falls under Website Design & Development or Graphic & Visual Design, depending on scope.',
+  },
+];
+
+const title = "Logo & Brand Identity Services — Built to Last";
+const description = "A logo, color and type system, and usage guidelines built to hold up across your website, product, and marketing. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/creative-branding/logo-and-brand-identity/";
+const ogImage = "https://zyrithtech.com/images/og-services-logo-and-brand-identity.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white lbi-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Creative & Branding', href: '/services/creative-branding' },
+        ]}
+        currentPage="Logo & Brand Identity"
+      />
+      <div class="lbi-header-content reveal">
+        <span class="eyebrow lbi-header-eyebrow">Logo & Brand Identity</span>
+        <h1 class="section-h2 lbi-header-heading">An Identity Built to Hold Up for Years, Not One Season</h1>
+        <p class="body-large lbi-header-sub">A logo, color and type system, and usage guidelines grounded in your positioning — built to work everywhere from a favicon to a billboard, not just the homepage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Launch an Identity"
+        description="Every engagement covers the same core deliverables — scoped to whether it’s a new identity or a refresh."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PATHS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Two Paths"
+        heading="Built for Where Your Brand Is Starting From"
+        description="We confirm which path fits during the brand audit — not before it."
+      />
+      <div class="path-grid reveal reveal-delay-1">
+        {paths.map((path) => (
+          <div class="path-card">
+            <h3 class="path-card-name">{path.name}</h3>
+            <p class="path-card-desc">{path.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from audit to guidelines — not a moodboard with no follow-through."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="An Identity Built to Work at Every Size"
+        description="Direction is grounded in strategy and tested at real-world scale, so it holds up long after the first reveal."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every identity engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container lbi-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build an Identity?"
+    heading="Ready for a Brand That Holds Up for Years?"
+    subtext="Book a discovery call and we'll audit your current brand and map a path — new identity or refresh — around your goals. No fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .lbi-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .lbi-header-content {
+    max-width: 720px;
+  }
+
+  .lbi-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .lbi-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .lbi-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Paths */
+  .path-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .path-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .path-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .path-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .path-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .path-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .lbi-faq {
+    max-width: 760px;
+  }
+</style>

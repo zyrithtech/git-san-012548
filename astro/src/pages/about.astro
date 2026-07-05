@@ -1,0 +1,501 @@
+---
+// src/pages/about.astro
+// About Us — Company narrative, positioning, process, team, trust, FAQ
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import ValueItem from '../components/ValueItem.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import CTASection from '../components/CTASection.astro';
+
+const transformation = [
+  { before: 'Outdated website', after: 'Modern, conversion-focused website' },
+  { before: 'Low lead generation', after: 'Consistent inquiry pipeline' },
+  { before: 'Poor SEO visibility', after: 'Improved search rankings' },
+  { before: 'Disconnected vendors', after: 'One accountable digital partner' },
+];
+
+const weAre = [
+  'A strategy-first digital partner — every engagement starts with a structured discovery process, not a template.',
+  'Platform-agnostic — we recommend Astro, Webflow, Wix Studio, WordPress, or Shopify based on your business, not our preference.',
+  'One team across strategy, design, development, and marketing.',
+  'Focused on business outcomes — leads, rankings, and revenue — not just deliverables.',
+  'Built for long-term growth partnerships, not one-off handoffs.',
+];
+
+const weAreNot = [
+  'A template-only website company.',
+  'A freelancer marketplace.',
+  'A low-cost outsourcing provider.',
+  'A single-platform agency.',
+  'A design-only studio.',
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery',
+    description: 'A structured discovery call to understand your business goals, current challenges, and where digital is holding growth back.',
+  },
+  {
+    number: '02',
+    title: 'Strategy & Proposal',
+    description: 'A proposal scoped to your business — platform, timeline, and milestones — not a generic package pulled off a shelf.',
+  },
+  {
+    number: '03',
+    title: 'Design & Build',
+    description: 'Strategy, design, development, and content move together under one team, with milestone check-ins so nothing surprises you.',
+  },
+  {
+    number: '04',
+    title: 'Launch & Grow',
+    description: 'Launch with full documentation and training, then ongoing support, maintenance, or a growth retainer to keep compounding results.',
+  },
+];
+
+const teamPods = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Strategy & Discovery',
+    description: 'Every engagement starts with founder-level scoping, so the right problem gets solved before any design or development begins.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="12" fill="none"/><circle cx="12" cy="12" r="8" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>',
+    title: 'Design',
+    description: 'Brand identity, UI/UX, and design systems that keep every touchpoint cohesive and credible.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5" stroke-linecap="round"/></svg>',
+    title: 'Development',
+    description: 'Platform-agnostic engineering across Astro, Webflow, Wix Studio, WordPress, and Shopify — built around your business, not our stack preference.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7v7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Marketing',
+    description: 'SEO, content, social, and performance marketing that turn a finished website into a consistent inquiry pipeline.',
+  },
+];
+
+const clientLogos = [
+  'Neuriphy', 'Emry Networks', 'Regentra', 'Quick Hire', 'New Era India', 'Minerva HRD', 'Logistics Coordinators'
+];
+
+const faqs = [
+  {
+    question: 'Is the investment worth it?',
+    answer: "It depends on scope, but every proposal is built around your business goals — inquiry volume, search visibility, or revenue — not a fixed package price. We size the engagement during the discovery call, so you know what you're paying for and why before you commit.",
+  },
+  {
+    question: 'How long will the project take?',
+    answer: 'Most small business websites launch in 1–2 weeks, mid-market projects take 2–6 weeks, and larger, multi-discipline engagements run 1–3 months. Your proposal includes a specific timeline, not a range.',
+  },
+  {
+    question: 'Which platform should we choose?',
+    answer: "We recommend Astro, Webflow, Wix Studio, WordPress, or Shopify based on your team's technical comfort, content needs, and budget — not on what we'd rather build. Platform recommendations come out of the discovery call.",
+  },
+  {
+    question: 'What results can we expect?',
+    answer: 'Outcomes vary by starting point and scope, but engagements are typically measured against lead growth, organic traffic growth, conversion rate improvements, and site performance. We agree on the specific metrics during discovery, then report against them.',
+  },
+  {
+    question: 'Will we receive ongoing support?',
+    answer: 'Yes. Every project includes documentation and training at handoff, and most clients move into a maintenance plan or growth retainer for continued support, updates, and optimization.',
+  },
+];
+
+const title = "About Us — Your Digital Growth Partner";
+const description = "ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms — strategy, branding, development, and marketing under one accountable team.";
+const canonicalURL = "https://zyrithtech.com/about/";
+const ogImage = "https://zyrithtech.com/images/og-about.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white about-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="About" />
+      <div class="about-header-content reveal">
+        <span class="eyebrow about-header-eyebrow">About ZyrithTech</span>
+        <h1 class="section-h2 about-header-heading">A Digital Growth Partner, Not Another Vendor.</h1>
+        <p class="body-large about-header-sub">We help startups, SMBs, and professional service firms turn outdated, disconnected digital presences into one system — strategy, brand, website, and marketing — built to generate a consistent pipeline of qualified leads.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ORIGIN & MISSION
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why We Exist"
+        heading="Built for Businesses Outgrowing Vendor Chaos"
+        description="Most growing businesses don't have a website problem — they have five vendors solving five different pieces of the same problem, badly."
+      />
+      <div class="mission-grid">
+        <div class="mission-copy reveal">
+          <p class="body-default mission-para">Outdated websites, low conversion rates, poor search visibility, and inconsistent branding usually don't come from one bad decision. They come from a designer, a developer, an SEO freelancer, and a marketing contractor each working from a different brief — with no one accountable for the outcome.</p>
+          <p class="body-default mission-para">ZyrithTech exists to close that gap. We combine strategy, branding, development, content, and marketing under a single accountable partner — so every decision, from the homepage headline to the ad spend, works toward the same growth goal.</p>
+        </div>
+        <div class="transformation-list reveal reveal-delay-1">
+          {transformation.map((row) => (
+            <div class="transformation-row">
+              <span class="transformation-before">{row.before}</span>
+              <svg class="transformation-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="transformation-after">{row.after}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       POSITIONING — WHAT WE ARE / ARE NOT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="How We're Different"
+        heading="What Working With Us Actually Means"
+        description="Zyrith helps growing businesses build revenue-generating digital ecosystems by combining strategy, branding, development, content, and marketing under a single accountable partner."
+      />
+      <div class="positioning-grid">
+        <div class="positioning-col reveal">
+          <h3 class="card-h3 positioning-col-title positioning-col-title--yes">What We Are</h3>
+          <ul class="positioning-list">
+            {weAre.map((item) => (
+              <li class="positioning-item">
+                <svg class="positioning-icon positioning-icon--yes" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="body-default">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="positioning-col reveal reveal-delay-1">
+          <h3 class="card-h3 positioning-col-title positioning-col-title--no">What We're Not</h3>
+          <ul class="positioning-list">
+            {weAreNot.map((item) => (
+              <li class="positioning-item">
+                <svg class="positioning-icon positioning-icon--no" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M9 9l6 6M15 9l-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="body-default">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       HOW WE WORK
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Process"
+        heading="How We Work With You"
+        description="A structured discovery process and transparent milestones — so you always know what's happening and why."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       TEAM & STRUCTURE
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Team"
+        heading="One Team, Four Disciplines"
+        description="Founder-led on strategy, delivered by dedicated specialists — so you get direct accountability without losing depth in any one discipline."
+        variant="light"
+      />
+      <div class="value-grid">
+        {teamPods.map((pod, index) => (
+          <ValueItem
+            icon={pod.icon}
+            title={pod.title}
+            description={pod.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       TRUST & PARTNERSHIPS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Trust & Partnerships"
+        heading="Backed by Platform Partnerships"
+        description="Official partner status on the platforms we build most on, plus a growing list of businesses we've helped scale their digital presence."
+      />
+      <div class="partner-badges reveal">
+        <span class="partner-badge">Webflow Partner Program</span>
+        <span class="partner-badge">Wix Studio Partner Program</span>
+      </div>
+      <p class="caption trust-logos-label">Businesses we've helped grow</p>
+      <div class="trust-logos reveal reveal-delay-1">
+        {clientLogos.map((name) => (
+          <span class="trust-logo">{name}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container about-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Grow?"
+    heading="Let's Build Your Digital Growth Engine"
+    subtext="Book a discovery call and let's map out how strategy, design, development, and marketing can work together for your business."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "View Our Services", href: "/services" }}
+  />
+</Layout>
+
+<style>
+  .about-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .about-header-content {
+    max-width: 720px;
+  }
+
+  .about-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .about-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .about-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Mission grid */
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .mission-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .mission-para {
+    margin-bottom: var(--space-5);
+  }
+
+  .mission-para:last-child {
+    margin-bottom: 0;
+  }
+
+  .transformation-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .transformation-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+  }
+
+  .transformation-row:not(:last-child) {
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .transformation-before {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .transformation-arrow {
+    color: var(--sky-500);
+    flex-shrink: 0;
+  }
+
+  .transformation-after {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-align: right;
+  }
+
+  @media (max-width: 480px) {
+    .transformation-row {
+      grid-template-columns: 1fr;
+      text-align: left;
+      gap: var(--space-2);
+    }
+
+    .transformation-arrow {
+      display: none;
+    }
+
+    .transformation-after {
+      text-align: left;
+    }
+  }
+
+  /* Positioning grid */
+  .positioning-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+
+  @media (max-width: 768px) {
+    .positioning-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .positioning-col {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+  }
+
+  .positioning-col-title {
+    margin-bottom: var(--space-5);
+  }
+
+  .positioning-col-title--yes {
+    color: var(--sky-500);
+  }
+
+  .positioning-col-title--no {
+    color: var(--mid-slate);
+  }
+
+  .positioning-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .positioning-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .positioning-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .positioning-icon--yes {
+    color: var(--sky-500);
+  }
+
+  .positioning-icon--no {
+    color: var(--lt-stroke);
+  }
+
+  /* Trust & partnerships */
+  .partner-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-10);
+  }
+
+  .partner-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .trust-logos-label {
+    margin-bottom: var(--space-5);
+  }
+
+  .trust-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .trust-logo {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--mid-slate);
+    opacity: 0.7;
+  }
+
+  .about-faq {
+    max-width: 760px;
+  }
+</style>

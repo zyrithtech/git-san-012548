@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/email-marketing/index.astro
+// Email Marketing — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Email Platform Setup & Integration',
+    description: 'Your email platform connected to your CRM and lead sources, so subscriber data doesn’t live in disconnected tools.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Welcome & Nurture Sequences',
+    description: 'Lifecycle emails that move new subscribers and past inquiries toward a booked call, not just an inbox greeting.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'Campaign Email Design & Copy',
+    description: 'One-off sends for launches, offers, and updates, built from your existing brand system rather than a generic template.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'List Segmentation & Targeting',
+    description: 'Subscribers grouped by behavior and stage, so a cold lead and a past client don’t get the same message.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'A/B Testing & Deliverability',
+    description: 'Subject lines and sends are tested, and deliverability is checked, so emails land in the inbox, not spam.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Performance Reporting',
+    description: 'Monthly reporting tied to booked calls and conversions from email, not just open-rate and click-rate screenshots.',
+  },
+];
+
+const areas = [
+  { name: 'Lifecycle Email', description: 'Welcome sequences and nurture flows that move new subscribers and leads toward a booked call.' },
+  { name: 'Campaign Email', description: 'One-off sends for launches, offers, and updates, built to the same brand system as everything else.' },
+  { name: 'List Segmentation', description: 'Subscribers grouped by behavior and stage, so messages match where someone actually is.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Platform Setup & List Audit',
+    description: 'We connect or configure your email platform and review your current list health before any sequence is built.',
+  },
+  {
+    number: '02',
+    title: 'Sequence & Campaign Design',
+    description: 'Welcome sequences, nurture flows, and campaign templates are designed and written from your brand system.',
+  },
+  {
+    number: '03',
+    title: 'Segmentation & Send Testing',
+    description: 'Lists are segmented by behavior and stage, and subject lines and sends are tested before scaling up.',
+  },
+  {
+    number: '04',
+    title: 'Report & Refine',
+    description: 'Performance is reviewed monthly against booked calls and conversions, and sequences are adjusted accordingly.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Built Around Booked Calls, Not Open Rates',
+    description: 'Sequences and campaigns are judged against conversions and calls booked, not vanity open-rate screenshots.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Lifecycle Emails That Actually Nurture',
+    description: 'Welcome and nurture sequences are built to move a subscriber toward a decision, not just fill an autoresponder.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Segmented, Not Blasted',
+    description: 'Messages are matched to where a subscriber actually is, instead of the same email going to the entire list.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Deliverability Checked, Not Assumed',
+    description: 'Sender reputation and inbox placement are monitored, so campaigns don’t quietly land in spam unnoticed.',
+  },
+];
+
+const goodFit = [
+  'You have, or want to build, a list of subscribers or past inquiries worth nurturing.',
+  'You want email tied to booked calls and pipeline, not just open-rate reports.',
+  'You’re open to segmenting your list rather than sending the same email to everyone on it.',
+];
+
+const notFit = [
+  'You need a list purchased or scraped — we only work with permission-based, opted-in lists.',
+  'You want a single one-off blast with no ongoing sequence or strategy behind it.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Conversion Rate Improvements', 'Engagement Growth'];
+
+const faqs = [
+  {
+    question: 'Do you build our list, or do we need one already?',
+    answer: 'Either. We can work with an existing list or help build one through opt-ins on your site and content. We only work with permission-based lists — we don’t purchase or scrape contacts.',
+  },
+  {
+    question: 'What email platform do you use?',
+    answer: 'We work with your existing platform where possible, or recommend one during discovery based on your CRM and current stack, rather than requiring a specific vendor.',
+  },
+  {
+    question: 'How often will you send campaign emails?',
+    answer: 'Cadence is set during strategy based on your goals and list size, not a fixed schedule applied to every client.',
+  },
+  {
+    question: 'Do you write the copy and design the templates?',
+    answer: 'Yes. Sequence and campaign copy and design are built from your existing brand system as part of the engagement.',
+  },
+  {
+    question: 'How do you measure success?',
+    answer: 'Monthly reporting ties back to booked calls and conversions attributed to email, not just open rates and click rates reported without business context.',
+  },
+];
+
+const title = "Email Marketing Services — Lifecycle & Campaign Email";
+const description = "Lifecycle and campaign email that turns subscribers and past inquiries into booked calls, not just open-rate reports. Book a call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/email-marketing/";
+const ogImage = "https://zyrithtech.com/images/og-services-email-marketing.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white em-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="Email Marketing"
+      />
+      <div class="em-header-content reveal">
+        <span class="eyebrow em-header-eyebrow">Email Marketing</span>
+        <h1 class="section-h2 em-header-heading">Email That Turns Subscribers Into Booked Calls</h1>
+        <p class="body-large em-header-sub">Lifecycle sequences, segmented campaigns, and deliverability built around your existing list — measured against booked calls, not just open-rate screenshots.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Turn a List Into Pipeline"
+        description="Every engagement covers the same core deliverables — scoped to your list size and current platform."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Areas, Scoped to Your List"
+        description="Most engagements draw on all three, weighted differently depending on list size and where subscribers are in their journey."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from platform setup to reporting — not a newsletter with no strategy behind it."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Email Measured Against Pipeline, Not Vanity Metrics"
+        description="Sequences, segmentation, and deliverability all tie back to conversions — not open-rate screenshots with no context."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every email engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container em-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Nurture Your List?"
+    heading="Ready to Turn Subscribers Into Booked Calls?"
+    subtext="Book a discovery call and we'll map a sequence and segmentation plan around your list and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .em-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .em-header-content {
+    max-width: 720px;
+  }
+
+  .em-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .em-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .em-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .em-faq {
+    max-width: 760px;
+  }
+</style>

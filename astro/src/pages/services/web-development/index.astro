@@ -1,0 +1,418 @@
+---
+// src/pages/services/web-development/index.astro
+// Web Development — Services pillar page (Website Design & Development, E-commerce, Hosting & Maintenance)
+
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
+
+const challenges = [
+  'The site looks fine on a laptop but loses visitors on mobile, where most of your traffic actually lands.',
+  'Pages load slowly enough that search engines — and impatient buyers — rank you behind competitors.',
+  'The design was never built around a conversion goal, so visitors browse and leave without inquiring.',
+  'Updating a page means waiting on a developer for a text change that should take five minutes.',
+  'The platform was chosen because an agency was comfortable with it, not because it fit your business.',
+];
+
+const services = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'Website Design & Development',
+    description: 'Conversion-focused websites built on Astro, Next.js, Webflow, Wix Studio, or WordPress — matched to your goals, not a house platform.',
+    href: '/services/web-development/website-design-and-development/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none"/><path d="M3 4h2l2.4 12.2a2 2 0 002 1.8h8.2a2 2 0 002-1.6L21 8H6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'E-commerce Solutions',
+    description: 'Shopify and WooCommerce stores with product catalogs and checkout flows built around conversion, not just a working cart.',
+    href: '/services/web-development/e-commerce-solutions/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Website Hosting & Maintenance',
+    description: 'Ongoing updates, security monitoring, and technical support, so the site stays fast and current after launch — not frozen the day it ships.',
+    href: '/services/web-development/website-hosting-and-maintenance/',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Strategy',
+    description: 'We map your buyers, goals, and current site performance, then recommend a platform and structure built around them — not a template.',
+  },
+  {
+    number: '02',
+    title: 'Design & Build',
+    description: 'Wireframes and design move into development in step, with milestones you review — no black-box build that surfaces months later.',
+  },
+  {
+    number: '03',
+    title: 'Launch & QA',
+    description: 'Cross-device testing, performance checks, and tracking setup (GA4, Search Console) happen before launch, not discovered after.',
+  },
+  {
+    number: '04',
+    title: 'Support & Scale',
+    description: 'Post-launch, we monitor performance and security, and the site is built to extend as content, pages, and traffic grow.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Platform-Agnostic Builds',
+    description: 'Astro, Next.js, Webflow, Wix Studio, WordPress, or Shopify — we recommend what fits your business, not the one platform we know.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Strategy Before Design',
+    description: 'Every build starts with your buyers and conversion goal, so the site is structured to generate leads, not just look finished.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Performance & SEO Built In',
+    description: 'Fast load times and clean technical SEO are part of the build, not a follow-up project after the site underperforms.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    title: 'Supported After Launch',
+    description: 'Maintenance, content updates, and security monitoring continue after handoff — the relationship doesn’t end at go-live.',
+  },
+];
+
+const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User Engagement', 'Conversion Rate Improvements'];
+
+const faqs = [
+  {
+    question: 'Which platform should we build on?',
+    answer: 'It depends on your content needs, team, and budget. Astro and Next.js suit content- and performance-heavy sites; Webflow and Wix Studio suit teams that want visual editing; Shopify and WooCommerce suit e-commerce. We recommend the platform during discovery, not before it.',
+  },
+  {
+    question: 'Do you only build on Astro and Sanity?',
+    answer: 'No. Astro and Sanity are our primary stack, but we also build on Webflow, Wix Studio, WordPress, and Shopify depending on what fits your requirements and team.',
+  },
+  {
+    question: 'How long does a website project take?',
+    answer: 'Small business sites typically run 1–2 weeks, mid-market builds 2–6 weeks, and larger engagements 1–3 months, depending on scope and how quickly content and approvals come back to us.',
+  },
+  {
+    question: 'Do you write the copy and provide images, or do we?',
+    answer: 'We can work with content you provide or bring in copywriting and sourced imagery as part of the engagement. We’ll scope this during the discovery call so there’s no ambiguity about who owns what.',
+  },
+  {
+    question: 'What happens after the site launches?',
+    answer: 'Launch includes tracking setup and a QA pass. From there, ongoing maintenance, content updates, and security monitoring are available as a separate plan, so the site keeps performing after handoff.',
+  },
+];
+
+const title = "Web Development Services — Conversion-Focused Websites";
+const description = "Platform-agnostic website design, e-commerce, and hosting built around your buyers and conversion goals — not a template. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/web-development/";
+const ogImage = "https://zyrithtech.com/images/og-services-web-development.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white wd-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }]} currentPage="Web Development" />
+      <div class="wd-header-content reveal">
+        <span class="eyebrow wd-header-eyebrow">Web Development</span>
+        <h1 class="section-h2 wd-header-heading">Websites Built to Convert, Not Just Impress</h1>
+        <p class="body-large wd-header-sub">We design and build platform-agnostic websites — Astro, Next.js, Webflow, Wix Studio, WordPress, or Shopify — structured around your buyers and your conversion goal, then support them after launch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       THE CHALLENGE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="The Challenge"
+        heading="When the Website Isn't Doing Its Job"
+        description="Most underperforming websites aren't broken — they're just not built around a conversion goal, a buyer, or a plan for what happens after launch."
+      />
+      <ul class="challenges-list reveal reveal-delay-1">
+        {challenges.map((item) => (
+          <li class="challenge-item">
+            <svg class="challenge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
+            </svg>
+            <span class="body-default">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICES GRID
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What We Do"
+        heading="Three Services, One Connected Build"
+        description="Every engagement starts with the platform and structure that match your business — not a fixed template."
+      />
+      <div class="grid-3">
+        {services.map((service, index) => (
+          <a href={service.href} class={`service-card reveal reveal-delay-${(index % 3) + 1}`}>
+            <div class="service-card-icon" aria-hidden="true" set:html={service.icon} />
+            <h3 class="service-card-title">{service.title}</h3>
+            <p class="service-card-desc">{service.description}</p>
+            <span class="service-card-link">Explore {service.title} &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run Website Engagements"
+        description="A structured process from discovery to launch — and beyond."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Websites Built Around Outcomes, Not Platforms"
+        description="We recommend the stack that fits your business, then build and support it as one accountable team — not a vendor handoff at launch."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every website engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container wd-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build?"
+    heading="Ready for a Website That Converts?"
+    subtext="Book a discovery call and we'll map a platform and structure around your buyers, budget, and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .wd-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .wd-header-content {
+    max-width: 720px;
+  }
+
+  .wd-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .wd-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .wd-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Challenges list */
+  .challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 640px;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  .challenge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .challenge-icon {
+    flex-shrink: 0;
+    color: var(--orange-500, var(--sky-500));
+    margin-top: 2px;
+  }
+
+  /* Services grid */
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    background-color: var(--white);
+    text-decoration: none;
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .service-card:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .service-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background-color: var(--sky-50);
+    color: var(--sky-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .service-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    flex-grow: 1;
+  }
+
+  .service-card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky-500);
+  }
+
+  .service-card:hover .service-card-link {
+    text-decoration: underline;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .wd-faq {
+    max-width: 760px;
+  }
+</style>

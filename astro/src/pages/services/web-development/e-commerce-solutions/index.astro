@@ -1,0 +1,501 @@
+---
+// src/pages/services/web-development/e-commerce-solutions/index.astro
+// E-commerce Solutions — Service detail page (child of Web Development pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a4 4 0 018 0v2" stroke-linecap="round"/></svg>',
+    title: 'Product Catalog Setup',
+    description: 'Products, variants, and categories structured so buyers can find what they want in a few clicks, not a maze of filters.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Conversion-Optimized Product Pages',
+    description: 'Product and category pages built around what makes buyers add to cart — not just specs and a price.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke-linecap="round"/></svg>',
+    title: 'Secure Checkout & Payments',
+    description: 'Payment gateways and checkout flow configured to reduce steps and drop-off, with security handled at the platform level.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h3M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Inventory & Order Management',
+    description: 'Stock, fulfillment, and order workflows set up so your team can run the store day to day without a developer.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Performance Optimization',
+    description: 'Fast-loading product and category pages, since every extra second of load time costs checkout conversions.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Cross-Device QA & Launch Testing',
+    description: 'Full purchase flows — browse, cart, checkout, payment — tested across devices before the store goes live.',
+  },
+];
+
+const platforms = [
+  { name: 'Shopify', description: 'Managed hosting, a large app ecosystem, and fast setup for stores that want to move quickly.' },
+  { name: 'WooCommerce', description: 'Full control on WordPress for stores that need custom logic or already run on WordPress.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Catalog Audit',
+    description: 'We review your product range, current store (if any), and buying journey, and recommend Shopify or WooCommerce based on fit.',
+  },
+  {
+    number: '02',
+    title: 'Store Design & Templates',
+    description: 'Category, product, and cart templates are designed around how your buyers actually shop, not a default theme.',
+  },
+  {
+    number: '03',
+    title: 'Build, Payments & Inventory',
+    description: 'The store is built out with catalog, payment gateway, and inventory workflows connected and tested.',
+  },
+  {
+    number: '04',
+    title: 'QA & Launch',
+    description: 'Full purchase flows are tested end to end — including payment and order confirmation — before the store goes live.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built Around the Buying Journey',
+    description: 'Product and category pages are structured around how buyers decide, not just listed to have a working catalog.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Platform Matched to Your Catalog',
+    description: 'Shopify or WooCommerce is recommended based on catalog size, customization needs, and your team — not a default pick.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke-linecap="round"/><path d="M9 15l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Checkout Friction Minimized',
+    description: 'Fewer steps and clearer confirmation between cart and payment, so fewer buyers abandon at the last step.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    title: 'Supported After Launch',
+    description: 'Catalog updates, payment issues, and platform updates are covered post-launch, not left for your team to figure out.',
+  },
+];
+
+const goodFit = [
+  'You’re launching a new online store or migrating off a store that isn’t converting.',
+  'You want product and category pages built around buying behavior, not just a default theme with your logo dropped in.',
+  'You’re open to a Shopify vs. WooCommerce recommendation based on your catalog, rather than requesting one by default.',
+];
+
+const notFit = [
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+  'You’re looking for the cheapest possible build with no discovery or catalog audit step.',
+  'You need a large, complex catalog fully migrated and live in under a week.',
+];
+
+const proofTags = ['Conversion Rate Improvements', 'Faster Website Performance', 'Organic Traffic Growth'];
+
+const faqs = [
+  {
+    question: 'Shopify or WooCommerce — which should we use?',
+    answer: 'It depends on your catalog and team. Shopify suits stores that want managed hosting and fast setup; WooCommerce suits stores that need custom logic or already run on WordPress. We recommend one during the discovery call based on your catalog audit, not before it.',
+  },
+  {
+    question: 'Can you migrate our existing store without losing SEO rankings?',
+    answer: 'Yes. Migrations include mapping existing URLs to their new equivalents and redirecting them, so indexed product and category pages don’t lose their search rankings.',
+  },
+  {
+    question: 'Do you handle payment gateway and shipping setup?',
+    answer: 'Yes. Payment gateway integration, tax and shipping configuration, and checkout flow are part of the build, tested end to end before launch.',
+  },
+  {
+    question: 'How do you handle catalogs with hundreds of SKUs?',
+    answer: 'Larger catalogs are scoped during the audit — including whether products need bulk import, variant structures, or category taxonomies — so the timeline reflects the real size of the catalog, not a flat estimate.',
+  },
+  {
+    question: 'What happens after launch — do you support the store ongoing?',
+    answer: 'Launch includes full QA of the purchase flow. Ongoing catalog updates, platform updates, and technical support are available through Website Hosting & Maintenance as a separate plan.',
+  },
+];
+
+const title = "E-commerce Solutions — Shopify & WooCommerce Development";
+const description = "Shopify and WooCommerce stores with product catalogs and checkout flows built around conversion, not just a working cart. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/web-development/e-commerce-solutions/";
+const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white ecs-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Web Development', href: '/services/web-development' },
+        ]}
+        currentPage="E-commerce Solutions"
+      />
+      <div class="ecs-header-content reveal">
+        <span class="eyebrow ecs-header-eyebrow">E-commerce Solutions</span>
+        <h1 class="section-h2 ecs-header-heading">Online Stores Built to Turn Browsers Into Buyers</h1>
+        <p class="body-large ecs-header-sub">Shopify and WooCommerce stores with product catalogs, checkout flows, and page speed built around conversion — not just a cart that technically works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Go From Catalog to Checkout"
+        description="Every engagement covers the same core deliverables — scoped to the size and complexity of your catalog."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PLATFORMS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Platforms"
+        heading="Built on the Platform That Fits Your Catalog"
+        description="We recommend Shopify or WooCommerce during discovery based on your catalog, team, and customization needs — not before it."
+      />
+      <div class="platform-grid reveal reveal-delay-1">
+        {platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-card-name">{platform.name}</h3>
+            <p class="platform-card-desc">{platform.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from catalog audit to launch — not a theme install with your logo swapped in."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Stores Built Around Buyers, Not Just a Working Cart"
+        description="Catalog structure, platform, and checkout are chosen to reduce drop-off — not the easiest setup for us to deliver."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every e-commerce engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container ecs-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Sell Online?"
+    heading="Ready for a Store That Converts Browsers Into Buyers?"
+    subtext="Book a discovery call and we'll map a catalog, platform, and checkout flow around your products and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .ecs-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .ecs-header-content {
+    max-width: 720px;
+  }
+
+  .ecs-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .ecs-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .ecs-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Platforms */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .platform-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .platform-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .platform-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .platform-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ecs-faq {
+    max-width: 760px;
+  }
+</style>

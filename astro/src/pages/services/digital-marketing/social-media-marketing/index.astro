@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/social-media-marketing/index.astro
+// Social Media Marketing — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'Platform Strategy & Channel Selection',
+    description: 'Platforms recommended based on where your audience actually spends time, not posted to everywhere by default.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h3M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Content Calendar & Planning',
+    description: 'A planned cadence tied to campaigns, launches, and goals, so posting isn’t reactive or last-minute.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'On-Brand Post Design & Copy',
+    description: 'Visuals and captions built from your existing brand system, not generic templates with your logo dropped in.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Community Management',
+    description: 'Comments, DMs, and mentions monitored and responded to, so engagement doesn’t go unanswered.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8L15.8 7.2M8.2 13.2L15.8 16.8" stroke-linecap="round"/></svg>',
+    title: 'Influencer & Partnership Coordination',
+    description: 'Outreach and coordination with relevant creators or partners when it fits your audience and goals.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Performance Reporting',
+    description: 'Engagement, follower growth, and reach tracked monthly against the goals agreed at kickoff.',
+  },
+];
+
+const areas = [
+  { name: 'Organic Content', description: 'Consistent, on-brand posts and stories that build an audience without paid spend.' },
+  { name: 'Community Management', description: 'Comments, DMs, and mentions monitored and answered, so engagement doesn’t go unanswered.' },
+  { name: 'Influencer & Partnerships', description: 'Outreach and coordination with creators or partners when it fits your audience and goals.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Audience & Platform Strategy',
+    description: 'We map your audience and recommend the platforms worth investing in, rather than spreading effort across all of them.',
+  },
+  {
+    number: '02',
+    title: 'Content Calendar & Production',
+    description: 'A content calendar is built around your goals and campaigns, then posts are designed and written against it.',
+  },
+  {
+    number: '03',
+    title: 'Posting & Community Management',
+    description: 'Posts go live on schedule, with comments and DMs monitored and answered as part of the same engagement.',
+  },
+  {
+    number: '04',
+    title: 'Report & Refine',
+    description: 'Engagement and follower growth are reviewed monthly, and the content plan adjusts based on what’s resonating.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Platforms Matched to Your Audience',
+    description: 'We recommend where to show up based on your buyers, not a default bundle of every available platform.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Content Grounded in Your Brand System',
+    description: 'Posts draw from your existing identity, so the feed reinforces the brand instead of looking like stock content.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 015 .5c0 1.5-2 1.5-2.5 3" stroke-linecap="round"/><circle cx="12" cy="16.5" r="0.6" fill="currentColor" stroke="none"/></svg>',
+    title: 'Engagement Actually Monitored',
+    description: 'Comments and messages get a response, instead of posts going live and being left unattended.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Reported Against Growth, Not Just Likes',
+    description: 'Monthly reporting ties back to follower growth and engagement trends, not vanity metrics with no context.',
+  },
+];
+
+const goodFit = [
+  'You want a consistent presence on the platforms your buyers actually use, not scattered posting everywhere.',
+  'You want content grounded in your existing brand identity, not generic templates.',
+  'You’re comfortable with organic growth building over months, alongside your other marketing channels.',
+];
+
+const notFit = [
+  'You need viral growth guaranteed — no agency can promise that, organically or otherwise.',
+  'You’re looking for paid social ad campaigns — that’s covered under PPC Advertising, a separate service.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Engagement Growth', 'Lead Growth'];
+
+const faqs = [
+  {
+    question: 'Which platforms will you manage for us?',
+    answer: 'We recommend platforms based on your audience during the discovery call and audit, rather than defaulting to a fixed bundle. Most B2B service firms lean on LinkedIn; consumer brands often lean harder on Instagram and similar visual platforms.',
+  },
+  {
+    question: 'Do you also run paid social ads?',
+    answer: 'Paid social campaigns are covered under PPC Advertising, a separate service. Social Media Marketing focuses on organic content, community management, and partnerships.',
+  },
+  {
+    question: 'How often will you post?',
+    answer: 'Cadence is set during content calendar planning based on your goals, capacity, and budget — not a fixed universal number applied to every client.',
+  },
+  {
+    question: 'Do you write the captions and design the graphics?',
+    answer: 'Yes. Post design and copy are built from your existing brand system as part of the engagement, so the feed stays consistent with your website and other marketing.',
+  },
+  {
+    question: 'How do you measure success?',
+    answer: 'Monthly reporting covers engagement, follower growth, and reach, tied to the goals agreed at kickoff — not vanity metrics reported without context.',
+  },
+];
+
+const title = "Social Media Marketing Services — Build Engaged Audiences";
+const description = "Consistent, on-brand posting and community management that builds engaged audiences on the platforms your buyers use. Book a call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/social-media-marketing/";
+const ogImage = "https://zyrithtech.com/images/og-services-social-media-marketing.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white smm-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="Social Media Marketing"
+      />
+      <div class="smm-header-content reveal">
+        <span class="eyebrow smm-header-eyebrow">Social Media Marketing</span>
+        <h1 class="section-h2 smm-header-heading">Consistent, On-Brand Presence Where Your Buyers Already Are</h1>
+        <p class="body-large smm-header-sub">A content calendar, on-brand design, and community management built around the platforms your buyers actually use — not scattered posting everywhere at once.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Build a Consistent Presence"
+        description="Every engagement covers the same core deliverables — scoped to the platforms and cadence that fit your goals."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Areas, Scoped to Your Goals"
+        description="Most engagements draw on all three, weighted differently depending on your audience and where they’re active."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from strategy to reporting — not posting on a whim with no plan behind it."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="A Presence Built on Strategy, Not Just Volume"
+        description="Platforms, content, and engagement all tie back to your audience and brand — not a generic posting schedule."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every social media engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container smm-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build Community?"
+    heading="Ready for a Social Presence That Builds Pipeline?"
+    subtext="Book a discovery call and we'll map a platform and content strategy around your audience and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .smm-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .smm-header-content {
+    max-width: 720px;
+  }
+
+  .smm-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .smm-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .smm-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .smm-faq {
+    max-width: 760px;
+  }
+</style>

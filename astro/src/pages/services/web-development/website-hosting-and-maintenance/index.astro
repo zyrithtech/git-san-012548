@@ -1,0 +1,546 @@
+---
+// src/pages/services/web-development/website-hosting-and-maintenance/index.astro
+// Website Hosting & Maintenance — Service detail page (child of Web Development pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'CMS & Content Updates',
+    description: 'Text, image, and page changes handled for you, or supported if your team prefers to make updates directly.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Security Monitoring & Patching',
+    description: 'Core platforms, plugins, and dependencies are kept patched, so known vulnerabilities don’t sit unaddressed.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v3h-3M6 20v-3h3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Uptime & Performance Monitoring',
+    description: 'The site is monitored for downtime and slowdowns, so issues are caught before a visitor reports them.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Backups & Recovery',
+    description: 'Regular backups are kept so the site can be restored quickly if something goes wrong during an update.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 015 .5c0 1.5-2 1.5-2.5 3" stroke-linecap="round"/><circle cx="12" cy="16.5" r="0.6" fill="currentColor" stroke="none"/></svg>',
+    title: 'Technical Support',
+    description: 'Bugs, broken integrations, and unexpected errors get diagnosed and fixed without opening a new project.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Platform & Plugin Updates',
+    description: 'Framework, CMS, and plugin versions are kept current, so the site doesn’t fall behind on support or security fixes.',
+  },
+];
+
+const plans = [
+  {
+    name: 'Essential Care',
+    tagline: 'For sites that need to stay secure and online',
+    features: ['Security monitoring & patching', 'Uptime monitoring', 'Monthly backups', 'Minor content updates'],
+  },
+  {
+    name: 'Growth Care',
+    tagline: 'For sites publishing content regularly',
+    features: ['Everything in Essential Care', 'Regular content & CMS updates', 'Performance monitoring', 'Priority support'],
+  },
+  {
+    name: 'Priority Care',
+    tagline: 'For sites where downtime costs pipeline',
+    features: ['Everything in Growth Care', 'Faster response times', 'Proactive technical reviews', 'Direct line to your dev team'],
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Site Audit & Plan Selection',
+    description: 'We review your current site, platform, and update history, then recommend the plan that matches your risk and content pace.',
+  },
+  {
+    number: '02',
+    title: 'Setup & Monitoring',
+    description: 'Uptime, performance, and security monitoring are configured against your site before the plan formally starts.',
+  },
+  {
+    number: '03',
+    title: 'Ongoing Updates & Monitoring',
+    description: 'Content updates, patches, and monitoring run continuously in the background, without waiting for something to break.',
+  },
+  {
+    number: '04',
+    title: 'Monthly Reporting & Review',
+    description: 'You get a monthly summary of updates, uptime, and any issues resolved — not silence until something goes wrong.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'One Team, Not a Ticket Queue',
+    description: 'The same team that understands your site handles updates and issues — not a rotating support desk starting from zero each time.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    title: 'Security Handled Proactively',
+    description: 'Patching and monitoring happen on a schedule, so vulnerabilities get closed before they turn into an incident.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Fast Response When Something Breaks',
+    description: 'Downtime and errors get flagged and worked on quickly, instead of sitting in an inbox until someone notices.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Works With Sites We Didn’t Build',
+    description: 'We support Astro, WordPress, Webflow, Wix Studio, and Shopify sites, whether or not we were the original developer.',
+  },
+];
+
+const goodFit = [
+  'Your site runs on Astro, WordPress, Webflow, Wix Studio, or Shopify, and you want updates handled without hiring in-house.',
+  'You want security and uptime monitored proactively, not discovered after something breaks.',
+  'You’re open to a month-to-month plan rather than a one-time fee with no ongoing relationship.',
+];
+
+const notFit = [
+  'You need detailed pricing published publicly before a first conversation — we scope plans after a discovery call.',
+  'Your site runs on a heavily customized or unsupported platform outside our stack.',
+  'You want a single one-time fix with no ongoing plan — we can still help, but it’s scoped as a one-off, not a retainer.',
+];
+
+const proofTags = ['Improved User Engagement', 'Organic Traffic Growth', 'Lead Growth'];
+
+const faqs = [
+  {
+    question: 'Do you only support sites you built, or others too?',
+    answer: 'We support Astro, WordPress, Webflow, Wix Studio, and Shopify sites regardless of who originally built them. We start with an audit so we understand the site before taking on maintenance.',
+  },
+  {
+    question: 'What’s included in the monthly plan vs. billed separately?',
+    answer: 'Each plan covers the scope listed against it — monitoring, patching, and a defined level of content updates or support. Larger requests, like new pages or feature builds, are scoped and quoted separately.',
+  },
+  {
+    question: 'How fast do you respond if the site goes down?',
+    answer: 'Response speed depends on the plan — Priority Care is built for sites where downtime directly affects pipeline. We confirm response expectations for your plan during the discovery call.',
+  },
+  {
+    question: 'Can we change or cancel our plan?',
+    answer: 'Plans run month-to-month after an initial setup period, so you can move between plans or step away without being locked into a long-term contract.',
+  },
+  {
+    question: 'Do you provide hosting itself, or just maintenance on our existing host?',
+    answer: 'Both. We can host your site on modern infrastructure as part of the plan, or manage maintenance on your existing host — whichever fits how your site is already set up.',
+  },
+];
+
+const title = "Website Hosting & Maintenance — Ongoing Support Plans";
+const description = "Ongoing updates, security monitoring, and technical support that keep your website fast and secure after launch. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/web-development/website-hosting-and-maintenance/";
+const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-maintenance.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white whm-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Web Development', href: '/services/web-development' },
+        ]}
+        currentPage="Website Hosting & Maintenance"
+      />
+      <div class="whm-header-content reveal">
+        <span class="eyebrow whm-header-eyebrow">Website Hosting & Maintenance</span>
+        <h1 class="section-h2 whm-header-heading">Keep Your Website Fast, Secure, and Current After Launch</h1>
+        <p class="body-large whm-header-sub">Ongoing content updates, security monitoring, and technical support — for sites we built, or any site already running on a platform we support.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything a Website Needs After It Goes Live"
+        description="Every plan covers the same core areas — scoped to how often your site changes and how much risk downtime carries."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PLANS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Plans"
+        heading="Three Plans, Scoped to How Your Site Runs"
+        description="Exact scope and pricing are confirmed during a discovery call, based on your platform and how often the site changes."
+      />
+      <div class="plans-grid reveal reveal-delay-1">
+        {plans.map((plan) => (
+          <div class="plan-card">
+            <h3 class="plan-card-name">{plan.name}</h3>
+            <p class="plan-card-tagline">{plan.tagline}</p>
+            <ul class="plan-card-features">
+              {plan.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from audit to ongoing monitoring — not a plan that starts and is never checked again."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Support That Doesn’t Wait for Something to Break"
+        description="Monitoring and updates run on a schedule, so issues get caught early instead of surfacing as a support fire drill."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Plan Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every maintenance plan is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container whm-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready for Peace of Mind?"
+    heading="Ready to Stop Worrying About Your Website?"
+    subtext="Book a discovery call and we'll audit your site and recommend a plan around your platform, content pace, and risk — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .whm-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .whm-header-content {
+    max-width: 720px;
+  }
+
+  .whm-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .whm-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .whm-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Plans */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 1024px) {
+    .plans-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+
+  .plan-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    background-color: var(--white);
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .plan-card:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .plan-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .plan-card-tagline {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    margin-top: calc(var(--space-3) * -1);
+  }
+
+  .plan-card-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+  }
+
+  .plan-card-features li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .plan-card-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .whm-faq {
+    max-width: 760px;
+  }
+</style>

@@ -1,0 +1,12 @@
+---
+// src/components/PortableTextHeading2.astro
+// Custom astro-portabletext block component for h2 — adds an id derived from
+// the heading text so the post table of contents can anchor-link to it.
+import { slugify } from '../lib/slugify';
+
+const { node, index, isInline, ...attrs } = Astro.props;
+const text = (node.children || []).map((c: any) => c.text).join('');
+const id = slugify(text);
+---
+
+<h2 id={id} {...attrs}><slot /></h2>

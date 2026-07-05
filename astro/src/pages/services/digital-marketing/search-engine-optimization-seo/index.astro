@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/search-engine-optimization-seo/index.astro
+// SEO — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Technical SEO Audit & Fixes',
+    description: 'Site speed, crawl errors, and indexing issues fixed first, since content can’t rank on a foundation that’s broken.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'On-Page Optimization',
+    description: 'Meta titles, headings, and page content structured around the terms your buyers actually search.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'Keyword & Competitive Research',
+    description: 'Keywords mapped to buyer awareness stage and competitor gaps, not just picked for search volume alone.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Content Structure & Internal Linking',
+    description: 'Pages connected with a logical structure and anchor text, so authority flows to the pages that matter most.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Local SEO',
+    description: 'Google Business Profile and local citations built out for businesses targeting a specific city or region.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Reporting & Rank Tracking',
+    description: 'Monthly reporting through GA4 and Search Console, tied to traffic and leads — not rankings in isolation.',
+  },
+];
+
+const areas = [
+  { name: 'Technical SEO', description: 'Site speed, crawlability, and indexing fixed so search engines can find and rank every page.' },
+  { name: 'On-Page SEO', description: 'Meta titles, headings, and content structured around the keywords your buyers actually search.' },
+  { name: 'Local SEO', description: 'Google Business Profile and local citations built out for businesses targeting a specific market.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Technical Audit & Keyword Mapping',
+    description: 'We audit current site health and map keywords to buyer intent, so the plan targets the right pages first.',
+  },
+  {
+    number: '02',
+    title: 'On-Page & Content Fixes',
+    description: 'Meta data, headings, and page content are corrected against the keyword map and technical audit findings.',
+  },
+  {
+    number: '03',
+    title: 'Content & Internal Linking Buildout',
+    description: 'New and existing pages are connected with a structure that helps search engines understand what matters most.',
+  },
+  {
+    number: '04',
+    title: 'Monitor, Report & Refine',
+    description: 'Rankings, traffic, and leads are tracked monthly, and the plan adjusts based on what’s actually moving.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built Around Buyer Intent',
+    description: 'Keywords are chosen for what your buyers actually search at each awareness stage, not just for search volume.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke-linejoin="round"/></svg>',
+    title: 'Technical Fixes Before Content Push',
+    description: 'We fix what’s capping performance first, so new content isn’t published on top of a broken foundation.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>',
+    title: 'Local and National Visibility',
+    description: 'Local SEO for city and region targeting, paired with technical and content SEO for broader national reach.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Reported Against Leads, Not Just Rank',
+    description: 'Monthly reporting ties back to traffic and lead growth, so rank movement isn’t the only measure of progress.',
+  },
+];
+
+const goodFit = [
+  'Your site has real technical issues — speed, indexing, structure — capping how well it can rank.',
+  'You want SEO tied to lead generation, not a rankings report with no connection to the business.',
+  'You understand SEO compounds over months rather than delivering results overnight.',
+];
+
+const notFit = [
+  'You need guaranteed page-one rankings in a fixed timeframe — no ethical SEO provider can promise that.',
+  'You need meaningful results in under a month with no runway for indexing and content to compound.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Organic Traffic Growth', 'Lead Growth'];
+
+const faqs = [
+  {
+    question: 'How soon will we see results from SEO?',
+    answer: 'Technical fixes can improve crawlability and indexing within weeks. Rankings and organic traffic typically compound over 3–6 months as search engines re-index and trust new content. We set expectations specific to your site during the audit, not a blanket timeline.',
+  },
+  {
+    question: 'Do you guarantee first-page rankings?',
+    answer: 'No. No search engine, including us, controls ranking algorithms directly, so we don’t promise a specific position. We commit to the technical fixes, content structure, and reporting that give your site the best realistic chance to rank.',
+  },
+  {
+    question: 'Do we need a new website, or can you optimize our existing site?',
+    answer: 'Most SEO engagements run on your existing site. If a technical issue is capping results — like site architecture or platform limitations — we’ll flag it in the audit; a rebuild is a separate, optional engagement, not a prerequisite.',
+  },
+  {
+    question: 'Is local SEO included, or is that separate?',
+    answer: 'Local SEO is scoped in when it’s relevant to your market — most valuable for businesses targeting a specific city or region such as India. For primarily national or international targeting, we focus the engagement on technical and content SEO instead.',
+  },
+  {
+    question: 'How do you report on SEO performance?',
+    answer: 'Monthly reporting through GA4 and Search Console, tied to the metrics we agree on at kickoff — typically organic traffic growth and lead growth — not just keyword rank movement in isolation.',
+  },
+];
+
+const title = "SEO Services — Technical, On-Page & Local SEO";
+const description = "Technical SEO, on-page optimization, and local SEO built around buyer intent, not just keyword volume. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/search-engine-optimization-seo/";
+const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white seo-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="SEO"
+      />
+      <div class="seo-header-content reveal">
+        <span class="eyebrow seo-header-eyebrow">SEO</span>
+        <h1 class="section-h2 seo-header-heading">SEO Built to Turn Search Visibility Into Pipeline</h1>
+        <p class="body-large seo-header-sub">Technical fixes, on-page optimization, and content structure working together — built around what your buyers actually search, not keyword volume alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Fix and Grow Search Visibility"
+        description="Every engagement covers the same core deliverables — scoped to what your audit finds."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Areas, Scoped to Your Market"
+        description="Most engagements draw on all three, weighted differently depending on whether you’re targeting local, national, or international buyers."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from audit to reporting — not a keyword list with no plan behind it."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="SEO Built Around Buyers, Not Just Algorithms"
+        description="Technical health, content, and intent are tied together, so ranking movement translates into real pipeline."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every SEO engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container seo-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Rank?"
+    heading="Ready to Turn Search Visibility Into Pipeline?"
+    subtext="Book a discovery call and we'll audit your site and map a keyword plan around your buyers and market — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .seo-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .seo-header-content {
+    max-width: 720px;
+  }
+
+  .seo-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .seo-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .seo-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .seo-faq {
+    max-width: 760px;
+  }
+</style>

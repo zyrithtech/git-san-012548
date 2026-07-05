@@ -1,0 +1,424 @@
+---
+// src/pages/services/creative-branding/index.astro
+// Creative & Branding — Services pillar page (Graphic & Visual Design, Logo & Brand Identity)
+
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
+
+const challenges = [
+  'The logo, website, and marketing creatives look like they belong to three different companies.',
+  'Visuals were built off a template, so nothing about the brand is ownable or memorable.',
+  'There are no brand guidelines, so every new designer or vendor makes their own call on colors and type.',
+  'The brand hasn’t evolved since launch, and it now reads as dated next to competitors.',
+  'Marketing creatives get produced one-off, with no system tying them back to the same identity.',
+];
+
+const services = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21c4.5 0 8-3 8-7 0-2-1-3-3-3h-2a2 2 0 01-2-2c0-1 .5-1.8 1.3-2.3A2 2 0 0013 3.3 9 9 0 1012 21z"/><circle cx="7.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="13" cy="16.5" r="1" fill="currentColor" stroke="none"/></svg>',
+    title: 'Graphic & Visual Design',
+    description: 'UI/UX design and marketing creatives built to a shared visual system, so every page, ad, and asset reads as one brand.',
+    href: '/services/creative-branding/graphic-visual-design/',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12.5l2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Logo & Brand Identity',
+    description: 'A logo, color and type system, and usage guidelines built to hold up across your website, product, and marketing.',
+    href: '/services/creative-branding/logo-and-brand-identity/',
+  },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Brand Audit',
+    description: 'We review your current identity, audience, and competitors to find what’s working, what’s not, and what’s ownable.',
+  },
+  {
+    number: '02',
+    title: 'Concept & Direction',
+    description: 'A small number of considered directions — not a dozen options — grounded in the positioning agreed at discovery.',
+  },
+  {
+    number: '03',
+    title: 'Design & Refinement',
+    description: 'The chosen direction is built out across logo, color, type, and core assets, refined against your feedback.',
+  },
+  {
+    number: '04',
+    title: 'Delivery & Guidelines',
+    description: 'Final files and a usage guide ship together, so any future designer or vendor can apply the brand consistently.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Consistent Across Every Touchpoint',
+    description: 'Website, product, and marketing creatives draw from the same system, so the brand reads as one company everywhere it shows up.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" stroke-linejoin="round"/></svg>',
+    title: 'Strategy-Led, Not Trend-Led',
+    description: 'Direction is grounded in your positioning and audience, not whatever style is trending, so the identity still fits in three years.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 4v3h-3M6 20v-3h3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Built to Scale With Growth',
+    description: 'The system extends to new products, pages, and campaigns without needing a redesign every time the business adds something new.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Delivered With Usable Guidelines',
+    description: 'You leave with a guide any designer, developer, or agency can follow — not a folder of files with no rules attached.',
+  },
+];
+
+const proofTags = ['Improved User Engagement', 'Conversion Rate Improvements', 'Lead Growth'];
+
+const faqs = [
+  {
+    question: 'Do you design a full brand identity, or just a logo?',
+    answer: 'Both, depending on scope. Logo & Brand Identity covers the mark, color, and type system; Graphic & Visual Design extends that system into UI/UX and marketing creatives. Most engagements start with identity and expand from there.',
+  },
+  {
+    question: 'How does branding fit with a website project?',
+    answer: 'If you already have a website underway, we work from the identity you have or refresh it in parallel so the site launches on-brand rather than needing a redesign later. It doesn’t have to hold up the website timeline.',
+  },
+  {
+    question: 'Will we get usable brand guidelines, or just design files?',
+    answer: 'Every identity engagement includes a usage guide covering logo variants, color, type, and application rules — so any future designer, developer, or vendor can apply the brand consistently without guessing.',
+  },
+  {
+    question: 'How long does a branding engagement take?',
+    answer: 'A focused logo and identity system typically runs 1–2 weeks; a fuller identity with marketing creatives and UI/UX direction runs 2–6 weeks, depending on rounds of feedback and how many touchpoints are in scope.',
+  },
+  {
+    question: 'Can you refresh our existing brand instead of starting from scratch?',
+    answer: 'Yes. We start with a brand audit to see what’s already working — logo equity, color recognition, existing assets — and evolve from there rather than defaulting to a full rebuild.',
+  },
+];
+
+const title = "Creative & Branding Services — Identity & Design Systems";
+const description = "Logo, brand identity, and visual design systems built to stay consistent across your website, product, and marketing. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/creative-branding/";
+const ogImage = "https://zyrithtech.com/images/og-services-creative-branding.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white cb-header">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }]} currentPage="Creative & Branding" />
+      <div class="cb-header-content reveal">
+        <span class="eyebrow cb-header-eyebrow">Creative & Branding</span>
+        <h1 class="section-h2 cb-header-heading">A Brand Identity That Holds Up Everywhere It Shows Up</h1>
+        <p class="body-large cb-header-sub">We build logo, color, type, and visual design systems grounded in your positioning — so your website, product, and marketing creatives all read as one company, not a patchwork of vendors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       THE CHALLENGE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="The Challenge"
+        heading="When the Brand Doesn’t Match the Business"
+        description="Most inconsistent brands aren’t the result of bad design — they’re the result of no system tying decisions back to one identity."
+      />
+      <ul class="challenges-list reveal reveal-delay-1">
+        {challenges.map((item) => (
+          <li class="challenge-item">
+            <svg class="challenge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
+            </svg>
+            <span class="body-default">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       SERVICES GRID
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What We Do"
+        heading="Two Services, One Visual System"
+        description="Identity and design work start from the same positioning, so nothing ships disconnected from the rest of the brand."
+      />
+      <div class="grid-2">
+        {services.map((service, index) => (
+          <a href={service.href} class={`service-card reveal reveal-delay-${(index % 3) + 1}`}>
+            <div class="service-card-icon" aria-hidden="true" set:html={service.icon} />
+            <h3 class="service-card-title">{service.title}</h3>
+            <p class="service-card-desc">{service.description}</p>
+            <span class="service-card-link">Explore {service.title} &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run Branding Engagements"
+        description="A structured process from audit to guidelines — not a moodboard with no follow-through."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Identity Built to Stay Consistent as You Grow"
+        description="One system carries across every touchpoint, so the brand doesn’t drift as new pages, products, and campaigns get added."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every branding engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container cb-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build a Brand?"
+    heading="Ready for an Identity That Holds Up Everywhere?"
+    subtext="Book a discovery call and we'll audit your current brand and map a system around your positioning and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .cb-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .cb-header-content {
+    max-width: 720px;
+  }
+
+  .cb-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .cb-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .cb-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Challenges list */
+  .challenges-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 640px;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  .challenge-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .challenge-icon {
+    flex-shrink: 0;
+    color: var(--orange-500, var(--sky-500));
+    margin-top: 2px;
+  }
+
+  /* Services grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+    background-color: var(--white);
+    text-decoration: none;
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .service-card:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .service-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background-color: var(--sky-50);
+    color: var(--sky-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: var(--leading-snug);
+  }
+
+  .service-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    flex-grow: 1;
+  }
+
+  .service-card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--sky-500);
+  }
+
+  .service-card:hover .service-card-link {
+    text-decoration: underline;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cb-faq {
+    max-width: 760px;
+  }
+</style>

@@ -1,0 +1,500 @@
+---
+// src/pages/services/digital-marketing/content-marketing/index.astro
+// Content Marketing — Service detail page (child of Digital Marketing pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h3M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Content Strategy & Editorial Calendar',
+    description: 'Topics planned around buyer questions and business goals, not a random list of blog ideas.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Blog Articles & Guides',
+    description: 'Long-form content built around the questions your buyers are actually searching for, not filler word count.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Case Studies & Customer Stories',
+    description: 'Real results and quotes written up to prove claims, not just describe what a service includes.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'SEO-Informed Content Structure',
+    description: 'Headings, structure, and internal links built around keyword and intent research, so content is built to rank.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8L15.8 7.2M8.2 13.2L15.8 16.8" stroke-linecap="round"/></svg>',
+    title: 'Content Repurposing',
+    description: 'Long-form pieces broken into social posts and email content, so nothing is written once and shelved.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Performance Reporting',
+    description: 'Monthly reporting on traffic, engagement, and leads tied to published content, not just word count.',
+  },
+];
+
+const areas = [
+  { name: 'Blog & Guides', description: 'Long-form articles built around the questions your buyers are actually searching for.' },
+  { name: 'Case Studies', description: 'Customer stories and results written to prove claims, not just describe deliverables.' },
+  { name: 'Content Repurposing', description: 'Long-form pieces broken into social posts and email content, so nothing is written once and shelved.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Content Strategy & Topic Research',
+    description: 'We research buyer questions and keyword gaps, then build a content plan tied to business goals, not a blog wishlist.',
+  },
+  {
+    number: '02',
+    title: 'Briefs & Editorial Calendar',
+    description: 'Each piece gets a brief covering intent, structure, and internal links before writing starts, on a planned schedule.',
+  },
+  {
+    number: '03',
+    title: 'Writing & Production',
+    description: 'Articles, guides, and case studies are written and reviewed against the brief, not published as a rough first draft.',
+  },
+  {
+    number: '04',
+    title: 'Publish, Repurpose & Report',
+    description: 'Content goes live, gets repurposed into social and email assets, and performance is reviewed monthly.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>',
+    title: 'Built Around Buyer Questions',
+    description: 'Topics are chosen for what your buyers are actually asking, not picked for keyword volume alone.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8L15.8 7.2M8.2 13.2L15.8 16.8" stroke-linecap="round"/></svg>',
+    title: 'Every Piece Feeds Another Channel',
+    description: 'Long-form content is repurposed into social posts and email, so nothing gets written once and forgotten.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Case Studies With Real Proof',
+    description: 'Customer stories center on actual results and quotes, not generic praise with nothing to back it up.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 16v-4M13 16V8M18 16v-7" stroke-linecap="round"/></svg>',
+    title: 'Reported Against Traffic and Leads',
+    description: 'Monthly reporting ties content back to organic traffic and lead growth, not publish count alone.',
+  },
+];
+
+const goodFit = [
+  'You want content that feeds SEO, social, and email, instead of three disconnected content efforts.',
+  'You have, or are open to sharing, real customer results and stories worth turning into case studies.',
+  'You understand content compounds over months rather than delivering overnight traffic.',
+];
+
+const notFit = [
+  'You need viral content guaranteed — no agency can promise that.',
+  'You want content published with no editorial brief or review process behind it.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+];
+
+const proofTags = ['Organic Traffic Growth', 'Engagement Growth'];
+
+const faqs = [
+  {
+    question: 'Do you write the content, or do we need to provide it?',
+    answer: 'We write blog articles, guides, and case studies as part of the engagement, drawing on your subject matter expertise and any existing materials you can share.',
+  },
+  {
+    question: 'How does content marketing tie into SEO?',
+    answer: 'Content is structured around keyword and buyer-intent research, whether that comes from a parallel SEO engagement or standalone research, so pieces are built to rank as well as inform.',
+  },
+  {
+    question: 'Will you also turn content into social posts and emails?',
+    answer: 'Yes. Content repurposing turns long-form pieces into social posts and email content, feeding Social Media Marketing and Email Marketing without writing everything from scratch twice.',
+  },
+  {
+    question: 'How often will you publish?',
+    answer: 'Cadence is set during content strategy based on your goals and resourcing, not a fixed number applied to every client.',
+  },
+  {
+    question: 'How do you measure content marketing success?',
+    answer: 'Monthly reporting covers organic traffic, engagement, and leads tied to published content — not just word count or how often something goes live.',
+  },
+];
+
+const title = "Content Marketing Services — Blog, Guides & Case Studies";
+const description = "Blog articles, guides, and case studies that build search authority and give social and email something worth sending. Book a call.";
+const canonicalURL = "https://zyrithtech.com/services/digital-marketing/content-marketing/";
+const ogImage = "https://zyrithtech.com/images/og-services-content-marketing.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white cm-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Digital Marketing', href: '/services/digital-marketing' },
+        ]}
+        currentPage="Content Marketing"
+      />
+      <div class="cm-header-content reveal">
+        <span class="eyebrow cm-header-eyebrow">Content Marketing</span>
+        <h1 class="section-h2 cm-header-heading">Content That Builds Authority and Feeds Every Channel</h1>
+        <p class="body-large cm-header-sub">Blog articles, guides, and case studies built around what your buyers are actually asking — structured to build search authority and give social and email something worth sending.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Everything Needed to Turn Content Into Authority"
+        description="Every engagement covers the same core deliverables — scoped to your goals and publishing capacity."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       AREAS
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Areas"
+        heading="Three Areas, Scoped to Your Goals"
+        description="Most engagements draw on all three, weighted differently depending on your awareness stage and available proof."
+      />
+      <div class="area-grid reveal reveal-delay-1">
+        {areas.map((area) => (
+          <div class="area-card">
+            <h3 class="area-card-name">{area.name}</h3>
+            <p class="area-card-desc">{area.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from research to reporting — not a content calendar filled with generic ideas."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Content Built to Compound, Not Just Fill a Calendar"
+        description="Every piece ties back to buyer questions, proof, and another channel — not published in isolation and forgotten."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every content engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container cm-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Build Authority?"
+    heading="Ready for Content That Feeds Every Channel?"
+    subtext="Book a discovery call and we'll map a content plan around your buyers, goals, and existing proof — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .cm-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .cm-header-content {
+    max-width: 720px;
+  }
+
+  .cm-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .cm-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .cm-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Areas */
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .area-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .area-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .area-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .area-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cm-faq {
+    max-width: 760px;
+  }
+</style>

@@ -15,6 +15,10 @@ export default defineConfig({
   site: 'https://zyrithtech.com',
   output: 'static',
 
+  server: {
+    port: process.env.PORT ? Number(process.env.PORT) : 4321,
+  },
+
   integrations: [
     sanity({
       projectId: SANITY_PROJECT_ID,

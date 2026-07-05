@@ -1,0 +1,500 @@
+---
+// src/pages/services/creative-branding/graphic-visual-design/index.astro
+// Graphic & Visual Design — Service detail page (child of Creative & Branding pillar)
+
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../../components/SectionHeader.astro';
+import ProcessStep from '../../../../components/ProcessStep.astro';
+import ValueItem from '../../../../components/ValueItem.astro';
+import FAQAccordion from '../../../../components/FAQAccordion.astro';
+import CTASection from '../../../../components/CTASection.astro';
+
+const deliverables = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18" stroke-linecap="round"/><path d="M9 21h6M12 18v3" stroke-linecap="round"/></svg>',
+    title: 'UI/UX Design',
+    description: 'Website and product interfaces designed for usability and conversion, not just how a screen looks in isolation.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8L15.8 7.2M8.2 13.2L15.8 16.8" stroke-linecap="round"/></svg>',
+    title: 'Marketing Creatives',
+    description: 'Social posts, ad creatives, and presentation decks built to the same visual system as your website.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Website Design Systems',
+    description: 'Reusable components, type, and color rules that keep new pages consistent as the site keeps growing.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4" stroke-linecap="round"/></svg>',
+    title: 'Iconography & Illustration',
+    description: 'A consistent icon set and illustration style, so custom visuals don’t clash with stock imagery bolted on later.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h11l5 5v11a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M14 4v5h5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h5" stroke-linecap="round"/></svg>',
+    title: 'Print & Digital Collateral',
+    description: 'One-pagers, decks, and print materials designed off the same system, so leave-behinds match the website.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Design QA & Handoff',
+    description: 'Specs, assets, and states are documented and handed to development, so nothing gets lost in translation.',
+  },
+];
+
+const disciplines = [
+  { name: 'UI/UX Design', description: 'Interface design for websites and products, focused on usability and conversion.' },
+  { name: 'Marketing Creatives', description: 'Social posts, ad creatives, and decks built to your visual system, not one-off files.' },
+  { name: 'Website Design Systems', description: 'Components and style rules that keep every new page and feature consistent.' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Discovery & Creative Brief',
+    description: 'We review your brand system, audience, and goals for this specific project, then agree a brief before any concepts start.',
+  },
+  {
+    number: '02',
+    title: 'Concept & Direction',
+    description: 'A small number of considered directions — grounded in the brief, not a dozen unrelated options to choose between.',
+  },
+  {
+    number: '03',
+    title: 'Design & Iteration',
+    description: 'The chosen direction is refined against your feedback through a defined number of structured revision rounds.',
+  },
+  {
+    number: '04',
+    title: 'Handoff & Delivery',
+    description: 'Final files, specs, and any reusable components are documented and delivered ready for development or print.',
+  },
+];
+
+const valueItems = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Grounded in Your Brand System',
+    description: 'Every deliverable draws from your existing identity, so it reinforces the brand instead of introducing a new visual voice.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9"/></svg>',
+    title: 'Built for Developers to Implement',
+    description: 'Design systems and handoffs are documented with specs and states, not just static images to reverse-engineer.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    title: 'Consistent Across Every Channel',
+    description: 'Website, ads, and decks all draw from the same components, so nothing looks like it came from a different company.',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z" stroke-linejoin="round"/></svg>',
+    title: 'Iterated With Feedback, Not Guesswork',
+    description: 'Structured revision rounds are built into the process, so direction gets refined rather than restarted from scratch.',
+  },
+];
+
+const goodFit = [
+  'You already have a brand identity and need it applied consistently across UI, marketing, and web.',
+  'You want a design system that keeps future pages and campaigns consistent, not one-off files per request.',
+  'You’re open to a structured concept-and-refine process with defined revision rounds.',
+];
+
+const notFit = [
+  'You need a brand-new logo or full identity built from scratch — that’s covered under Logo & Brand Identity.',
+  'You need detailed pricing published publicly before a first conversation — we scope after a discovery call.',
+  'You want unlimited on-demand design requests with no defined scope or brief.',
+];
+
+const proofTags = ['Organic Traffic Growth', 'Improved User Engagement'];
+
+const faqs = [
+  {
+    question: 'Do you also design our logo, or is that separate?',
+    answer: 'Logo and full brand identity work is covered under Logo & Brand Identity. Graphic & Visual Design applies an existing identity across UI/UX, marketing creatives, and design systems.',
+  },
+  {
+    question: 'Can you build a design system if we don’t have one yet?',
+    answer: 'Yes. If a formal design system doesn’t exist, we establish one as part of the engagement — components, type, and color rules — so future pages and campaigns stay consistent.',
+  },
+  {
+    question: 'Do you design ads and social posts, or only the website?',
+    answer: 'Both. Marketing Creatives covers social posts, ad creatives, and presentation decks, built off the same visual system as your website and UI work.',
+  },
+  {
+    question: 'How many rounds of revisions are included?',
+    answer: 'Each engagement includes a defined number of structured revision rounds, scoped during the creative brief. This keeps direction moving forward rather than restarting from scratch each round.',
+  },
+  {
+    question: 'Will developers be able to implement the designs easily?',
+    answer: 'Yes. Design work is documented with specs, states, and reusable components at handoff, so development isn’t reverse-engineering static images.',
+  },
+];
+
+const title = "Graphic & Visual Design Services — UI/UX & Creatives";
+const description = "UI/UX design, marketing creatives, and website design systems built on one visual system, not one-off files. Book a discovery call.";
+const canonicalURL = "https://zyrithtech.com/services/creative-branding/graphic-visual-design/";
+const ogImage = "https://zyrithtech.com/images/og-services-graphic-visual-design.jpg";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+  ogImage={ogImage}
+>
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <section class="section bg-white gvd-header">
+    <div class="container">
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: 'Creative & Branding', href: '/services/creative-branding' },
+        ]}
+        currentPage="Graphic & Visual Design"
+      />
+      <div class="gvd-header-content reveal">
+        <span class="eyebrow gvd-header-eyebrow">Graphic & Visual Design</span>
+        <h1 class="section-h2 gvd-header-heading">Design Work That Reinforces the Brand, Not a New One</h1>
+        <p class="body-large gvd-header-sub">UI/UX design, marketing creatives, and website design systems built from your existing identity — so every screen, ad, and deck reads as the same company.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHAT'S INCLUDED
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="What's Included"
+        heading="Every Discipline Draws From One Visual System"
+        description="Every engagement covers the same core deliverables — scoped to the channels and assets your project needs."
+      />
+      <div class="grid-3">
+        {deliverables.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={(index % 3) as 0 | 1 | 2}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       DISCIPLINES
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Disciplines"
+        heading="Three Disciplines, Scoped to What You Need"
+        description="Most engagements draw on a mix of these, scoped during the creative brief rather than sold as a fixed bundle."
+      />
+      <div class="discipline-grid reveal reveal-delay-1">
+        {disciplines.map((discipline) => (
+          <div class="discipline-card">
+            <h3 class="discipline-card-name">{discipline.name}</h3>
+            <p class="discipline-card-desc">{discipline.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       OUR APPROACH
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Our Approach"
+        heading="How We Run This Engagement"
+        description="A structured process from brief to handoff — not an open-ended design request with no defined end."
+      />
+      <div class="grid-4">
+        {processSteps.map((step, index) => (
+          <ProcessStep
+            number={step.number}
+            title={step.title}
+            description={step.description}
+            delay={index as 0 | 1 | 2 | 3}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       WHY WORK WITH US (VALUE BAND)
+       ===================================================== -->
+  <section class="value-band">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Why It Works"
+        heading="Design Built to Extend the Brand, Not Reinvent It"
+        description="Every deliverable draws from the same system, so new work compounds instead of fragmenting the brand further."
+        variant="light"
+      />
+      <div class="value-grid">
+        {valueItems.map((item, index) => (
+          <ValueItem
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+            delay={index as 0 | 1 | 2 | 3}
+            variant="dark"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       GOOD FIT / NOT A FIT
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Is This a Fit?"
+        heading="Who This Engagement Is Built For"
+        description="Being upfront about fit saves everyone a discovery call that goes nowhere."
+      />
+      <div class="fit-grid reveal reveal-delay-1">
+        <div class="fit-card fit-card--yes">
+          <h3 class="fit-card-title">Good Fit If</h3>
+          <ul class="fit-list">
+            {goodFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="fit-card fit-card--no">
+          <h3 class="fit-card-title">Might Not Be a Fit If</h3>
+          <ul class="fit-list">
+            {notFit.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       PROOF / CASE STUDIES TEASE
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container proof-section">
+      <SectionHeader
+        eyebrow="Proof"
+        heading="Engagements We Measure Against Agreed Metrics"
+        description="Every design engagement is reported against the numbers that matter to your business — not deliverables for their own sake."
+      />
+      <div class="proof-tags reveal reveal-delay-1">
+        {proofTags.map((tag) => (
+          <span class="proof-tag">{tag}</span>
+        ))}
+      </div>
+      <div class="proof-cta reveal reveal-delay-2">
+        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container gvd-faq">
+      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+    </div>
+  </section>
+
+  <!-- =====================================================
+       CTA SECTION
+       ===================================================== -->
+  <CTASection
+    eyebrow="Ready to Design?"
+    heading="Ready for Design That Reinforces Your Brand?"
+    subtext="Book a discovery call and we'll scope a brief around your brand system, channels, and goals — no fixed package pitch."
+    primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+  />
+</Layout>
+
+<style>
+  .gvd-header {
+    padding-bottom: var(--space-8);
+  }
+
+  .gvd-header-content {
+    max-width: 720px;
+  }
+
+  .gvd-header-eyebrow {
+    color: var(--sky-500);
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .gvd-header-heading {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .gvd-header-sub {
+    color: var(--color-text-muted);
+  }
+
+  /* Disciplines */
+  .discipline-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .discipline-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .discipline-card {
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--white);
+    text-align: center;
+    transition: border-color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+
+  .discipline-card:hover {
+    border-color: var(--sky-300);
+    transform: translateY(-2px);
+  }
+
+  .discipline-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .discipline-card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Good fit / not a fit */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .fit-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .fit-card--yes {
+    background-color: var(--sky-50);
+    border-color: var(--sky-300);
+  }
+
+  .fit-card--no {
+    background-color: var(--color-bg-surface);
+  }
+
+  .fit-card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .fit-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .fit-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-body);
+    line-height: var(--leading-relaxed);
+    padding-left: var(--space-5);
+    position: relative;
+  }
+
+  .fit-card--yes .fit-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--sky-500);
+    font-weight: 700;
+  }
+
+  .fit-card--no .fit-list li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Proof section */
+  .proof-section {
+    text-align: center;
+  }
+
+  .proof-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: calc(var(--space-16) * -1 + var(--space-6));
+    margin-bottom: var(--space-8);
+  }
+
+  .proof-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--navy-500);
+    background-color: var(--sky-50);
+  }
+
+  .proof-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .gvd-faq {
+    max-width: 760px;
+  }
+</style>
