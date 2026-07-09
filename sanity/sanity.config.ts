@@ -12,7 +12,7 @@ import {personType} from './schemaTypes/person'
 
 export default defineConfig({
   name: 'default',
-  title: 'zyrith-test',
+  title: 'zyrith-website',
 
   projectId: 'umvfvgt9',
   dataset: 'production',
