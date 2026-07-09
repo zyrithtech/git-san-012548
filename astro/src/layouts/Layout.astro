@@ -256,9 +256,16 @@ const schemaGraph = {
 </html>
 
 <style is:global>
-  /* Ensure main content respects full viewport */
-  html, body {
+  /* Ensure main content respects full viewport.
+     NOTE: body must use min-height (not height) so it grows with content —
+     a fixed height:100% caps the body box at one viewport and breaks the
+     sticky nav's containing block (nav scrolls away after ~1 section). */
+  html {
     height: 100%;
+  }
+
+  body {
+    min-height: 100%;
   }
 
   #main-content {
