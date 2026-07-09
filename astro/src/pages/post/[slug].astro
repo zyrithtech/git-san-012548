@@ -8,11 +8,13 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
 import CTASection from '../../components/CTASection.astro';
 import PortableTextHeading2 from '../../components/PortableTextHeading2.astro';
+import PortableTextImage from '../../components/PortableTextImage.astro';
 import { sanityImageUrl } from '../../lib/sanity';
 import { slugify } from '../../lib/slugify';
 
 const portableTextComponents = {
   block: { h2: PortableTextHeading2 },
+  type: { image: PortableTextImage },
 };
 
 export async function getStaticPaths() {

@@ -1,0 +1,36 @@
+---
+// src/components/PortableTextImage.astro
+// Custom astro-portabletext `type` component for inline `image` blocks in a
+// post body (e.g. images migrated from Wix). Renders a responsive figure with
+// an optional caption from the image's alt text.
+import { sanityImageUrl } from '../lib/sanity';
+
+const { node } = Astro.props;
+const src = node ? sanityImageUrl(node, 1400) : '';
+const alt = node?.alt || '';
+---
+
+{src && (
+  <figure class="post-body-figure">
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+    {alt && <figcaption>{alt}</figcaption>}
+  </figure>
+)}
+
+<style is:global>
+  .post-body .post-body-figure {
+    margin: var(--space-8) 0;
+  }
+  .post-body .post-body-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+  }
+  .post-body .post-body-figure figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+</style>
