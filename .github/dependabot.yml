@@ -1,0 +1,27 @@
+# Dependabot configuration
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Goal: keep Dependabot quiet. We do NOT want routine version-bump PRs
+# (open-pull-requests-limit: 0 disables those; security updates still run),
+# and we explicitly ignore the Sanity packages so Dependabot never tries to
+# "fix" their transitive vulnerabilities by downgrading the Studio.
+# The moderate vulns live inside Sanity's own dependency tree and are managed
+# upstream by Sanity — forcing a fix here breaks the Studio.
+version: 2
+updates:
+  # Sanity Studio (sanity/)
+  - package-ecosystem: "npm"
+    directory: "/sanity"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "sanity"
+      - dependency-name: "@sanity/*"
+
+  # Astro frontend (astro/)
+  - package-ecosystem: "npm"
+    directory: "/astro"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
