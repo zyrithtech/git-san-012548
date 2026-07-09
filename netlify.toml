@@ -1,0 +1,13 @@
+# Netlify build configuration
+# The repo root holds two independent projects (astro/ and sanity/).
+# Setting `base = "astro"` makes Netlify cd into astro/ before installing
+# and building, so the Sanity Studio in sanity/ is never touched.
+
+[build]
+  base = "astro"
+  command = "npm run build"
+  # `publish` is resolved relative to `base`, so this is astro/dist
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
