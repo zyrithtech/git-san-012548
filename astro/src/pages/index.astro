@@ -131,18 +131,23 @@ const faqs = [
 
         <div class="hero-stats reveal reveal-delay-3">
           <div class="hero-stat">
-            <span class="hero-stat-number">6+</span>
-            <span class="hero-stat-label">Platforms & Stacks</span>
+            <span class="hero-stat-number">50+</span>
+            <span class="hero-stat-label">Projects delivered across 12 industries</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
-            <span class="hero-stat-number">5</span>
-            <span class="hero-stat-label">Markets Served</span>
+            <span class="hero-stat-number">3.8x</span>
+            <span class="hero-stat-label">Average organic traffic growth in 6 months</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
-            <span class="hero-stat-number">60 Days</span>
-            <span class="hero-stat-label">Typical Launch Timeline</span>
+            <span class="hero-stat-number">90</span>
+            <span class="hero-stat-label">Days to your first qualified inbound leads</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">98%</span>
+            <span class="hero-stat-label">Client satisfaction across all engagements</span>
           </div>
         </div>
       </div>
@@ -490,7 +495,9 @@ const faqs = [
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 760px;
+    max-width: 820px;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .hero-eyebrow {
@@ -534,12 +541,14 @@ const faqs = [
     color: var(--navy-100);
     line-height: var(--leading-relaxed);
     margin-bottom: var(--space-8);
-    max-width: 560px;
+    max-width: 620px;
+    margin-inline: auto;
   }
 
   .hero-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-4);
     flex-wrap: wrap;
     margin-bottom: var(--space-16);
@@ -547,8 +556,9 @@ const faqs = [
 
   .hero-stats {
     display: flex;
-    align-items: center;
-    gap: var(--space-6);
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-4);
     flex-wrap: wrap;
     padding-top: var(--space-8);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -558,6 +568,9 @@ const faqs = [
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
+    flex: 0 1 168px;
+    max-width: 168px;
+    text-align: center;
   }
 
   .hero-stat-number {
