@@ -9,6 +9,7 @@ interface Props {
   description: string;
   centered?: boolean;
   variant?: 'default' | 'light'; // default = on light bg, light = on dark bg
+  as?: 'h1' | 'h2'; // heading level — use h1 for a page's primary heading
 }
 
 const {
@@ -16,15 +17,17 @@ const {
   heading,
   description,
   centered = true,
-  variant = 'default'
+  variant = 'default',
+  as = 'h2'
 } = Astro.props;
 
 const isDark = variant === 'light';
+const Heading = as;
 ---
 
 <div class={`section-header ${centered ? 'section-header--centered' : ''} ${isDark ? 'section-header--on-dark' : ''} reveal`}>
   <span class="section-header__eyebrow eyebrow">{eyebrow}</span>
-  <h2 class="section-header__heading section-h2">{heading}</h2>
+  <Heading class="section-header__heading section-h2">{heading}</Heading>
   <p class="section-header__description body-large">{description}</p>
 </div>
 

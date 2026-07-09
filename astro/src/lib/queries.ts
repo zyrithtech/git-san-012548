@@ -23,7 +23,7 @@ export async function getAllCaseStudies() {
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
         testimonial { quote, name, role, company },
         publishedAt,
-        featuredImage { asset-> { _id, url } },
+        featuredImage { asset-> { _id, url }, alt },
         featured,
         seo { metaTitle, metaDescription, ogImage }
       }
@@ -45,7 +45,7 @@ export async function getFeaturedCaseStudies() {
         industry,
         services,
         results[] { metric, value, description },
-        featuredImage { asset-> { _id, url } },
+        featuredImage { asset-> { _id, url }, alt },
         publishedAt
       }
     `);
@@ -71,7 +71,7 @@ export async function getCaseStudyBySlug(slug: string) {
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
         testimonial { quote, name, role, company },
         publishedAt,
-        featuredImage { asset-> { _id, url } },
+        featuredImage { asset-> { _id, url }, alt },
         seo { metaTitle, metaDescription, ogImage }
       }`,
       { slug }
@@ -106,7 +106,7 @@ export async function getCaseStudiesByService(service: string) {
         industry,
         services,
         results[] { metric, value, description },
-        featuredImage { asset-> { _id, url } },
+        featuredImage { asset-> { _id, url }, alt },
         publishedAt
       }`,
       { service }
@@ -131,8 +131,9 @@ export async function getAllPosts() {
         excerpt,
         body,
         publishedAt,
-        mainImage { asset-> { _id, url } },
-        author -> { name, bio, photo { asset-> { _id, url } } },
+        _updatedAt,
+        mainImage { asset-> { _id, url }, alt },
+        author -> { name, slug, role, bio, photo { asset-> { _id, url } }, linkedIn, twitter, website, expertise },
         categories[] -> { title, slug },
         cta { heading, subtext, buttonText },
         seo { metaTitle, metaDescription, ogImage }
@@ -153,7 +154,7 @@ export async function getLatestBlogPosts(limit: number = 3) {
         slug,
         excerpt,
         publishedAt,
-        mainImage { asset-> { _id, url } },
+        mainImage { asset-> { _id, url }, alt },
         categories[] -> { title, slug }
       }
     `);
@@ -173,8 +174,9 @@ export async function getPostBySlug(slug: string) {
         excerpt,
         body,
         publishedAt,
-        mainImage { asset-> { _id, url } },
-        author -> { name, bio, photo { asset-> { _id, url } }, linkedIn },
+        _updatedAt,
+        mainImage { asset-> { _id, url }, alt },
+        author -> { name, slug, role, bio, photo { asset-> { _id, url } }, linkedIn, twitter, website, expertise },
         categories[] -> { title, slug },
         seo { metaTitle, metaDescription, ogImage }
       }`,
@@ -208,7 +210,7 @@ export async function getPostsByCategory(categorySlug: string) {
         slug,
         excerpt,
         publishedAt,
-        mainImage { asset-> { _id, url } },
+        mainImage { asset-> { _id, url }, alt },
         categories[] -> { title, slug }
       }`,
       { slug: categorySlug }

@@ -35,6 +35,14 @@ export const postType = defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt text',
+          type: 'string',
+          description: 'Describe the image for search engines and screen readers.',
+        }),
+      ],
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -46,6 +54,14 @@ export const postType = defineType({
         defineField({
           type: 'image',
           options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt text',
+              type: 'string',
+              description: 'Describe the image for search engines and screen readers.',
+            }),
+          ],
         }),
       ],
       validation: (rule) => rule.required(),

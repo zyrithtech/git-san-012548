@@ -24,7 +24,7 @@ const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImag
     {imageUrl ? (
       <img
         src={imageUrl}
-        alt={caseStudy.title}
+        alt={caseStudy.featuredImage?.alt || caseStudy.title}
         width="600"
         height="400"
         loading="lazy"

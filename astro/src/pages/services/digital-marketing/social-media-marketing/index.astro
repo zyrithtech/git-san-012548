@@ -3,6 +3,8 @@
 // Social Media Marketing — Service detail page (child of Digital Marketing pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -111,6 +113,10 @@ const proofTags = ['Engagement Growth', 'Lead Growth'];
 
 const faqs = [
   {
+    question: 'What does a social media marketing service include?',
+    answer: 'Social media marketing is the practice of building brand presence and demand through organic content and paid campaigns on the platforms your buyers use. ZyrithTech handles strategy, content creation, community engagement, and paid social together — so your channels build recognition and pipeline, not just followers.',
+  },
+  {
     question: 'Which platforms will you manage for us?',
     answer: 'We recommend platforms based on your audience during the discovery call and audit, rather than defaulting to a fixed bundle. Most B2B service firms lean on LinkedIn; consumer brands often lean harder on Instagram and similar visual platforms.',
   },
@@ -144,6 +150,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-social-media-marketin
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Social Media Marketing Services"
+    serviceType="Social Media Marketing"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -164,6 +177,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-social-media-marketin
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -321,6 +335,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-social-media-marketin
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/social-media-marketing" />
+
   <CTASection
     eyebrow="Ready to Build Community?"
     heading="Ready for a Social Presence That Builds Pipeline?"

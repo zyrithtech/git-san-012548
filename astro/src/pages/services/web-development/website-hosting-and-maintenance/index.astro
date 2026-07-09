@@ -3,6 +3,8 @@
 // Website Hosting & Maintenance — Service detail page (child of Web Development pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -123,6 +125,10 @@ const proofTags = ['Improved User Engagement', 'Organic Traffic Growth', 'Lead G
 
 const faqs = [
   {
+    question: 'What does website maintenance include?',
+    answer: 'Website maintenance is the ongoing hosting, updates, backups, security, and support that keep a site fast, secure, and current after launch. ZyrithTech offers predictable care plans covering platform updates, monitoring, and content changes — so your site keeps performing without you managing it in-house.',
+  },
+  {
     question: 'Do you only support sites you built, or others too?',
     answer: 'We support Astro, WordPress, Webflow, Wix Studio, and Shopify sites regardless of who originally built them. We start with an audit so we understand the site before taking on maintenance.',
   },
@@ -156,6 +162,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-m
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Website Hosting & Maintenance Services"
+    serviceType="Website Maintenance and Hosting"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -176,6 +189,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-m
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -338,6 +352,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-m
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/website-hosting-and-maintenance" />
+
   <CTASection
     eyebrow="Ready for Peace of Mind?"
     heading="Ready to Stop Worrying About Your Website?"

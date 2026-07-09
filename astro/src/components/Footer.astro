@@ -18,10 +18,6 @@ const footerLinks = {
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ],
-  Legal: [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms & Conditions', href: '/terms' },
-  ],
 };
 
 const socialLinks = [
@@ -55,6 +51,16 @@ const socialLinks = [
           <p class="footer-tagline">
             Digital growth partner for startups, SMBs, and professional service firms. We build conversion-focused websites, brand systems, and SEO-driven marketing that turn your digital presence into a consistent inquiry pipeline.
           </p>
+
+          <!-- NAP (name / address / phone) — kept in sync with the
+               Organization schema in Layout.astro for local-SEO consistency. -->
+          <address class="footer-contact">
+            <span class="footer-contact-name">Zyrith Technologies Pvt. Ltd.</span>
+            <span class="footer-contact-line">B1-1404, SVD, Raj Nagar Extension,<br />Ghaziabad, Uttar Pradesh 201017, India</span>
+            <a href="tel:+919910788808" class="footer-contact-link">+91 99107 88808</a>
+            <a href="mailto:info@zyrithtech.com" class="footer-contact-link">info@zyrithtech.com</a>
+          </address>
+
           <div class="footer-socials">
             {socialLinks.map((social) => (
               <a 
@@ -138,7 +144,7 @@ const socialLinks = [
 
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: var(--space-12);
   }
 
@@ -181,6 +187,32 @@ const socialLinks = [
     font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
     color: var(--navy-200);
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-style: normal; /* reset <address> italic */
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--navy-200);
+  }
+
+  .footer-contact-name {
+    font-weight: 600;
+    color: var(--navy-100);
+  }
+
+  .footer-contact-link {
+    color: var(--navy-200);
+    text-decoration: none;
+    width: fit-content;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer-contact-link:hover {
+    color: var(--sky-300);
   }
 
   .footer-socials {
@@ -300,7 +332,8 @@ const socialLinks = [
      =============================== */
   @media (prefers-reduced-motion: reduce) {
     .footer-social-link,
-    .footer-link {
+    .footer-link,
+    .footer-contact-link {
       transition: none;
     }
   }

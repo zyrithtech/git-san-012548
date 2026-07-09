@@ -3,6 +3,7 @@
 // Contact — Zoho CRM web-to-contact form restyled to match the site design system
 import Layout from '../layouts/Layout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
 
 const title = "Contact Us — Let's Talk About Your Project";
 const description = "Get in touch with ZyrithTech to talk through your website, branding, or marketing project. We'll respond within one business day.";
@@ -22,6 +23,29 @@ const expectations = [
   'A reply within one business day',
   'A short discovery call to understand your goals',
   'A scoped proposal — no generic packages',
+];
+
+const faqs = [
+  {
+    question: 'How quickly will you respond after I get in touch?',
+    answer: 'We reply within one business day. Your first message goes straight to our team — not a ticket queue — and we follow up to schedule a short discovery call at a time that works for you.',
+  },
+  {
+    question: 'What happens after I submit the form?',
+    answer: 'You will get a reply within one business day, followed by a discovery call to understand your goals. From there we send a scoped proposal tailored to your project — no generic packages and no obligation to proceed.',
+  },
+  {
+    question: 'Is the discovery call free?',
+    answer: 'Yes. The discovery call is free and carries no obligation. It is where we learn about your business and goals and work out whether we are the right partner — before any proposal or commitment.',
+  },
+  {
+    question: 'What should I include in my message?',
+    answer: 'A short note on your business, what you are trying to achieve (a new site, more leads, better branding), your rough timeline, and a link to your current site if you have one. Enough for us to make the first call useful.',
+  },
+  {
+    question: 'Do you work with businesses outside India?',
+    answer: 'Yes. We work with clients across India, the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and clear reporting, so location is never a barrier.',
+  },
 ];
 ---
 
@@ -363,6 +387,15 @@ const expectations = [
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container contact-faq">
+      <FAQAccordion title="Frequently Asked Questions" faqs={faqs} />
     </div>
   </section>
 

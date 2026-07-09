@@ -33,6 +33,11 @@ const mainImageUrl = post.mainImage ? sanityImageUrl(post.mainImage, 1400) : nul
 const publishDate = post.publishedAt
   ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
   : '';
+const updatedDate = post._updatedAt
+  ? new Date(post._updatedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  : '';
+// Only surface "Updated" when it meaningfully differs from the publish date.
+const showUpdated = updatedDate && updatedDate !== publishDate;
 
 const relatedPosts = allPosts
   .filter((p: any) => p.slug.current !== post.slug.current)
@@ -109,14 +114,46 @@ const description = post.seo?.metaDescription || post.excerpt;
 const canonicalURL = `https://zyrithtech.com/blog/${post.slug.current}/`;
 const ogImage = post.seo?.ogImage ? sanityImageUrl(post.seo.ogImage, 1200) : (mainImageUrl || "https://zyrithtech.com/images/og-blog.jpg");
 
+// Author E-E-A-T: build a rich Person node from the Sanity `person` document.
+// sameAs collects every social/profile URL present; url prefers LinkedIn then
+// personal site. worksFor links the author to the sitewide Organization.
+const a = post.author || {};
+const authorPhotoUrl = a.photo?.asset?.url || null;
+const authorSameAs = [a.linkedIn, a.twitter, a.website].filter(Boolean);
+const authorNode = a.name
+  ? {
+      '@type': 'Person',
+      '@id': `https://zyrithtech.com/#person-${a.slug?.current || slugify(a.name)}`,
+      name: a.name,
+      ...(a.role ? { jobTitle: a.role } : {}),
+      ...(a.bio ? { description: a.bio } : {}),
+      ...(a.linkedIn || a.website ? { url: a.linkedIn || a.website } : {}),
+      ...(authorSameAs.length ? { sameAs: authorSameAs } : {}),
+      ...(Array.isArray(a.expertise) && a.expertise.length ? { knowsAbout: a.expertise } : {}),
+      ...(authorPhotoUrl ? { image: authorPhotoUrl } : {}),
+      worksFor: { '@id': 'https://zyrithtech.com/#organization' },
+    }
+  : undefined;
+
 const articleSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
+  '@type': 'BlogPosting',
   headline: post.title,
   description,
-  image: mainImageUrl ? [mainImageUrl] : undefined,
+  ...(mainImageUrl ? { image: [mainImageUrl] } : {}),
   datePublished: post.publishedAt,
-  author: post.author?.name ? { '@type': 'Person', name: post.author.name } : undefined,
+  dateModified: post._updatedAt || post.publishedAt,
+  ...(authorNode ? { author: authorNode } : {}),
+  publisher: {
+    '@type': 'Organization',
+    '@id': 'https://zyrithtech.com/#organization',
+    name: 'ZyrithTech',
+    logo: { '@type': 'ImageObject', url: 'https://zyrithtech.com/images/logo.svg' },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  ...(post.categories?.[0]?.title ? { articleSection: post.categories[0].title } : {}),
+  inLanguage: 'en',
+  url: canonicalURL,
 };
 
 const faqSchema = faqs.length > 0 ? {
@@ -136,6 +173,8 @@ const faqSchema = faqs.length > 0 ? {
   description={description}
   canonicalURL={canonicalURL}
   ogImage={ogImage}
+  ogType="article"
+  publishedTime={post.publishedAt}
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
@@ -160,6 +199,7 @@ const faqSchema = faqs.length > 0 ? {
       <div class="post-byline">
         {post.author?.name && <span>By {post.author.name}</span>}
         {publishDate && <span>{publishDate}</span>}
+        {showUpdated && <span>Updated {updatedDate}</span>}
       </div>
     </div>
   </section>
@@ -170,7 +210,7 @@ const faqSchema = faqs.length > 0 ? {
         {mainImageUrl ? (
           <img
             src={mainImageUrl}
-            alt={post.title}
+            alt={post.mainImage?.alt || post.title}
             width="1400"
             height="735"
             loading="eager"

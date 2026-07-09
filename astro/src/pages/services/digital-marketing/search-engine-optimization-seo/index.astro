@@ -3,6 +3,8 @@
 // SEO — Service detail page (child of Digital Marketing pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -111,6 +113,10 @@ const proofTags = ['Organic Traffic Growth', 'Lead Growth'];
 
 const faqs = [
   {
+    question: 'What are SEO services?',
+    answer: 'SEO services are the ongoing work of improving a website’s technical health, on-page content, and authority so it ranks higher in search and AI answer engines. At ZyrithTech we fix technical issues first, then structure content around real buyer intent — and report against traffic and leads, not rankings in isolation.',
+  },
+  {
     question: 'How soon will we see results from SEO?',
     answer: 'Technical fixes can improve crawlability and indexing within weeks. Rankings and organic traffic typically compound over 3–6 months as search engines re-index and trust new content. We set expectations specific to your site during the audit, not a blanket timeline.',
   },
@@ -144,6 +150,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="SEO Services"
+    serviceType="Search Engine Optimization"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -164,6 +177,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -321,6 +335,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/search-engine-optimization-seo" />
+
   <CTASection
     eyebrow="Ready to Rank?"
     heading="Ready to Turn Search Visibility Into Pipeline?"

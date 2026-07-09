@@ -3,6 +3,8 @@
 // Content Marketing — Service detail page (child of Digital Marketing pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -111,6 +113,10 @@ const proofTags = ['Organic Traffic Growth', 'Engagement Growth'];
 
 const faqs = [
   {
+    question: 'What is content marketing?',
+    answer: 'Content marketing is the practice of publishing articles, guides, and landing pages that attract and convert buyers by answering their real questions. ZyrithTech maps content to search intent and buying stage, so each piece ranks, gets cited by AI, and moves prospects toward an inquiry — not just page views.',
+  },
+  {
     question: 'Do you write the content, or do we need to provide it?',
     answer: 'We write blog articles, guides, and case studies as part of the engagement, drawing on your subject matter expertise and any existing materials you can share.',
   },
@@ -144,6 +150,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-content-marketing.jpg
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Content Marketing Services"
+    serviceType="Content Marketing"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -164,6 +177,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-content-marketing.jpg
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -321,6 +335,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-content-marketing.jpg
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/content-marketing" />
+
   <CTASection
     eyebrow="Ready to Build Authority?"
     heading="Ready for Content That Feeds Every Channel?"

@@ -1,0 +1,35 @@
+---
+// src/components/ServiceSchema.astro
+// Emits Service JSON-LD for a service page. The provider references the
+// sitewide Organization node (#organization) defined in Layout.astro, so each
+// service is attributed to the brand and its markets for SEO + AEO.
+interface Props {
+  name: string;
+  serviceType: string;
+  description: string;
+  url: string;
+  areaServed?: unknown[];
+}
+
+const DEFAULT_AREA = [
+  { '@type': 'Country', name: 'India' },
+  { '@type': 'Country', name: 'United States' },
+  { '@type': 'Country', name: 'United Kingdom' },
+  { '@type': 'Country', name: 'Australia' },
+  { '@type': 'Place', name: 'Middle East' },
+];
+
+const { name, serviceType, description, url, areaServed = DEFAULT_AREA } = Astro.props;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name,
+  serviceType,
+  description,
+  provider: { '@id': 'https://zyrithtech.com/#organization' },
+  areaServed,
+  url,
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />

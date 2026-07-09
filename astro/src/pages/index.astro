@@ -4,6 +4,7 @@
 // Matches the HTML design exactly with Sanity CMS integration
 
 import Layout from '../layouts/Layout.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import CTASection from '../components/CTASection.astro';
@@ -63,6 +64,37 @@ const title = "ZyrithTech — Website Development, Branding & Digital Marketing 
 const description = "ZyrithTech (Zyrith Technologies) is a digital growth partner for startups, SMBs, and professional service firms. Website development, branding, SEO, and marketing under one accountable team — built to turn your digital presence into a consistent inquiry pipeline.";
 const canonicalURL = "https://zyrithtech.com/";
 const ogImage = "https://zyrithtech.com/images/og-home.jpg";
+
+const faqs = [
+  {
+    question: 'What does ZyrithTech do?',
+    answer: 'ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms. We bring strategy, design, development, and marketing under one accountable team — building websites, brand systems, and SEO-driven marketing that turn your digital presence into a consistent inquiry pipeline, instead of five disconnected vendors.',
+  },
+  {
+    question: 'What services does ZyrithTech offer?',
+    answer: 'ZyrithTech offers three connected pillars: digital marketing (SEO, content, social, PPC, email, analytics), web development (websites and e-commerce), and creative branding (brand identity, logo, and design). Strategy, design, development, and marketing sit under one accountable team rather than separate vendors.',
+  },
+  {
+    question: 'How much does a website or marketing project cost?',
+    answer: 'Pricing is scoped to your goals, not sold as fixed packages. Websites are quoted by scope; marketing runs as a monthly retainer. We give you a clear, itemised proposal after a discovery call, so you know exactly what you are paying for before committing.',
+  },
+  {
+    question: 'Which platforms do you build on?',
+    answer: 'We are platform-agnostic and build on Astro, Webflow, Wix Studio, WordPress, or Shopify — whichever fits your business, budget, and team. We recommend the platform that serves you long-term, not the one that locks you into the agency.',
+  },
+  {
+    question: 'How long does a typical project take?',
+    answer: 'A focused website build typically launches in around 60 days, depending on scope and content readiness. SEO and marketing are ongoing and compound over months. We set a realistic timeline during the discovery call before any work begins.',
+  },
+  {
+    question: 'What makes ZyrithTech different from other agencies?',
+    answer: 'One accountable partner covers strategy, design, development, and marketing — so there are no hand-offs between vendors and no lost context. We lead with strategy, stay platform-agnostic, and report against real business outcomes like leads and revenue, not just deliverables.',
+  },
+  {
+    question: 'Do you work with businesses outside India?',
+    answer: 'Yes. Our primary market is India, and we also work with clients in the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and transparent reporting.',
+  },
+];
 ---
 
 <Layout 
@@ -71,22 +103,9 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
-  <!-- JSON-LD Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "ZyrithTech",
-    "url": "https://zyrithtech.com",
-    "logo": "https://zyrithtech.com/images/logo.svg",
-    "description": "Digital growth partner for startups and SMBs — website development, branding, SEO, and marketing under one accountable team.",
-    "sameAs": [
-      "https://www.linkedin.com/company/zyrithtech",
-      "https://www.instagram.com/zyrithtech",
-      "https://www.twitter.com/zyrithtech"
-    ]
-  }
-  </script>
+  <!-- Organization/WebSite JSON-LD is emitted sitewide from Layout.astro
+       (schemaGraph). The homepage-only Organization block was removed to avoid
+       a duplicate entity. -->
 
   <!-- =====================================================
        HERO SECTION
@@ -224,7 +243,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
                 {project.featuredImage && (
                   <img 
                     src={project.featuredImage.asset.url} 
-                    alt={project.title}
+                    alt={project.featuredImage?.alt || project.title}
                     width="600"
                     height="400"
                     loading="lazy"
@@ -351,7 +370,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
                   {post.mainImage ? (
                     <img 
                       src={post.mainImage.asset.url}
-                      alt={post.title}
+                      alt={post.mainImage?.alt || post.title}
                       width="600"
                       height="180"
                       loading="lazy"
@@ -396,6 +415,20 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
       <div style="display:flex;justify-content:center;margin-top:var(--space-12)">
         <Button href="/blog" variant="secondary">View All Articles</Button>
       </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FAQ
+       ===================================================== -->
+  <section class="section bg-surface">
+    <div class="container home-faq">
+      <SectionHeader
+        eyebrow="FAQ"
+        heading="Questions, Answered"
+        description="The things growing teams ask us most before starting a project."
+      />
+      <FAQAccordion faqs={faqs} />
     </div>
   </section>
 
@@ -936,19 +969,7 @@ const ogImage = "https://zyrithtech.com/images/og-home.jpg";
 </style>
 
 <script>
-  // Scroll reveal animations
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
+  // Scroll reveal is handled globally in Layout.astro — no duplicate observer here.
 
   // Testimonial slider
   function initTestimonialSlider() {

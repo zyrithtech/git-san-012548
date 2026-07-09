@@ -32,6 +32,31 @@ const title = caseStudy.seo?.metaTitle || `${caseStudy.title} — Case Study`;
 const description = caseStudy.seo?.metaDescription || `How ZyrithTech helped ${caseStudy.client} with ${(caseStudy.services || []).join(', ').toLowerCase()}.`;
 const canonicalURL = `https://zyrithtech.com/work/${caseStudy.slug.current}/`;
 const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1200) : (featuredImageUrl || "https://zyrithtech.com/images/og-work.jpg");
+
+// Case-study structured data.
+// NOTE: schema.org has no "CaseStudy" type — using Article (a valid type) so
+// Google and AI answer engines actually parse it. publisher/author reference the
+// sitewide Organization @id (https://zyrithtech.com/#organization).
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: caseStudy.title,
+  name: caseStudy.title,
+  description,
+  ...(caseStudy.client ? { about: { '@type': 'Organization', name: caseStudy.client } } : {}),
+  ...(caseStudy.industry ? { articleSection: caseStudy.industry } : {}),
+  ...(featuredImageUrl ? { image: [featuredImageUrl] } : {}),
+  ...(caseStudy.publishedAt ? { datePublished: caseStudy.publishedAt, dateModified: caseStudy.publishedAt } : {}),
+  author: { '@type': 'Organization', name: 'ZyrithTech', '@id': 'https://zyrithtech.com/#organization' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'ZyrithTech',
+    '@id': 'https://zyrithtech.com/#organization',
+    logo: { '@type': 'ImageObject', url: 'https://zyrithtech.com/images/logo.svg' },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  url: canonicalURL,
+};
 ---
 
 <Layout
@@ -39,14 +64,10 @@ const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1
   description={description}
   canonicalURL={canonicalURL}
   ogImage={ogImage}
+  ogType="article"
+  publishedTime={caseStudy.publishedAt}
 >
-  <script type="application/ld+json" set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'CaseStudy',
-    name: caseStudy.title,
-    about: caseStudy.client,
-    description,
-  })} />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
   <section class="section bg-white cs-header">
     <div class="container">
@@ -77,7 +98,7 @@ const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1
         {featuredImageUrl ? (
           <img
             src={featuredImageUrl}
-            alt={caseStudy.title}
+            alt={caseStudy.featuredImage?.alt || caseStudy.title}
             width="1400"
             height="800"
             loading="eager"

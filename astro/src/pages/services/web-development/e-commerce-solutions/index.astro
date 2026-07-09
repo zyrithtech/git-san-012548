@@ -3,6 +3,8 @@
 // E-commerce Solutions — Service detail page (child of Web Development pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -110,6 +112,10 @@ const proofTags = ['Conversion Rate Improvements', 'Faster Website Performance',
 
 const faqs = [
   {
+    question: 'What does ZyrithTech’s e-commerce development include?',
+    answer: 'E-commerce development is the design and build of an online store engineered to sell — clean product UX, fast checkout, and room to scale. ZyrithTech builds on Shopify and other platforms, handling design, development, and integrations so your store turns browsers into buyers rather than abandoned carts.',
+  },
+  {
     question: 'Shopify or WooCommerce — which should we use?',
     answer: 'It depends on your catalog and team. Shopify suits stores that want managed hosting and fast setup; WooCommerce suits stores that need custom logic or already run on WordPress. We recommend one during the discovery call based on your catalog audit, not before it.',
   },
@@ -143,6 +149,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="E-commerce Development Services"
+    serviceType="E-commerce Development"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -163,6 +176,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -320,6 +334,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/e-commerce-solutions" />
+
   <CTASection
     eyebrow="Ready to Sell Online?"
     heading="Ready for a Store That Converts Browsers Into Buyers?"

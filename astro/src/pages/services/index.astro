@@ -96,6 +96,18 @@ const processSteps = [
 
 const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Improved User Engagement'];
 
+// Positioning comparison (grounded in the brand's differentiation — no invented
+// numbers). Rendered as a real HTML table so answer engines can extract it.
+const comparisonCols = ['ZyrithTech', 'Freelancer', 'In-house team', 'DIY builder'];
+const comparisonRows = [
+  { feature: 'Strategy before execution', values: ['Built into every engagement', 'Depends on the person', 'Only with senior hires', 'Not included'] },
+  { feature: 'Design, development & marketing in one team', values: ['One accountable team', 'Usually one skill set', 'Several hires needed', 'You do it all'] },
+  { feature: 'Single point of accountability', values: ['One team owns it', 'You coordinate vendors', 'You manage the team', 'You'] },
+  { feature: 'Platform-agnostic (no lock-in)', values: ['Yes', 'Varies', 'Varies', 'Locked to the builder'] },
+  { feature: 'Scales as your needs grow', values: ['Yes', 'Limited capacity', 'Slow, costly to scale', 'Limited'] },
+  { feature: 'Reporting tied to leads & revenue', values: ['Yes', 'Rarely', 'Depends on the team', 'No'] },
+];
+
 const faqs = [
   {
     question: 'Do we have to use all three service areas, or can we start with just one?',
@@ -221,6 +233,41 @@ const ogImage = "https://zyrithtech.com/images/og-services.jpg";
             variant="dark"
           />
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       HOW WE COMPARE
+       ===================================================== -->
+  <section class="section bg-white">
+    <div class="container">
+      <SectionHeader
+        eyebrow="How We Compare"
+        heading="One Partner vs. the Alternatives"
+        description="How working with one accountable agency compares to a freelancer, an in-house team, or a DIY website builder."
+      />
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">What matters</th>
+              {comparisonCols.map((c, i) => (
+                <th scope="col" class={i === 0 ? 'compare-primary' : ''}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonRows.map((row) => (
+              <tr>
+                <th scope="row">{row.feature}</th>
+                {row.values.map((v, i) => (
+                  <td class={i === 0 ? 'compare-primary' : ''}>{v}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -425,5 +472,60 @@ const ogImage = "https://zyrithtech.com/images/og-services.jpg";
 
   .svc-faq {
     max-width: 760px;
+  }
+
+  /* Comparison table */
+  .compare-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xl);
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+    font-size: var(--text-sm);
+  }
+
+  .compare-table th,
+  .compare-table td {
+    text-align: left;
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border-default);
+    vertical-align: top;
+  }
+
+  .compare-table thead th {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--navy-900);
+    background-color: var(--sky-50);
+    white-space: nowrap;
+  }
+
+  .compare-table tbody th {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .compare-table tbody td {
+    color: var(--color-text-body);
+  }
+
+  .compare-table tbody tr:last-child th,
+  .compare-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .compare-table .compare-primary {
+    background-color: var(--navy-50);
+    color: var(--navy-900);
+    font-weight: 600;
+  }
+
+  .compare-table thead .compare-primary {
+    background-color: var(--navy-500);
+    color: var(--white);
   }
 </style>

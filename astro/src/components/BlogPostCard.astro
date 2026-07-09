@@ -26,7 +26,7 @@ const publishDate = post.publishedAt
     {imageUrl ? (
       <img
         src={imageUrl}
-        alt={post.title}
+        alt={post.mainImage?.alt || post.title}
         width="600"
         height="315"
         loading="lazy"

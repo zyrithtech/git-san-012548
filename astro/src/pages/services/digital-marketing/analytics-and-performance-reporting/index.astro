@@ -3,6 +3,8 @@
 // Analytics & Reporting — Service detail page (child of Digital Marketing pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -111,6 +113,10 @@ const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Imp
 
 const faqs = [
   {
+    question: 'What is marketing analytics and performance reporting?',
+    answer: 'Marketing analytics and performance reporting is the setup and interpretation of tracking — GA4, Search Console, and conversion events — so you can see what actually drives leads and revenue. ZyrithTech configures accurate tracking and delivers monthly reporting tied to business outcomes, not vanity metrics like impressions alone.',
+  },
+  {
     question: 'Do you set this up even if we’re not running other digital marketing services with you?',
     answer: 'Yes, we can set up tracking and reporting independently. It delivers the most value alongside an active SEO, PPC, social, or email engagement, since there’s more to measure and attribute.',
   },
@@ -144,6 +150,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-analytics-and-perform
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Marketing Analytics & Performance Reporting"
+    serviceType="Marketing Analytics and Reporting"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -164,6 +177,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-analytics-and-perform
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -321,6 +335,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-analytics-and-perform
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/analytics-and-performance-reporting" />
+
   <CTASection
     eyebrow="Ready to See the Full Picture?"
     heading="Ready to Know What’s Actually Driving Leads?"

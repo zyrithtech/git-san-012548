@@ -39,6 +39,23 @@ export default defineConfig({
     }),
     sitemap({
       filter: (page) => !page.includes('/admin'),
+      // Build-time lastmod: with a Sanity->Netlify deploy webhook, the site
+      // rebuilds when content changes, so build time is an honest "last
+      // modified" signal for every URL. Per-document lastmod can be layered on
+      // later via a custom sitemap if needed.
+      lastmod: new Date(),
+      changefreq: 'weekly',
+      priority: 0.7,
+      serialize(item) {
+        // Give the homepage top priority and mark the blog as more dynamic.
+        if (item.url === 'https://zyrithtech.com/') {
+          item.priority = 1.0;
+        } else if (item.url.includes('/blog')) {
+          item.changefreq = 'daily';
+          item.priority = 0.6;
+        }
+        return item;
+      },
     }),
   ],
 });

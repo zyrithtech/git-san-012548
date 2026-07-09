@@ -3,6 +3,8 @@
 // Website Design & Development — Service detail page (child of Web Development pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -113,6 +115,10 @@ const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User E
 
 const faqs = [
   {
+    question: 'How much does a website cost and what’s involved?',
+    answer: 'A professional website’s cost depends on scope, but every ZyrithTech project follows the same path: strategy, design, development, and launch. We build custom, conversion-focused sites — on the platform that fits your business — engineered to load fast, rank in search, and turn visitors into qualified inquiries.',
+  },
+  {
     question: 'Do you provide the copy and images, or do we?',
     answer: 'Either. We can write copy and source imagery as part of the engagement, or build from content you provide. We scope this during discovery so ownership is clear before design starts.',
   },
@@ -146,6 +152,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-de
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Website Design & Development Services"
+    serviceType="Website Design and Development"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -166,6 +179,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-de
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -323,6 +337,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-de
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/website-design-and-development" />
+
   <CTASection
     eyebrow="Ready to Build?"
     heading="Ready for a Website That Converts?"

@@ -3,6 +3,8 @@
 // Creative & Branding — Services pillar page (Graphic & Visual Design, Logo & Brand Identity)
 
 import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
@@ -83,6 +85,10 @@ const proofTags = ['Improved User Engagement', 'Conversion Rate Improvements', '
 
 const faqs = [
   {
+    question: 'What’s included in ZyrithTech’s branding and design services?',
+    answer: 'ZyrithTech’s branding and design services cover brand identity, logo design, visual systems, and UI/UX — the assets that give a growing business one cohesive, credible presence. We define how your brand looks, sounds, and feels across every touchpoint, so your marketing and website reinforce a single, consistent story.',
+  },
+  {
     question: 'Do you design a full brand identity, or just a logo?',
     answer: 'Both, depending on scope. Logo & Brand Identity covers the mark, color, and type system; Graphic & Visual Design extends that system into UI/UX and marketing creatives. Most engagements start with identity and expand from there.',
   },
@@ -116,6 +122,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-creative-branding.jpg
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Creative & Branding Services"
+    serviceType="Branding and Design"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -129,6 +142,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-creative-branding.jpg
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        THE CHALLENGE
@@ -258,6 +272,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-creative-branding.jpg
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="creative-branding" currentHref="/services/creative-branding" />
+
   <CTASection
     eyebrow="Ready to Build a Brand?"
     heading="Ready for an Identity That Holds Up Everywhere?"

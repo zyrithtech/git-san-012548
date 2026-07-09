@@ -1,0 +1,122 @@
+---
+// src/components/RelatedServices.astro
+// Internal-linking module for service pages: links to sibling services within
+// the same pillar (or all children, on a pillar page) plus cross-links to the
+// other pillars. Descriptive anchor text helps search + answer engines map the
+// site's topical structure.
+import { serviceTaxonomy, pillars } from '../lib/services';
+
+interface Props {
+  pillarKey: 'digital-marketing' | 'web-development' | 'creative-branding';
+  currentHref?: string;
+}
+
+const { pillarKey, currentHref } = Astro.props;
+const pillar = serviceTaxonomy[pillarKey];
+const isPillarPage = currentHref === pillar.href;
+
+const heading = isPillarPage
+  ? `Explore ${pillar.label} services`
+  : `Related ${pillar.label} services`;
+
+const primaryLinks = isPillarPage
+  ? pillar.children
+  : [
+      ...pillar.children.filter((c) => c.href !== currentHref),
+      { label: `All ${pillar.label} services`, href: pillar.href },
+    ];
+
+const otherPillars = pillars.filter((p) => p.href !== pillar.href);
+---
+
+<section class="related-services">
+  <div class="container">
+    <h2 class="related-title">{heading}</h2>
+    <ul class="related-grid">
+      {primaryLinks.map((l) => (
+        <li>
+          <a href={l.href} class="related-link">
+            <span>{l.label}</span>
+            <span class="related-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="related-other">
+      Explore other areas:{' '}
+      {otherPillars.map((p, i) => (
+        <>{i > 0 ? ', ' : ''}<a href={p.href} class="related-other-link">{p.label}</a></>
+      ))}
+      , or <a href="/services" class="related-other-link">view all services</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .related-services {
+    background-color: var(--color-bg-surface);
+    padding-block: var(--space-16);
+    border-top: 1px solid var(--color-border-default);
+  }
+  .related-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: var(--space-6);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-3);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+  }
+  .related-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--white);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    color: var(--navy-900);
+    text-decoration: none;
+    font-weight: 500;
+    transition: border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+  }
+  .related-link:hover {
+    border-color: var(--sky-300);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+  .related-arrow {
+    color: var(--sky-500);
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+  .related-link:hover .related-arrow {
+    transform: translateX(3px);
+  }
+  .related-other {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .related-other-link {
+    color: var(--sky-600, var(--sky-700));
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .related-other-link:hover {
+    text-decoration: underline;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .related-link,
+    .related-arrow {
+      transition: none;
+    }
+  }
+</style>

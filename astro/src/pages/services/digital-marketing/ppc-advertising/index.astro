@@ -3,6 +3,8 @@
 // PPC Advertising — Service detail page (child of Digital Marketing pillar)
 
 import Layout from '../../../../layouts/Layout.astro';
+import RelatedServices from '../../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../../components/SectionHeader.astro';
 import ProcessStep from '../../../../components/ProcessStep.astro';
@@ -111,6 +113,10 @@ const proofTags = ['Lead Growth', 'Conversion Rate Improvements'];
 
 const faqs = [
   {
+    question: 'What is PPC advertising and how does it work?',
+    answer: 'PPC (pay-per-click) advertising places your business at the top of search and social results, and you pay only when someone clicks. ZyrithTech plans, launches, and optimizes Google and paid-social campaigns toward return on ad spend — turning budget into qualified, trackable leads rather than clicks that don’t convert.',
+  },
+  {
     question: 'Which platforms do you run ads on?',
     answer: 'Google Ads, Meta, and LinkedIn are the primary platforms, chosen based on your audience and goals during the discovery call rather than run as a default bundle.',
   },
@@ -144,6 +150,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-ppc-advertising.jpg";
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="PPC Advertising Services"
+    serviceType="Pay-Per-Click Advertising"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -164,6 +177,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-ppc-advertising.jpg";
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        WHAT'S INCLUDED
@@ -321,6 +335,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-ppc-advertising.jpg";
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/ppc-advertising" />
+
   <CTASection
     eyebrow="Ready for Faster Wins?"
     heading="Ready for Paid Campaigns That Generate Qualified Leads?"

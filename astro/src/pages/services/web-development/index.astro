@@ -3,6 +3,8 @@
 // Web Development — Services pillar page (Website Design & Development, E-commerce, Hosting & Maintenance)
 
 import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
@@ -89,6 +91,10 @@ const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User E
 
 const faqs = [
   {
+    question: 'What does ZyrithTech’s web development service cover?',
+    answer: 'ZyrithTech builds conversion-focused websites and e-commerce stores on whichever platform fits your business — Astro, Webflow, Wix Studio, WordPress, or Shopify. Every build covers strategy, design, development, and launch, engineered to load fast, rank in search, and turn visitors into qualified inquiries rather than simply look good.',
+  },
+  {
     question: 'Which platform should we build on?',
     answer: 'It depends on your content needs, team, and budget. Astro and Next.js suit content- and performance-heavy sites; Webflow and Wix Studio suit teams that want visual editing; Shopify and WooCommerce suit e-commerce. We recommend the platform during discovery, not before it.',
   },
@@ -122,6 +128,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-web-development.jpg";
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Web Development Services"
+    serviceType="Web Development"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -135,6 +148,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-web-development.jpg";
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        THE CHALLENGE
@@ -264,6 +278,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-web-development.jpg";
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="web-development" currentHref="/services/web-development" />
+
   <CTASection
     eyebrow="Ready to Build?"
     heading="Ready for a Website That Converts?"

@@ -7,6 +7,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import CaseStudyCard from '../../components/CaseStudyCard.astro';
 import CTASection from '../../components/CTASection.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 
 let caseStudies: any[] = [];
 try {
@@ -20,6 +21,29 @@ const title = "Case Studies — Web Development & Digital Growth";
 const description = "See how ZyrithTech has helped startups, SMBs, and professional service firms across India, the US, UK, and beyond build conversion-focused websites and digital growth systems.";
 const canonicalURL = "https://zyrithtech.com/work/";
 const ogImage = "https://zyrithtech.com/images/og-work.jpg";
+
+const faqs = [
+  {
+    question: 'What kind of results do your case studies show?',
+    answer: 'Each case study documents the starting challenge, what we did, and the measurable outcome — such as organic traffic growth, more qualified inquiries, or a faster, higher-converting site. We report real client metrics, not invented numbers, and only feature work the client has approved.',
+  },
+  {
+    question: 'What industries do you work with?',
+    answer: 'We work with startups, SMBs, and professional service firms, with particular experience in healthcare, technology, recruitment, e-commerce, and manufacturing. Our strategy-first process adapts to each sector, so the work fits your buyers rather than a generic template.',
+  },
+  {
+    question: 'How long does a typical engagement take?',
+    answer: 'A focused website build typically launches in around 60 days, while SEO and marketing are ongoing engagements that compound over months. We scope a realistic timeline during the discovery call, based on your goals and the state of your current site.',
+  },
+  {
+    question: 'Do you work with clients outside India?',
+    answer: 'Yes. We serve clients across India, the United States, the United Kingdom, Australia, and the Middle East. Work runs remotely with structured milestones and clear reporting, so distance never means losing visibility into progress.',
+  },
+  {
+    question: 'Can we talk to you before committing to a project?',
+    answer: 'Always. Every engagement starts with a discovery call to understand your business and goals before any proposal. There is no obligation — it is where we work out whether we are the right partner for what you need.',
+  },
+];
 ---
 
 <Layout
@@ -32,6 +56,7 @@ const ogImage = "https://zyrithtech.com/images/og-work.jpg";
     <div class="container">
       <Breadcrumb items={[{ label: 'Home', href: '/' }]} currentPage="Work" />
       <SectionHeader
+        as="h1"
         eyebrow="Our Work"
         heading="Case Studies"
         description="Real projects for real clients — website development, branding, and digital marketing under one accountable partner."
@@ -53,6 +78,12 @@ const ogImage = "https://zyrithtech.com/images/og-work.jpg";
           <p class="body-default">Case studies loading from Sanity...</p>
         </div>
       )}
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="container work-faq">
+      <FAQAccordion title="Questions About Working With Us" faqs={faqs} />
     </div>
   </section>
 

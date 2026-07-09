@@ -3,6 +3,8 @@
 // Digital Marketing — Services pillar page (SEO, Social, PPC, Email, Content, Analytics)
 
 import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
@@ -107,6 +109,10 @@ const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Imp
 
 const faqs = [
   {
+    question: 'What do ZyrithTech’s digital marketing services include?',
+    answer: 'ZyrithTech’s digital marketing services combine SEO, content, social media, paid advertising, email, and analytics into one strategy built to generate qualified leads. Rather than running channels in isolation, we align them around your buyers’ journey — so each activity compounds toward a consistent, measurable inquiry pipeline instead of scattered vanity metrics.',
+  },
+  {
     question: 'How soon will we see results?',
     answer: 'Paid channels can generate qualified leads within the first few weeks. SEO and content compound over 3–6 months as search engines index and rank new pages. We set channel-specific expectations during the discovery call, not one blanket timeline.',
   },
@@ -140,6 +146,13 @@ const ogImage = "https://zyrithtech.com/images/og-services-digital-marketing.jpg
   canonicalURL={canonicalURL}
   ogImage={ogImage}
 >
+  <!-- Service structured data (provider -> #organization) -->
+  <ServiceSchema
+    name="Digital Marketing Services"
+    serviceType="Digital Marketing"
+    description={description}
+    url={canonicalURL}
+  />
   <!-- =====================================================
        PAGE HEADER
        ===================================================== -->
@@ -153,6 +166,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-digital-marketing.jpg
       </div>
     </div>
   </section>
+
 
   <!-- =====================================================
        THE CHALLENGE
@@ -282,6 +296,8 @@ const ogImage = "https://zyrithtech.com/images/og-services-digital-marketing.jpg
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing" />
+
   <CTASection
     eyebrow="Ready to Grow?"
     heading="Ready to Turn Traffic Into a Pipeline?"
