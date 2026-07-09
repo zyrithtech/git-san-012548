@@ -737,20 +737,29 @@ const mainNavLinks = [
   const mobileMenu = document.getElementById('mobile-menu');
   let lastScrollTop = Math.max(0, window.scrollY);
 
+  // Only react once the scroll has moved a meaningful amount since the last
+  // committed position. Sub-threshold moves are ignored WITHOUT updating the
+  // reference point, so momentum/trackpad micro-jitter can't flip the nav, while
+  // slow-but-steady scrolling still accumulates past the threshold and registers.
+  const TOLERANCE = 8;
+
   const onScroll = () => {
     const scrollTop = Math.max(0, window.scrollY); // clamp iOS overscroll
 
-    // Border/shadow state
+    // Border/shadow state (always tracks position)
     nav?.classList.toggle('scrolled', scrollTop > 50);
+
+    const diff = scrollTop - lastScrollTop;
+    if (Math.abs(diff) < TOLERANCE) return; // ignore jitter; keep reference point
 
     const menuOpen = mobileMenu?.classList.contains('active');
 
     // Never change visibility while the mobile menu is open.
     if (!menuOpen) {
-      if (scrollTop > lastScrollTop && scrollTop > window.innerHeight) {
-        nav?.classList.add('nav--hidden');    // scrolling down, past first section
-      } else if (scrollTop < lastScrollTop) {
-        nav?.classList.remove('nav--hidden');  // scrolling up → reveal immediately
+      if (diff > 0 && scrollTop > window.innerHeight) {
+        nav?.classList.add('nav--hidden');     // scrolling down, past first section
+      } else if (diff < 0) {
+        nav?.classList.remove('nav--hidden');  // scrolling up → reveal
       }
     }
 
