@@ -95,63 +95,176 @@ const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1
     </div>
   </section>
 
+  {caseStudy.results && caseStudy.results.length > 0 && (
+    <section class="section bg-surface cs-stats">
+      <div class="container">
+        <h2 class="section-h2 cs-stats-heading">Results at a Glance</h2>
+        <div class="cs-stats-grid">
+          {caseStudy.results.map((result: { metric: string; value: string; description: string }) => (
+            <div class="cs-stat-card">
+              <span class="cs-stat-value">{result.value}</span>
+              <span class="cs-stat-metric">{result.metric}</span>
+              <span class="cs-stat-desc">{result.description}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="section bg-white cs-content">
     <div class="container">
-      <div class="cs-content-grid">
-        <div class="cs-content-main">
-          <div class="cs-block">
-            <h2 class="section-h2">The Challenge</h2>
-            <p class="body-large">{caseStudy.challenge}</p>
-          </div>
-
-          <div class="cs-block">
-            <h2 class="section-h2">Our Approach</h2>
-            {approachParagraphs.map((para) => (
-              <p class="body-large">{para}</p>
-            ))}
-          </div>
-
-          {caseStudy.testimonial && (
-            <div class="cs-testimonial">
-              <span class="quote-mark" aria-hidden="true">"</span>
-              <p class="body-large cs-testimonial-quote">"{caseStudy.testimonial.quote}"</p>
-              <div class="caption">— {caseStudy.testimonial.name}, {caseStudy.testimonial.role} at {caseStudy.testimonial.company}</div>
-            </div>
-          )}
+      <div class="cs-content-main">
+        <div class="cs-block">
+          <h2 class="section-h2">The Challenge</h2>
+          <p class="body-large">{caseStudy.challenge}</p>
         </div>
 
-        {caseStudy.results && caseStudy.results.length > 0 && (
-          <aside class="cs-sidebar">
-            <h3 class="cs-sidebar-title">Results</h3>
-            <div class="cs-results-list">
-              {caseStudy.results.map((result: { metric: string; value: string; description: string }) => (
-                <div class="cs-result">
-                  <span class="cs-result-value">{result.value}</span>
-                  <span class="cs-result-metric">{result.metric}</span>
-                  <span class="cs-result-desc">{result.description}</span>
-                </div>
-              ))}
-            </div>
-          </aside>
+        <div class="cs-block">
+          <h2 class="section-h2">Our Approach</h2>
+          {approachParagraphs.map((para) => (
+            <p class="body-large">{para}</p>
+          ))}
+        </div>
+
+        {caseStudy.testimonial && (
+          <div class="cs-testimonial">
+            <span class="quote-mark" aria-hidden="true">"</span>
+            <p class="body-large cs-testimonial-quote">"{caseStudy.testimonial.quote}"</p>
+            <div class="caption">— {caseStudy.testimonial.name}, {caseStudy.testimonial.role} at {caseStudy.testimonial.company}</div>
+          </div>
         )}
       </div>
 
       {caseStudy.gallery && caseStudy.gallery.length > 0 && (
-        <div class="cs-gallery">
-          {caseStudy.gallery.map((image: any) => (
-            <img
-              src={sanityImageUrl(image, 800)}
-              alt={image.alt || caseStudy.title}
-              width="800"
-              height="600"
-              loading="lazy"
-              decoding="async"
-            />
+        <div class="cs-gallery" data-gallery>
+          {caseStudy.gallery.map((image: any, index: number) => (
+            <button
+              type="button"
+              class="cs-gallery-item"
+              data-gallery-trigger
+              data-index={index}
+              data-full={sanityImageUrl(image, 1800)}
+              data-alt={image.alt || caseStudy.title}
+              aria-label={`View image ${index + 1} of ${caseStudy.gallery.length}`}
+            >
+              <img
+                src={sanityImageUrl(image, 600)}
+                alt={image.alt || caseStudy.title}
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="cs-gallery-zoom" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="7"/>
+                  <path d="M21 21l-4.3-4.3M11 8v6M8 11h6" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </button>
           ))}
         </div>
       )}
     </div>
   </section>
+
+  {caseStudy.gallery && caseStudy.gallery.length > 0 && (
+    <div class="cs-lightbox" data-lightbox hidden>
+      <button type="button" class="cs-lightbox-close" data-lightbox-close aria-label="Close gallery">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      {caseStudy.gallery.length > 1 && (
+        <button type="button" class="cs-lightbox-nav cs-lightbox-prev" data-lightbox-prev aria-label="Previous image">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      )}
+
+      <figure class="cs-lightbox-figure">
+        <img src="" alt="" data-lightbox-image />
+        {caseStudy.gallery.length > 1 && (
+          <figcaption class="cs-lightbox-counter" data-lightbox-counter></figcaption>
+        )}
+      </figure>
+
+      {caseStudy.gallery.length > 1 && (
+        <button type="button" class="cs-lightbox-nav cs-lightbox-next" data-lightbox-next aria-label="Next image">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      )}
+    </div>
+  )}
+
+  <script>
+    function initGalleryLightbox() {
+      const gallery = document.querySelector('[data-gallery]');
+      const lightbox = document.querySelector<HTMLElement>('[data-lightbox]');
+      if (!gallery || !lightbox) return;
+
+      const triggers = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-trigger]'));
+      const images = triggers.map((el) => ({ full: el.dataset.full || '', alt: el.dataset.alt || '' }));
+      const lightboxImage = lightbox.querySelector<HTMLImageElement>('[data-lightbox-image]');
+      const counter = lightbox.querySelector<HTMLElement>('[data-lightbox-counter]');
+      const closeBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-close]');
+      const prevBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-prev]');
+      const nextBtn = lightbox.querySelector<HTMLButtonElement>('[data-lightbox-next]');
+
+      let currentIndex = 0;
+      let lastFocused: HTMLElement | null = null;
+
+      function show(index: number) {
+        currentIndex = (index + images.length) % images.length;
+        const image = images[currentIndex];
+        if (lightboxImage) {
+          lightboxImage.src = image.full;
+          lightboxImage.alt = image.alt;
+        }
+        if (counter) {
+          counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+      }
+
+      function open(index: number) {
+        lastFocused = document.activeElement as HTMLElement;
+        show(index);
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
+        closeBtn?.focus();
+      }
+
+      function close() {
+        lightbox.hidden = true;
+        document.body.style.overflow = '';
+        lastFocused?.focus();
+      }
+
+      triggers.forEach((trigger, index) => {
+        trigger.addEventListener('click', () => open(index));
+      });
+
+      closeBtn?.addEventListener('click', close);
+      prevBtn?.addEventListener('click', () => show(currentIndex - 1));
+      nextBtn?.addEventListener('click', () => show(currentIndex + 1));
+
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) close();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (lightbox.hidden) return;
+        if (event.key === 'Escape') close();
+        if (event.key === 'ArrowLeft') show(currentIndex - 1);
+        if (event.key === 'ArrowRight') show(currentIndex + 1);
+      });
+    }
+
+    initGalleryLightbox();
+  </script>
 
   {otherCaseStudies.length > 0 && (
     <section class="section bg-surface">
@@ -238,23 +351,12 @@ const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1
     background: linear-gradient(135deg, var(--navy-700), var(--navy-500));
   }
 
-  .cs-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: var(--space-16);
-    align-items: start;
-  }
-
-  @media (max-width: 900px) {
-    .cs-content-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   .cs-content-main {
     display: flex;
     flex-direction: column;
     gap: var(--space-12);
+    max-width: 760px;
+    margin: 0 auto;
   }
 
   .cs-block .section-h2 {
@@ -286,71 +388,225 @@ const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1
     margin-bottom: var(--space-4);
   }
 
-  .cs-sidebar {
-    position: sticky;
-    top: calc(var(--nav-height) + var(--space-6));
+  .cs-stats {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .cs-stats-heading {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .cs-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .cs-stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
     background-color: var(--white);
     border: 1px solid var(--color-border-default);
     border-radius: var(--radius-xl);
     padding: var(--space-8);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
   }
 
-  .cs-sidebar-title {
+  .cs-stat-value {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--navy-900);
-    margin-bottom: var(--space-6);
-  }
-
-  .cs-results-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .cs-result {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border-default);
-  }
-
-  .cs-result:first-child {
-    padding-top: 0;
-    border-top: none;
-  }
-
-  .cs-result-value {
-    font-family: var(--font-display);
-    font-size: var(--text-2xl);
+    font-size: var(--text-4xl);
     font-weight: 700;
     color: var(--orange-300);
   }
 
-  .cs-result-metric {
+  .cs-stat-metric {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--navy-500);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
   }
 
-  .cs-result-desc {
+  .cs-stat-desc {
     font-size: var(--text-sm);
     color: var(--color-text-muted);
   }
 
   .cs-gallery {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    gap: var(--space-4);
     margin-top: var(--space-16);
   }
 
-  .cs-gallery img {
+  /* Repeating mosaic rhythm: a big tile and a tall tile every 6 images.
+     nth-child keeps the pattern going no matter how many images are added,
+     and grid-auto-flow: dense fills in any gaps the spans leave behind. */
+  .cs-gallery-item:nth-child(6n+1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .cs-gallery-item:nth-child(6n+4) {
+    grid-row: span 2;
+  }
+
+  .cs-gallery-item {
+    position: relative;
+    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    padding: 0;
+    border: none;
     border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: zoom-in;
+    background-color: var(--navy-50);
+  }
+
+  @media (max-width: 640px) {
+    .cs-gallery {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-auto-rows: 140px;
+    }
+
+    .cs-gallery-item:nth-child(6n+1),
+    .cs-gallery-item:nth-child(6n+4) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  .cs-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .cs-gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .cs-gallery-zoom {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background: rgba(15, 23, 42, 0.35);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .cs-gallery-item:hover .cs-gallery-zoom,
+  .cs-gallery-item:focus-visible .cs-gallery-zoom {
+    opacity: 1;
+  }
+
+  .cs-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 14, 30, 0.92);
+    padding: var(--space-6);
+  }
+
+  .cs-lightbox[hidden] {
+    display: none;
+  }
+
+  .cs-lightbox-figure {
+    max-width: min(1200px, 90vw);
+    max-height: 85vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .cs-lightbox-figure img {
+    max-width: 100%;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cs-lightbox-counter {
+    color: var(--white);
+    font-size: var(--text-sm);
+    opacity: 0.8;
+  }
+
+  .cs-lightbox-close {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    cursor: pointer;
+  }
+
+  .cs-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .cs-lightbox-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0 var(--space-4);
+  }
+
+  .cs-lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (max-width: 640px) {
+    .cs-lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+
+    .cs-lightbox-prev {
+      left: var(--space-3);
+    }
+
+    .cs-lightbox-next {
+      right: var(--space-3);
+    }
   }
 
   .cs-more-heading {

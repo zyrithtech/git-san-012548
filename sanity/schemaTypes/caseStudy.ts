@@ -125,8 +125,8 @@ export const caseStudyType = defineType({
           },
         }),
       ],
-      description: 'Optional — leave empty until the client has verified quantified metrics to share',
-      validation: (rule) => rule.max(5),
+      description: 'Optional — leave empty until the client has verified quantified metrics to share. Maximum 4 metrics.',
+      validation: (rule) => rule.max(4),
     }),
     defineField({
       name: 'featuredImage',
