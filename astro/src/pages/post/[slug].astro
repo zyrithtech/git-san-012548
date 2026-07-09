@@ -1,5 +1,5 @@
 ---
-// src/pages/blog/[slug].astro
+// src/pages/post/[slug].astro
 // Individual blog post detail page
 
 import { PortableText } from 'astro-portabletext';
@@ -111,8 +111,8 @@ const cta = {
 
 const title = post.seo?.metaTitle || post.title;
 const description = post.seo?.metaDescription || post.excerpt;
-const canonicalURL = `https://zyrithtech.com/blog/${post.slug.current}/`;
-const ogImage = post.seo?.ogImage ? sanityImageUrl(post.seo.ogImage, 1200) : (mainImageUrl || "https://zyrithtech.com/images/og-blog.jpg");
+const canonicalURL = `https://www.zyrithtech.com/post/${post.slug.current}/`;
+const ogImage = post.seo?.ogImage ? sanityImageUrl(post.seo.ogImage, 1200) : (mainImageUrl || "https://www.zyrithtech.com/images/og-blog.jpg");
 
 // Author E-E-A-T: build a rich Person node from the Sanity `person` document.
 // sameAs collects every social/profile URL present; url prefers LinkedIn then
@@ -123,7 +123,7 @@ const authorSameAs = [a.linkedIn, a.twitter, a.website].filter(Boolean);
 const authorNode = a.name
   ? {
       '@type': 'Person',
-      '@id': `https://zyrithtech.com/#person-${a.slug?.current || slugify(a.name)}`,
+      '@id': `https://www.zyrithtech.com/#person-${a.slug?.current || slugify(a.name)}`,
       name: a.name,
       ...(a.role ? { jobTitle: a.role } : {}),
       ...(a.bio ? { description: a.bio } : {}),
@@ -131,7 +131,7 @@ const authorNode = a.name
       ...(authorSameAs.length ? { sameAs: authorSameAs } : {}),
       ...(Array.isArray(a.expertise) && a.expertise.length ? { knowsAbout: a.expertise } : {}),
       ...(authorPhotoUrl ? { image: authorPhotoUrl } : {}),
-      worksFor: { '@id': 'https://zyrithtech.com/#organization' },
+      worksFor: { '@id': 'https://www.zyrithtech.com/#organization' },
     }
   : undefined;
 
@@ -146,9 +146,9 @@ const articleSchema = {
   ...(authorNode ? { author: authorNode } : {}),
   publisher: {
     '@type': 'Organization',
-    '@id': 'https://zyrithtech.com/#organization',
+    '@id': 'https://www.zyrithtech.com/#organization',
     name: 'ZyrithTech',
-    logo: { '@type': 'ImageObject', url: 'https://zyrithtech.com/images/logo.svg' },
+    logo: { '@type': 'ImageObject', url: 'https://www.zyrithtech.com/images/logo.svg' },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
   ...(post.categories?.[0]?.title ? { articleSection: post.categories[0].title } : {}),

@@ -4,29 +4,29 @@
 
 ## Services
 
-- [Digital Marketing](https://zyrithtech.com/services/digital-marketing): SEO, content, social media, PPC, email, and analytics that build a qualified lead pipeline.
-  - [SEO Services](https://zyrithtech.com/services/digital-marketing/search-engine-optimization-seo): Technical, on-page, and local SEO built around buyer intent.
-  - [Social Media Marketing](https://zyrithtech.com/services/digital-marketing/social-media-marketing)
-  - [PPC Advertising](https://zyrithtech.com/services/digital-marketing/ppc-advertising)
-  - [Email Marketing](https://zyrithtech.com/services/digital-marketing/email-marketing)
-  - [Content Marketing](https://zyrithtech.com/services/digital-marketing/content-marketing)
-  - [Analytics & Performance Reporting](https://zyrithtech.com/services/digital-marketing/analytics-and-performance-reporting)
-- [Web Development](https://zyrithtech.com/services/web-development): Platform-agnostic websites and e-commerce on Astro, Webflow, Wix Studio, WordPress, or Shopify.
-  - [Website Design & Development](https://zyrithtech.com/services/web-development/website-design-and-development)
-  - [E-commerce Solutions](https://zyrithtech.com/services/web-development/e-commerce-solutions)
-  - [Website Hosting & Maintenance](https://zyrithtech.com/services/web-development/website-hosting-and-maintenance)
-- [Creative & Branding](https://zyrithtech.com/services/creative-branding): Brand identity, logo design, visual systems, and UI/UX.
-  - [Graphic & Visual Design](https://zyrithtech.com/services/creative-branding/graphic-visual-design)
-  - [Logo & Brand Identity](https://zyrithtech.com/services/creative-branding/logo-and-brand-identity)
+- [Digital Marketing](https://www.zyrithtech.com/services/digital-marketing): SEO, content, social media, PPC, email, and analytics that build a qualified lead pipeline.
+  - [SEO Services](https://www.zyrithtech.com/services/digital-marketing/search-engine-optimization-seo): Technical, on-page, and local SEO built around buyer intent.
+  - [Social Media Marketing](https://www.zyrithtech.com/services/digital-marketing/social-media-marketing)
+  - [PPC Advertising](https://www.zyrithtech.com/services/digital-marketing/ppc-advertising)
+  - [Email Marketing](https://www.zyrithtech.com/services/digital-marketing/email-marketing)
+  - [Content Marketing](https://www.zyrithtech.com/services/digital-marketing/content-marketing)
+  - [Analytics & Performance Reporting](https://www.zyrithtech.com/services/digital-marketing/analytics-and-performance-reporting)
+- [Web Development](https://www.zyrithtech.com/services/web-development): Platform-agnostic websites and e-commerce on Astro, Webflow, Wix Studio, WordPress, or Shopify.
+  - [Website Design & Development](https://www.zyrithtech.com/services/web-development/website-design-and-development)
+  - [E-commerce Solutions](https://www.zyrithtech.com/services/web-development/e-commerce-solutions)
+  - [Website Hosting & Maintenance](https://www.zyrithtech.com/services/web-development/website-hosting-and-maintenance)
+- [Creative & Branding](https://www.zyrithtech.com/services/creative-branding): Brand identity, logo design, visual systems, and UI/UX.
+  - [Graphic & Visual Design](https://www.zyrithtech.com/services/creative-branding/graphic-visual-design)
+  - [Logo & Brand Identity](https://www.zyrithtech.com/services/creative-branding/logo-and-brand-identity)
 
 ## Key pages
 
-- [Home](https://zyrithtech.com/)
-- [All Services](https://zyrithtech.com/services)
-- [Case Studies / Work](https://zyrithtech.com/work)
-- [Blog](https://zyrithtech.com/blog)
-- [About](https://zyrithtech.com/about)
-- [Contact](https://zyrithtech.com/contact)
+- [Home](https://www.zyrithtech.com/)
+- [All Services](https://www.zyrithtech.com/services)
+- [Case Studies / Work](https://www.zyrithtech.com/work)
+- [Blog](https://www.zyrithtech.com/blog)
+- [About](https://www.zyrithtech.com/about)
+- [Contact](https://www.zyrithtech.com/contact)
 
 ## Positioning
 

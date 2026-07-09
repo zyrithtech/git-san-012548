@@ -1,16 +1,16 @@
 ---
-// src/pages/services/web-development/e-commerce-solutions/index.astro
+// src/pages/services/ecommerce-solutions/index.astro
 // E-commerce Solutions — Service detail page (child of Web Development pillar)
 
-import Layout from '../../../../layouts/Layout.astro';
-import RelatedServices from '../../../../components/RelatedServices.astro';
-import ServiceSchema from '../../../../components/ServiceSchema.astro';
-import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import SectionHeader from '../../../../components/SectionHeader.astro';
-import ProcessStep from '../../../../components/ProcessStep.astro';
-import ValueItem from '../../../../components/ValueItem.astro';
-import FAQAccordion from '../../../../components/FAQAccordion.astro';
-import CTASection from '../../../../components/CTASection.astro';
+import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
   {
@@ -139,8 +139,8 @@ const faqs = [
 
 const title = "E-commerce Solutions — Shopify & WooCommerce Development";
 const description = "Shopify and WooCommerce stores with product catalogs and checkout flows built around conversion, not just a working cart. Book a discovery call.";
-const canonicalURL = "https://zyrithtech.com/services/web-development/e-commerce-solutions/";
-const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.jpg";
+const canonicalURL = "https://www.zyrithtech.com/services/ecommerce-solutions/";
+const ogImage = "https://www.zyrithtech.com/images/og-services-e-commerce-solutions.jpg";
 ---
 
 <Layout
@@ -317,7 +317,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.
         ))}
       </div>
       <div class="proof-cta reveal reveal-delay-2">
-        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+        <a href="/portfolio" class="btn btn-secondary">See Case Studies</a>
       </div>
     </div>
   </section>
@@ -334,14 +334,14 @@ const ogImage = "https://zyrithtech.com/images/og-services-e-commerce-solutions.
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/e-commerce-solutions" />
+  <RelatedServices pillarKey="web-development" currentHref="/services/ecommerce-solutions" />
 
   <CTASection
     eyebrow="Ready to Sell Online?"
     heading="Ready for a Store That Converts Browsers Into Buyers?"
     subtext="Book a discovery call and we'll map a catalog, platform, and checkout flow around your products and goals — no fixed package pitch."
     primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
-    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/portfolio" }}
   />
 </Layout>
 

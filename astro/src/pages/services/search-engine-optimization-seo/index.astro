@@ -1,16 +1,16 @@
 ---
-// src/pages/services/digital-marketing/search-engine-optimization-seo/index.astro
+// src/pages/services/search-engine-optimization-seo/index.astro
 // SEO — Service detail page (child of Digital Marketing pillar)
 
-import Layout from '../../../../layouts/Layout.astro';
-import RelatedServices from '../../../../components/RelatedServices.astro';
-import ServiceSchema from '../../../../components/ServiceSchema.astro';
-import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import SectionHeader from '../../../../components/SectionHeader.astro';
-import ProcessStep from '../../../../components/ProcessStep.astro';
-import ValueItem from '../../../../components/ValueItem.astro';
-import FAQAccordion from '../../../../components/FAQAccordion.astro';
-import CTASection from '../../../../components/CTASection.astro';
+import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
   {
@@ -140,8 +140,8 @@ const faqs = [
 
 const title = "SEO Services — Technical, On-Page & Local SEO";
 const description = "Technical SEO, on-page optimization, and local SEO built around buyer intent, not just keyword volume. Book a discovery call.";
-const canonicalURL = "https://zyrithtech.com/services/digital-marketing/search-engine-optimization-seo/";
-const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
+const canonicalURL = "https://www.zyrithtech.com/services/search-engine-optimization-seo/";
+const ogImage = "https://www.zyrithtech.com/images/og-services-seo.jpg";
 ---
 
 <Layout
@@ -318,7 +318,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
         ))}
       </div>
       <div class="proof-cta reveal reveal-delay-2">
-        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+        <a href="/portfolio" class="btn btn-secondary">See Case Studies</a>
       </div>
     </div>
   </section>
@@ -335,14 +335,14 @@ const ogImage = "https://zyrithtech.com/images/og-services-seo.jpg";
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <RelatedServices pillarKey="digital-marketing" currentHref="/services/digital-marketing/search-engine-optimization-seo" />
+  <RelatedServices pillarKey="digital-marketing" currentHref="/services/search-engine-optimization-seo" />
 
   <CTASection
     eyebrow="Ready to Rank?"
     heading="Ready to Turn Search Visibility Into Pipeline?"
     subtext="Book a discovery call and we'll audit your site and map a keyword plan around your buyers and market — no fixed package pitch."
     primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
-    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/portfolio" }}
   />
 </Layout>
 

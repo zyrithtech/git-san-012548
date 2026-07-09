@@ -23,7 +23,7 @@ if (!projectId) {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://zyrithtech.com',
+  site: 'https://www.zyrithtech.com',
   output: 'static',
 
   server: {
@@ -48,9 +48,9 @@ export default defineConfig({
       priority: 0.7,
       serialize(item) {
         // Give the homepage top priority and mark the blog as more dynamic.
-        if (item.url === 'https://zyrithtech.com/') {
+        if (item.url === 'https://www.zyrithtech.com/') {
           item.priority = 1.0;
-        } else if (item.url.includes('/blog')) {
+        } else if (item.url.includes('/blog') || item.url.includes('/post/')) {
           item.changefreq = 'daily';
           item.priority = 0.6;
         }

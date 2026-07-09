@@ -1,6 +1,6 @@
 ---
 // src/components/CaseStudyCard.astro
-// Case study card — used on /work listing and "more work" sections
+// Case study card — used on /portfolio listing and "more work" sections
 import { sanityImageUrl } from '../lib/sanity';
 
 interface Props {
@@ -19,7 +19,7 @@ const { caseStudy } = Astro.props;
 const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImage, 600) : null;
 ---
 
-<a href={`/work/${caseStudy.slug.current}/`} class="cs-card">
+<a href={`/portfolio/${caseStudy.slug.current}/`} class="cs-card">
   <div class="cs-card-image">
     {imageUrl ? (
       <img

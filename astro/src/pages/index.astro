@@ -62,8 +62,8 @@ try {
 
 const title = "ZyrithTech — Website Development, Branding & Digital Marketing Agency";
 const description = "ZyrithTech (Zyrith Technologies) is a digital growth partner for startups, SMBs, and professional service firms. Website development, branding, SEO, and marketing under one accountable team — built to turn your digital presence into a consistent inquiry pipeline.";
-const canonicalURL = "https://zyrithtech.com/";
-const ogImage = "https://zyrithtech.com/images/og-home.jpg";
+const canonicalURL = "https://www.zyrithtech.com/";
+const ogImage = "https://www.zyrithtech.com/images/og-home.jpg";
 
 const faqs = [
   {
@@ -126,7 +126,7 @@ const faqs = [
         <p class="hero-sub reveal reveal-delay-2">Strategy, design, development, and marketing — under one accountable partner, built to turn your digital presence into a consistent inquiry pipeline.</p>
         <div class="hero-actions reveal reveal-delay-3">
           <Button href="/contact" variant="primary" size="lg">Book a Discovery Call</Button>
-          <Button href="/work" variant="ghost" size="lg">See Case Studies</Button>
+          <Button href="/portfolio" variant="ghost" size="lg">See Case Studies</Button>
         </div>
 
         <div class="hero-stats reveal reveal-delay-3">
@@ -243,7 +243,7 @@ const faqs = [
       <div class="grid-3" id="featured-work-grid">
         {featuredProjects.length > 0 ? (
           featuredProjects.map((project, index) => (
-            <a href={`/work/${project.slug.current}/`} class={`featured-work-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
+            <a href={`/portfolio/${project.slug.current}/`} class={`featured-work-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
               <div class="featured-work-image">
                 {project.featuredImage && (
                   <img 
@@ -278,7 +278,7 @@ const faqs = [
         )}
       </div>
       <div style="display:flex;justify-content:center;margin-top:var(--space-12)">
-        <Button href="/work" variant="secondary">View All Case Studies</Button>
+        <Button href="/portfolio" variant="secondary">View All Case Studies</Button>
       </div>
     </div>
   </section>
@@ -370,7 +370,7 @@ const faqs = [
               : '';
             
             return (
-              <a href={`/blog/${post.slug.current}/`} class={`blog-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
+              <a href={`/post/${post.slug.current}/`} class={`blog-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
                 <div class="blog-card-img-wrap">
                   {post.mainImage ? (
                     <img 

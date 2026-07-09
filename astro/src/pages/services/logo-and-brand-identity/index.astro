@@ -1,16 +1,16 @@
 ---
-// src/pages/services/creative-branding/logo-and-brand-identity/index.astro
+// src/pages/services/logo-and-brand-identity/index.astro
 // Logo & Brand Identity — Service detail page (child of Creative & Branding pillar)
 
-import Layout from '../../../../layouts/Layout.astro';
-import RelatedServices from '../../../../components/RelatedServices.astro';
-import ServiceSchema from '../../../../components/ServiceSchema.astro';
-import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import SectionHeader from '../../../../components/SectionHeader.astro';
-import ProcessStep from '../../../../components/ProcessStep.astro';
-import ValueItem from '../../../../components/ValueItem.astro';
-import FAQAccordion from '../../../../components/FAQAccordion.astro';
-import CTASection from '../../../../components/CTASection.astro';
+import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
   {
@@ -139,8 +139,8 @@ const faqs = [
 
 const title = "Logo & Brand Identity Services — Built to Last";
 const description = "A logo, color and type system, and usage guidelines built to hold up across your website, product, and marketing. Book a discovery call.";
-const canonicalURL = "https://zyrithtech.com/services/creative-branding/logo-and-brand-identity/";
-const ogImage = "https://zyrithtech.com/images/og-services-logo-and-brand-identity.jpg";
+const canonicalURL = "https://www.zyrithtech.com/services/logo-and-brand-identity/";
+const ogImage = "https://www.zyrithtech.com/images/og-services-logo-and-brand-identity.jpg";
 ---
 
 <Layout
@@ -317,7 +317,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-logo-and-brand-identi
         ))}
       </div>
       <div class="proof-cta reveal reveal-delay-2">
-        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+        <a href="/portfolio" class="btn btn-secondary">See Case Studies</a>
       </div>
     </div>
   </section>
@@ -334,14 +334,14 @@ const ogImage = "https://zyrithtech.com/images/og-services-logo-and-brand-identi
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <RelatedServices pillarKey="creative-branding" currentHref="/services/creative-branding/logo-and-brand-identity" />
+  <RelatedServices pillarKey="creative-branding" currentHref="/services/logo-and-brand-identity" />
 
   <CTASection
     eyebrow="Ready to Build an Identity?"
     heading="Ready for a Brand That Holds Up for Years?"
     subtext="Book a discovery call and we'll audit your current brand and map a path — new identity or refresh — around your goals. No fixed package pitch."
     primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
-    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/portfolio" }}
   />
 </Layout>
 

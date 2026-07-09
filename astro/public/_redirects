@@ -1,5 +1,32 @@
-# Old site used /portfolio for case studies; rebuilt site uses /work.
-# Single wildcard covers every CMS-driven case study slug so new
-# projects added in Sanity never need a redirect added manually.
-/portfolio    /work    301
-/portfolio/*  /work/:splat  301
+# The new site's routes were renamed to match Wix's live URLs exactly
+# (before this site ever went live), so almost no redirects are needed at
+# cutover. Only genuinely missing pages need one:
+
+# No equivalent page exists yet for the Wix newsletter opt-in page.
+# Routing to /contact for now — revisit if a dedicated signup page is built.
+/subscribe-our-list  /contact  301
+
+# Blog category pages. No tag/category filtering exists yet on the new site,
+# so send these to the main blog index rather than 404 them. If category
+# pages get built later with matching slugs, replace these with direct 1:1
+# redirects to preserve any link equity these pages have.
+/blog/categories/__seo           /blog  301
+/blog/categories/social-media    /blog  301
+/blog/categories/our-stories     /blog  301
+/blog/categories/content-writing /blog  301
+/blog/categories/web-design      /blog  301
+
+# Everything else now matches Wix 1:1, confirmed against all 5 Wix sitemaps
+# (pulled 2026-07-09):
+#   /portfolio, /portfolio/<slug>            — 7 case studies, same slugs
+#   /post/<slug>                             — 24 posts; MUST be imported into
+#                                               Sanity with identical slugs
+#   /about-us, /privacy-policy, /contact, /blog, /services
+#   /services/<slug> for all 11 services (flattened to match Wix, several
+#     slugs corrected: web-design-development, website-maintenance,
+#     ecommerce-solutions, search-engine-optimization-seo,
+#     social-media-marketing, ppc-advertising, email-marketing,
+#     content-marketing, analytics-and-performance-reporting,
+#     graphic-visual-design, logo-and-brand-identity)
+#   /services/web-development, /services/digital-marketing,
+#     /services/creative-branding (category landing pages, same as Wix)

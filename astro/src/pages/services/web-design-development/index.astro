@@ -1,16 +1,16 @@
 ---
-// src/pages/services/web-development/website-design-and-development/index.astro
+// src/pages/services/web-design-development/index.astro
 // Website Design & Development — Service detail page (child of Web Development pillar)
 
-import Layout from '../../../../layouts/Layout.astro';
-import RelatedServices from '../../../../components/RelatedServices.astro';
-import ServiceSchema from '../../../../components/ServiceSchema.astro';
-import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import SectionHeader from '../../../../components/SectionHeader.astro';
-import ProcessStep from '../../../../components/ProcessStep.astro';
-import ValueItem from '../../../../components/ValueItem.astro';
-import FAQAccordion from '../../../../components/FAQAccordion.astro';
-import CTASection from '../../../../components/CTASection.astro';
+import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
   {
@@ -142,8 +142,8 @@ const faqs = [
 
 const title = "Website Design & Development Services — Built to Convert";
 const description = "Conversion-focused website design and development on Astro, Next.js, Webflow, WordPress, or Wix Studio — built around your buyers. Book a call.";
-const canonicalURL = "https://zyrithtech.com/services/web-development/website-design-and-development/";
-const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-development.jpg";
+const canonicalURL = "https://www.zyrithtech.com/services/web-design-development/";
+const ogImage = "https://www.zyrithtech.com/images/og-services-website-design-and-development.jpg";
 ---
 
 <Layout
@@ -320,7 +320,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-de
         ))}
       </div>
       <div class="proof-cta reveal reveal-delay-2">
-        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+        <a href="/portfolio" class="btn btn-secondary">See Case Studies</a>
       </div>
     </div>
   </section>
@@ -337,14 +337,14 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-design-and-de
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/website-design-and-development" />
+  <RelatedServices pillarKey="web-development" currentHref="/services/web-design-development" />
 
   <CTASection
     eyebrow="Ready to Build?"
     heading="Ready for a Website That Converts?"
     subtext="Book a discovery call and we'll map a sitemap, platform, and timeline around your buyers and goals — no fixed package pitch."
     primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
-    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/portfolio" }}
   />
 </Layout>
 

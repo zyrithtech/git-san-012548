@@ -1,16 +1,16 @@
 ---
-// src/pages/services/web-development/website-hosting-and-maintenance/index.astro
+// src/pages/services/website-maintenance/index.astro
 // Website Hosting & Maintenance — Service detail page (child of Web Development pillar)
 
-import Layout from '../../../../layouts/Layout.astro';
-import RelatedServices from '../../../../components/RelatedServices.astro';
-import ServiceSchema from '../../../../components/ServiceSchema.astro';
-import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import SectionHeader from '../../../../components/SectionHeader.astro';
-import ProcessStep from '../../../../components/ProcessStep.astro';
-import ValueItem from '../../../../components/ValueItem.astro';
-import FAQAccordion from '../../../../components/FAQAccordion.astro';
-import CTASection from '../../../../components/CTASection.astro';
+import Layout from '../../../layouts/Layout.astro';
+import RelatedServices from '../../../components/RelatedServices.astro';
+import ServiceSchema from '../../../components/ServiceSchema.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHeader from '../../../components/SectionHeader.astro';
+import ProcessStep from '../../../components/ProcessStep.astro';
+import ValueItem from '../../../components/ValueItem.astro';
+import FAQAccordion from '../../../components/FAQAccordion.astro';
+import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
   {
@@ -152,8 +152,8 @@ const faqs = [
 
 const title = "Website Hosting & Maintenance — Ongoing Support Plans";
 const description = "Ongoing updates, security monitoring, and technical support that keep your website fast and secure after launch. Book a discovery call.";
-const canonicalURL = "https://zyrithtech.com/services/web-development/website-hosting-and-maintenance/";
-const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-maintenance.jpg";
+const canonicalURL = "https://www.zyrithtech.com/services/website-maintenance/";
+const ogImage = "https://www.zyrithtech.com/images/og-services-website-hosting-and-maintenance.jpg";
 ---
 
 <Layout
@@ -335,7 +335,7 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-m
         ))}
       </div>
       <div class="proof-cta reveal reveal-delay-2">
-        <a href="/work" class="btn btn-secondary">See Case Studies</a>
+        <a href="/portfolio" class="btn btn-secondary">See Case Studies</a>
       </div>
     </div>
   </section>
@@ -352,14 +352,14 @@ const ogImage = "https://zyrithtech.com/images/og-services-website-hosting-and-m
   <!-- =====================================================
        CTA SECTION
        ===================================================== -->
-  <RelatedServices pillarKey="web-development" currentHref="/services/web-development/website-hosting-and-maintenance" />
+  <RelatedServices pillarKey="web-development" currentHref="/services/website-maintenance" />
 
   <CTASection
     eyebrow="Ready for Peace of Mind?"
     heading="Ready to Stop Worrying About Your Website?"
     subtext="Book a discovery call and we'll audit your site and recommend a plan around your platform, content pace, and risk — no fixed package pitch."
     primaryBtn={{ text: "Book a Discovery Call", href: "/contact" }}
-    secondaryBtn={{ text: "See Case Studies", href: "/work" }}
+    secondaryBtn={{ text: "See Case Studies", href: "/portfolio" }}
   />
 </Layout>
 

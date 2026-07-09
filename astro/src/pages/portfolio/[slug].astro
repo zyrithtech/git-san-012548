@@ -1,5 +1,5 @@
 ---
-// src/pages/work/[slug].astro
+// src/pages/portfolio/[slug].astro
 // Individual case study detail page
 
 import Layout from '../../layouts/Layout.astro';
@@ -30,13 +30,13 @@ const otherCaseStudies = allCaseStudies
 
 const title = caseStudy.seo?.metaTitle || `${caseStudy.title} — Case Study`;
 const description = caseStudy.seo?.metaDescription || `How ZyrithTech helped ${caseStudy.client} with ${(caseStudy.services || []).join(', ').toLowerCase()}.`;
-const canonicalURL = `https://zyrithtech.com/work/${caseStudy.slug.current}/`;
-const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1200) : (featuredImageUrl || "https://zyrithtech.com/images/og-work.jpg");
+const canonicalURL = `https://www.zyrithtech.com/portfolio/${caseStudy.slug.current}/`;
+const ogImage = caseStudy.seo?.ogImage ? sanityImageUrl(caseStudy.seo.ogImage, 1200) : (featuredImageUrl || "https://www.zyrithtech.com/images/og-work.jpg");
 
 // Case-study structured data.
 // NOTE: schema.org has no "CaseStudy" type — using Article (a valid type) so
 // Google and AI answer engines actually parse it. publisher/author reference the
-// sitewide Organization @id (https://zyrithtech.com/#organization).
+// sitewide Organization @id (https://www.zyrithtech.com/#organization).
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -47,12 +47,12 @@ const articleSchema = {
   ...(caseStudy.industry ? { articleSection: caseStudy.industry } : {}),
   ...(featuredImageUrl ? { image: [featuredImageUrl] } : {}),
   ...(caseStudy.publishedAt ? { datePublished: caseStudy.publishedAt, dateModified: caseStudy.publishedAt } : {}),
-  author: { '@type': 'Organization', name: 'ZyrithTech', '@id': 'https://zyrithtech.com/#organization' },
+  author: { '@type': 'Organization', name: 'ZyrithTech', '@id': 'https://www.zyrithtech.com/#organization' },
   publisher: {
     '@type': 'Organization',
     name: 'ZyrithTech',
-    '@id': 'https://zyrithtech.com/#organization',
-    logo: { '@type': 'ImageObject', url: 'https://zyrithtech.com/images/logo.svg' },
+    '@id': 'https://www.zyrithtech.com/#organization',
+    logo: { '@type': 'ImageObject', url: 'https://www.zyrithtech.com/images/logo.svg' },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
   url: canonicalURL,
@@ -72,7 +72,7 @@ const articleSchema = {
   <section class="section bg-white cs-header">
     <div class="container">
       <Breadcrumb
-        items={[{ label: 'Home', href: '/' }, { label: 'Work', href: '/work' }]}
+        items={[{ label: 'Home', href: '/' }, { label: 'Work', href: '/portfolio' }]}
         currentPage={caseStudy.title}
       />
 
