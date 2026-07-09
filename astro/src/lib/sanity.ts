@@ -6,8 +6,16 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 
 const projectId = import.meta.env.SANITY_PROJECT_ID;
-const dataset = import.meta.env.SANITY_DATASET;// || 'production';
+const dataset = import.meta.env.SANITY_DATASET || 'production';
 const apiVersion = '2024-01-01';
+
+if (!projectId) {
+  throw new Error(
+    'SANITY_PROJECT_ID is not set. Add it to astro/.env locally, or to the ' +
+      'Netlify site environment variables (Site configuration → Environment ' +
+      'variables) so it is available at build time.',
+  );
+}
 
 export const client = createClient({
   projectId,
