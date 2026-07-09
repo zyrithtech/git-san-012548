@@ -178,14 +178,21 @@ const mainNavLinks = [
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid transparent;
-    transition: border-color var(--duration-base) var(--ease-out), 
-                background-color var(--duration-base) var(--ease-out);
+    transition: border-color var(--duration-base) var(--ease-out),
+                background-color var(--duration-base) var(--ease-out),
+                transform 250ms var(--ease-out);
+    will-change: transform;
   }
 
   .nav.scrolled {
     border-bottom-color: var(--color-border-default);
     background-color: rgba(255, 255, 255, 0.98);
     box-shadow: var(--shadow-nav);
+  }
+
+  /* Hide on scroll down, reveal on scroll up (toggled in script below) */
+  .nav.nav--hidden {
+    transform: translateY(-100%);
   }
 
   .nav-container {
@@ -724,17 +731,42 @@ const mainNavLinks = [
     });
   }
 
-  // Scroll state for nav
+  // Scroll state for nav: shadow when scrolled, plus hide-on-scroll-down /
+  // reveal-on-scroll-up once the user is past the first viewport ("one section").
   const nav = document.querySelector('.nav');
-  let lastScrollTop = 0;
+  const mobileMenu = document.getElementById('mobile-menu');
+  let lastScrollTop = window.scrollY;
+  let ticking = false;
 
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
+  const updateNav = () => {
+    const scrollTop = Math.max(0, window.scrollY); // clamp iOS overscroll
+
+    // Border/shadow state
     if (scrollTop > 50) {
       nav?.classList.add('scrolled');
     } else {
       nav?.classList.remove('scrolled');
     }
+
+    const menuOpen = mobileMenu?.classList.contains('active');
+
+    // Never change visibility while the mobile menu is open.
+    if (!menuOpen) {
+      if (scrollTop > lastScrollTop && scrollTop > window.innerHeight) {
+        nav?.classList.add('nav--hidden');    // scrolling down, past first section
+      } else if (scrollTop < lastScrollTop) {
+        nav?.classList.remove('nav--hidden');  // scrolling up → reveal immediately
+      }
+    }
+
     lastScrollTop = scrollTop;
-  });
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }, { passive: true });
 </script>
