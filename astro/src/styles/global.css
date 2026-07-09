@@ -4,31 +4,11 @@
    ============================================================ */
 
 /* ============================================================
-   1. FONTS — Self-hosted variable fonts
+   1. FONTS — Fontshare CDN
+   Hind (headings) + Amulya (body) are loaded via <link> in
+   Layout.astro <head>. Font-family tokens are set in DESIGN TOKENS below;
+   generic sans-serif fallbacks cover the case where the CDN fails to load.
    ============================================================ */
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 /* ============================================================
    2. DESIGN TOKENS (CSS Custom Properties)
@@ -96,9 +76,12 @@
   --color-border-strong:   var(--navy-100);
   --color-border-focus:    var(--sky-300);
 
-  /* ── TYPOGRAPHY ── */
-  --font-display: 'Clash Display', 'Arial Black', sans-serif;
-  --font-body:    'Satoshi', 'Helvetica Neue', Arial, sans-serif;
+  /* ── TYPOGRAPHY ──
+     Fontshare CDN families (loaded via <link> in Layout.astro). The generic
+     sans-serif keyword is the fetch-failure fallback: if the CDN font doesn't
+     load, the browser uses the system sans-serif. */
+  --font-display: 'Hind', sans-serif;      /* headings */
+  --font-body:    'Amulya', sans-serif;    /* body */
 
   /* Type scale */
   --text-xs:   0.6875rem;  /* 11px — eyebrow / caption */

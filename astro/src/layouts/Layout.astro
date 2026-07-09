@@ -47,6 +47,15 @@ const siteName = "ZyrithTech";
   <meta name="twitter:description" content={description}>
   <meta name="twitter:image" content={ogImage}>
   
+  <!-- Fonts — Fontshare CDN (Hind headings + Amulya body). If these fail to
+       load, the sans-serif fallbacks in global.css keep text rendering. -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://api.fontshare.com/v2/css?f[]=amulya@400&f[]=hind@700&display=swap"
+  >
+
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
