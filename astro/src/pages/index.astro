@@ -14,8 +14,6 @@ import { getHomepageTestimonials, getMarqueeClients, getFaqSection } from '../li
 // Both driven from Sanity `caseStudy` documents. Editors opt a client in or out
 // of each strip with the "Show client name in homepage marquee" and "Show in
 // homepage testimonial slider" checkboxes, and order them with Homepage Display Order.
-// TEMP dummy copy — replace every quote in the Studio with the client's actual
-// words before launch.
 const clientLogos: string[] = await getMarqueeClients();
 
 interface HomepageTestimonial {
