@@ -10,6 +10,10 @@ import Button from '../components/Button.astro';
 import CTASection from '../components/CTASection.astro';
 import ValueItem from '../components/ValueItem.astro';
 import { getHomepageTestimonials, getMarqueeClients, getFaqSection } from '../lib/queries';
+import { sanityImageUrl, sanityImageSrcSet } from '../lib/sanity';
+
+// Cards sit in .grid-3: 3-up above 1024px, 2-up to 768px, then full width.
+const CARD_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw';
 
 // Both driven from Sanity `caseStudy` documents. Editors opt a client in or out
 // of each strip with the "Show client name in homepage marquee" and "Show in
@@ -219,8 +223,10 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
             <a href={`/portfolio/${project.slug.current}/`} class={`featured-work-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
               <div class="featured-work-image">
                 {project.featuredImage && (
-                  <img 
-                    src={project.featuredImage.asset.url} 
+                  <img
+                    src={sanityImageUrl(project.featuredImage, 800)}
+                    srcset={sanityImageSrcSet(project.featuredImage)}
+                    sizes={CARD_SIZES}
                     alt={project.featuredImage?.alt || project.title}
                     width="600"
                     height="400"
@@ -290,7 +296,7 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
         <SectionHeader
           eyebrow="Testimonials"
           heading="What Our Clients Say"
-          description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
+          description="Feedback from the teams we've partnered with, in their own words."
         />
 
         <div class="testimonials-wrap">
@@ -309,13 +315,12 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
 
         {testimonials.length > 1 && (
           <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
-            <div class="testimonial-dots" id="testimonial-dots">
+            <div class="testimonial-dots" id="testimonial-dots" role="group" aria-label="Choose a testimonial">
               {testimonials.map((t, index) => (
                 <button
                   class={`testimonial-dot${index === 0 ? ' active' : ''}`}
                   data-index={index}
-                  role="tab"
-                  aria-selected={index === 0 ? 'true' : 'false'}
+                  aria-current={index === 0 ? 'true' : 'false'}
                   aria-label={`Testimonial from ${t.client}`}
                 ></button>
               ))}
@@ -348,8 +353,10 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
               <a href={`/post/${post.slug.current}/`} class={`blog-card reveal${index > 0 ? ` reveal-delay-${index}` : ''}`}>
                 <div class="blog-card-img-wrap">
                   {post.mainImage ? (
-                    <img 
-                      src={post.mainImage.asset.url}
+                    <img
+                      src={sanityImageUrl(post.mainImage, 800)}
+                      srcset={sanityImageSrcSet(post.mainImage)}
+                      sizes={CARD_SIZES}
                       alt={post.mainImage?.alt || post.title}
                       width="600"
                       height="180"
@@ -602,7 +609,8 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
     font-size: var(--text-xl);
     font-weight: 600;
     color: var(--mid-slate);
-    opacity: 0.55;
+    /* 0.9 is the lowest opacity that keeps this at 4.5:1 on the section bg */
+    opacity: 0.9;
     white-space: nowrap;
     letter-spacing: 0.01em;
     transition: opacity var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out);
@@ -746,7 +754,7 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
-    color: var(--orange-300);
+    color: var(--color-text-accent);
   }
 
   .result-label {
@@ -807,22 +815,28 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
 
   .testimonial-dots {
     display: flex;
-    gap: var(--space-2);
+    align-items: center;
+    /* Dots carry their own 8px padding to reach the 24px min touch target */
+    gap: 0;
   }
 
   .testimonial-dot {
-    width: 8px;
-    height: 8px;
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    background-clip: content-box;
     border-radius: 50%;
     background-color: var(--lt-stroke);
     border: none;
     cursor: pointer;
-    transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+    transition: background-color var(--duration-base) var(--ease-out), padding var(--duration-base) var(--ease-out);
   }
 
+  /* Grow the dot via padding, not transform — scaling the 24px box would
+     overlap and obscure the neighbouring touch target. */
   .testimonial-dot.active {
     background-color: var(--navy-500);
-    transform: scale(1.25);
+    padding: 7px;
   }
 
   /* Blog Cards */
@@ -974,7 +988,7 @@ const { sectionTitle, faqs } = await getFaqSection('homepage');
       slides.forEach((s, i: number) => s.classList.toggle('active', i === index));
       dots.forEach((d, i: number) => {
         d.classList.toggle('active', i === index);
-        d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        d.setAttribute('aria-current', i === index ? 'true' : 'false');
       });
     };
 

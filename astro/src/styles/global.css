@@ -27,7 +27,10 @@
   /* ── COLOR: SKY SCALE ── */
   --sky-900: #012A5C;
   --sky-700: #0451A8;
-  --sky-500: #1A7DE8;
+  /* Same hue/saturation as the original #1A7DE8, lightness 50%→42%. Small text
+     needs 4.5:1; the tightest background it lands on is --navy-50, where it
+     scores 4.80. Lightening this past ~43.5% breaks that pairing. */
+  --sky-500: #1468C3;
   --sky-400: #3D94F5;
   --sky-300: #5BAAFF;
   --sky-200: #93C8FF;
@@ -71,6 +74,11 @@
   --color-text-link:      var(--sky-500);
   --color-text-link-hover: var(--sky-700);
   --color-text-cta:       var(--white);
+  /* Orange as *text on light backgrounds*. Not --orange-300: that value is
+     tuned to be a fill that carries navy-900 text, so as text on white it only
+     reaches 2.58:1. --brand-accent stays --orange-300 for fills and the hero
+     accent on navy; use this token whenever orange is the foreground. */
+  --color-text-accent:    var(--orange-500);
 
   --color-border-default:  var(--lt-stroke);
   --color-border-strong:   var(--navy-100);
@@ -264,6 +272,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   line-height: var(--leading-relaxed);
   color: var(--color-text-body);
+}
+
+/* The global `a` reset drops underlines, which leaves inline prose links
+   distinguished from body text by color alone — only 2.28:1, under the 3:1
+   WCAG 1.4.1 floor. Buttons are excluded; they aren't inline text. */
+.body-default a:not(.btn),
+.body-large a:not(.btn) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .ui-label {
@@ -870,27 +887,6 @@ h1, h2, h3, h4, h5, h6 {
 .testimonial-btn:hover {
   background-color: var(--navy-50);
   border-color: var(--navy-100);
-}
-
-.testimonial-dots {
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-}
-
-.testimonial-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--lt-stroke);
-  border: none;
-  cursor: pointer;
-  transition: background-color var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
-}
-
-.testimonial-dot.active {
-  background-color: var(--navy-500);
-  transform: scale(1.25);
 }
 
 /* ============================================================

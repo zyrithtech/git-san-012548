@@ -13,9 +13,13 @@ interface Props {
     featuredImage?: any;
     results?: { metric: string; value: string; description: string }[];
   };
+  /* The /portfolio listing renders these straight under its h1, so they must be
+     h2 there. Under the "more work" h2 on /portfolio/[slug], h3 is correct. */
+  headingLevel?: 2 | 3;
 }
 
-const { caseStudy } = Astro.props;
+const { caseStudy, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImage, 600) : null;
 ---
 
@@ -44,7 +48,7 @@ const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImag
       <span>{caseStudy.client}</span>
       {caseStudy.industry && <span>{caseStudy.industry}</span>}
     </div>
-    <h3 class="card-h3">{caseStudy.title}</h3>
+    <Heading class="card-h3">{caseStudy.title}</Heading>
     {caseStudy.services && caseStudy.services.length > 0 && (
       <div class="cs-card-tags">
         {caseStudy.services.slice(0, 3).map((service) => (
@@ -161,7 +165,7 @@ const imageUrl = caseStudy.featuredImage ? sanityImageUrl(caseStudy.featuredImag
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
-    color: var(--orange-300);
+    color: var(--color-text-accent);
   }
 
   .cs-card-result-label {

@@ -35,3 +35,13 @@ export function sanityImageUrl(source: SanityImageSource, width: number = 800): 
   if (!source) return '';
   return builder.image(source).width(width).auto('format').url();
 }
+
+// Companion to sanityImageUrl for responsive <img srcset>. Pair with a `sizes`
+// attribute that reflects the real layout, or the browser will over-fetch.
+export function sanityImageSrcSet(
+  source: SanityImageSource,
+  widths: number[] = [400, 600, 800, 1200],
+): string {
+  if (!source) return '';
+  return widths.map((w) => `${sanityImageUrl(source, w)} ${w}w`).join(', ');
+}

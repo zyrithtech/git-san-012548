@@ -46,7 +46,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-blog.jpg";
       {posts.length > 0 ? (
         <div class="grid-3">
           {posts.map((post) => (
-            <BlogPostCard post={post} />
+            <BlogPostCard post={post} headingLevel={2} />
           ))}
         </div>
       ) : (

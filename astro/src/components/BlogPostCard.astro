@@ -12,9 +12,13 @@ interface Props {
     publishedAt?: string;
     categories?: { title: string; slug?: { current: string } }[];
   };
+  /* The /blog listing renders these straight under its h1, so they must be h2
+     there. Under the "related posts" h2 on /post/[slug], h3 is correct. */
+  headingLevel?: 2 | 3;
 }
 
-const { post } = Astro.props;
+const { post, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const imageUrl = post.mainImage ? sanityImageUrl(post.mainImage, 600) : null;
 const publishDate = post.publishedAt
   ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
@@ -48,7 +52,7 @@ const publishDate = post.publishedAt
       )}
       {publishDate && <span class="post-card-date">{publishDate}</span>}
     </div>
-    <h3 class="card-h3 post-card-title">{post.title}</h3>
+    <Heading class="card-h3 post-card-title">{post.title}</Heading>
     {post.excerpt && <p class="post-card-excerpt">{post.excerpt}</p>}
     <span class="post-card-readmore">Read Article</span>
   </div>

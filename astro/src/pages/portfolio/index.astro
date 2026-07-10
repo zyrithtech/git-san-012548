@@ -50,7 +50,7 @@ const { sectionTitle, faqs } = await getFaqSection('portfolio');
       {caseStudies.length > 0 ? (
         <div class="grid-3">
           {caseStudies.map((cs) => (
-            <CaseStudyCard caseStudy={cs} />
+            <CaseStudyCard caseStudy={cs} headingLevel={2} />
           ))}
         </div>
       ) : (
