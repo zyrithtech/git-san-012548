@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Engagement Growth', 'Lead Growth'];
 
-const faqs = [
-  {
-    question: 'What does a social media marketing service include?',
-    answer: 'Social media marketing is the practice of building brand presence and demand through organic content and paid campaigns on the platforms your buyers use. ZyrithTech handles strategy, content creation, community engagement, and paid social together — so your channels build recognition and pipeline, not just followers.',
-  },
-  {
-    question: 'Which platforms will you manage for us?',
-    answer: 'We recommend platforms based on your audience during the discovery call and audit, rather than defaulting to a fixed bundle. Most B2B service firms lean on LinkedIn; consumer brands often lean harder on Instagram and similar visual platforms.',
-  },
-  {
-    question: 'Do you also run paid social ads?',
-    answer: 'Paid social campaigns are covered under PPC Advertising, a separate service. Social Media Marketing focuses on organic content, community management, and partnerships.',
-  },
-  {
-    question: 'How often will you post?',
-    answer: 'Cadence is set during content calendar planning based on your goals, capacity, and budget — not a fixed universal number applied to every client.',
-  },
-  {
-    question: 'Do you write the captions and design the graphics?',
-    answer: 'Yes. Post design and copy are built from your existing brand system as part of the engagement, so the feed stays consistent with your website and other marketing.',
-  },
-  {
-    question: 'How do you measure success?',
-    answer: 'Monthly reporting covers engagement, follower growth, and reach, tied to the goals agreed at kickoff — not vanity metrics reported without context.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('social-media-marketing');
 
 const title = "Social Media Marketing Services — Build Engaged Audiences";
 const description = "Consistent, on-brand posting and community management that builds engaged audiences on the platforms your buyers use. Book a call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-social-media-mark
        ===================================================== -->
   <section class="section bg-white">
     <div class="container smm-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

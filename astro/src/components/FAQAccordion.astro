@@ -16,7 +16,12 @@ interface Props {
 
 const { title, faqs, variant = 'default' } = Astro.props;
 
-// Build JSON-LD FAQPage schema
+// An empty FAQPage (`mainEntity: []`) is invalid structured data, so render
+// nothing at all rather than an empty accordion plus a broken schema block.
+const hasFaqs = faqs.length > 0;
+
+// Build JSON-LD FAQPage schema. `answer` is plain text from the CMS and is
+// emitted verbatim, so the structured data always matches the visible copy.
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -31,27 +36,29 @@ const faqSchema = {
 };
 ---
 
-<section class={`faq-accordion faq-accordion--${variant}`}>
-  {title && <h2 class="faq-accordion__title">{title}</h2>}
-  
-  <div class="faq-accordion__list">
-    {faqs.map((faq, index) => (
-      <details class="faq-item" key={index}>
-        <summary class="faq-item__question">
-          {faq.question}
-          <svg class="faq-item__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </summary>
-        <div class="faq-item__answer">
-          {faq.answer}
-        </div>
-      </details>
-    ))}
-  </div>
-</section>
+{hasFaqs && (
+  <section class={`faq-accordion faq-accordion--${variant}`}>
+    {title && <h2 class="faq-accordion__title">{title}</h2>}
 
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <div class="faq-accordion__list">
+      {faqs.map((faq) => (
+        <details class="faq-item">
+          <summary class="faq-item__question">
+            {faq.question}
+            <svg class="faq-item__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </summary>
+          <div class="faq-item__answer">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+)}
+
+{hasFaqs && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
 <script>
   // Ensure only one accordion item is open at a time (optional)

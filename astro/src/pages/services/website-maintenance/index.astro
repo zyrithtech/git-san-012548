@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -123,32 +124,7 @@ const notFit = [
 
 const proofTags = ['Improved User Engagement', 'Organic Traffic Growth', 'Lead Growth'];
 
-const faqs = [
-  {
-    question: 'What does website maintenance include?',
-    answer: 'Website maintenance is the ongoing hosting, updates, backups, security, and support that keep a site fast, secure, and current after launch. ZyrithTech offers predictable care plans covering platform updates, monitoring, and content changes — so your site keeps performing without you managing it in-house.',
-  },
-  {
-    question: 'Do you only support sites you built, or others too?',
-    answer: 'We support Astro, WordPress, Webflow, Wix Studio, and Shopify sites regardless of who originally built them. We start with an audit so we understand the site before taking on maintenance.',
-  },
-  {
-    question: 'What’s included in the monthly plan vs. billed separately?',
-    answer: 'Each plan covers the scope listed against it — monitoring, patching, and a defined level of content updates or support. Larger requests, like new pages or feature builds, are scoped and quoted separately.',
-  },
-  {
-    question: 'How fast do you respond if the site goes down?',
-    answer: 'Response speed depends on the plan — Priority Care is built for sites where downtime directly affects pipeline. We confirm response expectations for your plan during the discovery call.',
-  },
-  {
-    question: 'Can we change or cancel our plan?',
-    answer: 'Plans run month-to-month after an initial setup period, so you can move between plans or step away without being locked into a long-term contract.',
-  },
-  {
-    question: 'Do you provide hosting itself, or just maintenance on our existing host?',
-    answer: 'Both. We can host your site on modern infrastructure as part of the plan, or manage maintenance on your existing host — whichever fits how your site is already set up.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('website-maintenance');
 
 const title = "Website Hosting & Maintenance — Ongoing Support Plans";
 const description = "Ongoing updates, security monitoring, and technical support that keep your website fast and secure after launch. Book a discovery call.";
@@ -345,7 +321,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-website-hosting-a
        ===================================================== -->
   <section class="section bg-white">
     <div class="container whm-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

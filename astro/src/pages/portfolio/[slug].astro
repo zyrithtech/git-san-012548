@@ -28,6 +28,17 @@ const otherCaseStudies = allCaseStudies
   .filter((cs: any) => cs.slug.current !== caseStudy.slug.current)
   .slice(0, 3);
 
+// The quoted person's name and role are optional, and the company is always the
+// case study's own client — so a quote with no named person reads "— Acme"
+// rather than "— , at Acme".
+const testimonialAttribution = (() => {
+  const t = caseStudy.testimonial;
+  if (!t) return '';
+  const person = [t.name, t.role].filter(Boolean).join(', ');
+  if (person && caseStudy.client) return `${person} at ${caseStudy.client}`;
+  return person || caseStudy.client || '';
+})();
+
 const title = caseStudy.seo?.metaTitle || `${caseStudy.title} — Case Study`;
 const description = caseStudy.seo?.metaDescription || `How ZyrithTech helped ${caseStudy.client} with ${(caseStudy.services || []).join(', ').toLowerCase()}.`;
 const canonicalURL = `https://www.zyrithtech.com/portfolio/${caseStudy.slug.current}/`;
@@ -152,7 +163,7 @@ const articleSchema = {
           <div class="cs-testimonial">
             <span class="quote-mark" aria-hidden="true">"</span>
             <p class="body-large cs-testimonial-quote">"{caseStudy.testimonial.quote}"</p>
-            <div class="caption">— {caseStudy.testimonial.name}, {caseStudy.testimonial.role} at {caseStudy.testimonial.company}</div>
+            {testimonialAttribution && <div class="caption">— {testimonialAttribution}</div>}
           </div>
         )}
       </div>

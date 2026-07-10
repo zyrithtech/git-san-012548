@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -110,32 +111,7 @@ const notFit = [
 
 const proofTags = ['Lead Growth', 'Conversion Rate Improvements'];
 
-const faqs = [
-  {
-    question: 'What’s the difference between a logo and a brand identity?',
-    answer: 'A logo is a single mark; a brand identity is the full system around it — colours, typography, imagery, and usage guidelines that keep your brand consistent everywhere. ZyrithTech delivers the complete identity, not just a logo, so your business looks unified across its website, marketing, and every touchpoint.',
-  },
-  {
-    question: 'Do we need a brand refresh or a brand-new identity?',
-    answer: 'It depends on whether your current brand has recognizable equity worth keeping. We start with a brand audit to see what’s working, then recommend a refresh or a full rebuild based on what we find — not a default answer.',
-  },
-  {
-    question: 'What if we already have a logo we like — can you build around it?',
-    answer: 'Yes. If the logo itself is working, we can build the color, type, and guidelines system around it rather than replacing it just to have something new to deliver.',
-  },
-  {
-    question: 'How many logo concepts will we see?',
-    answer: 'A small number of considered directions grounded in your positioning, not a large batch to sort through. This keeps the process focused on refining the right idea rather than picking blind from many.',
-  },
-  {
-    question: 'Will we get files for both digital and print use?',
-    answer: 'Yes. Full asset delivery includes the file formats needed for web, print, and social, so you’re not stuck extracting formats from a single source file later.',
-  },
-  {
-    question: 'Does this include the website design, or just the identity?',
-    answer: 'This service covers the identity itself — logo, color, type, and guidelines. Applying it to your website falls under Website Design & Development or Graphic & Visual Design, depending on scope.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('logo-and-brand-identity');
 
 const title = "Logo & Brand Identity Services — Built to Last";
 const description = "A logo, color and type system, and usage guidelines built to hold up across your website, product, and marketing. Book a discovery call.";
@@ -327,7 +303,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-logo-and-brand-id
        ===================================================== -->
   <section class="section bg-white">
     <div class="container lbi-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

@@ -9,21 +9,21 @@ import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import CTASection from '../components/CTASection.astro';
 import ValueItem from '../components/ValueItem.astro';
+import { getHomepageTestimonials, getMarqueeClients, getFaqSection } from '../lib/queries';
 
-const clientLogos = [
-  'Neuriphy', 'Emry Networks', 'Regentra', 'Quick Hire', 'New Era India', 'Minerva HRD', 'Logistics Coordinators'
-];
+// Both driven from Sanity `caseStudy` documents. Editors opt a client in or out
+// of each strip with the "Show client name in homepage marquee" and "Show in
+// homepage testimonial slider" checkboxes, and order them with Homepage Display Order.
+const clientLogos: string[] = await getMarqueeClients();
 
-// TEMP dummy copy — replace every quote with the client's actual words before launch.
-const testimonials = [
-  { quote: "Working with ZyrithTech felt less like hiring an agency and more like adding a strategic team. The new site is finally converting the way our brand deserves.", client: 'Neuriphy', service: 'Website Development' },
-  { quote: "They took the time to understand our positioning before touching a single pixel. The brand identity feels like us — just sharper.", client: 'Emry Networks', service: 'Branding' },
-  { quote: "Our organic visibility improved steadily month over month. What stood out was how clearly they explained the strategy behind every recommendation.", client: 'Regentra', service: 'SEO & Marketing' },
-  { quote: "From requirements to launch, the process stayed structured and transparent — no surprises, no scope creep, just steady progress.", client: 'Quick Hire', service: 'Website Development' },
-  { quote: "ZyrithTech gave our brand a cohesive presence across every touchpoint. It finally feels like one company, not five vendors stitched together.", client: 'New Era India', service: 'Branding & Design' },
-  { quote: "They approached our marketing like a growth partner, not a task-taker — asking the right questions before proposing tactics.", client: 'Minerva HRD', service: 'Digital Marketing' },
-  { quote: "The new site is faster, cleaner, and easier for our team to manage, and support has been responsive whenever we've needed changes.", client: 'Logistics Coordinators', service: 'Website Maintenance & Support' },
-];
+interface HomepageTestimonial {
+  _id: string;
+  quote: string;
+  client: string;
+  service?: string;
+}
+
+const testimonials: HomepageTestimonial[] = await getHomepageTestimonials();
 
 const values = [
   {
@@ -65,36 +65,7 @@ const description = "ZyrithTech (Zyrith Technologies) is a digital growth partne
 const canonicalURL = "https://www.zyrithtech.com/";
 const ogImage = "https://www.zyrithtech.com/images/og-home.jpg";
 
-const faqs = [
-  {
-    question: 'What does ZyrithTech do?',
-    answer: 'ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms. We bring strategy, design, development, and marketing under one accountable team — building websites, brand systems, and SEO-driven marketing that turn your digital presence into a consistent inquiry pipeline, instead of five disconnected vendors.',
-  },
-  {
-    question: 'What services does ZyrithTech offer?',
-    answer: 'ZyrithTech offers three connected pillars: digital marketing (SEO, content, social, PPC, email, analytics), web development (websites and e-commerce), and creative branding (brand identity, logo, and design). Strategy, design, development, and marketing sit under one accountable team rather than separate vendors.',
-  },
-  {
-    question: 'How much does a website or marketing project cost?',
-    answer: 'Pricing is scoped to your goals, not sold as fixed packages. Websites are quoted by scope; marketing runs as a monthly retainer. We give you a clear, itemised proposal after a discovery call, so you know exactly what you are paying for before committing.',
-  },
-  {
-    question: 'Which platforms do you build on?',
-    answer: 'We are platform-agnostic and build on Astro, Webflow, Wix Studio, WordPress, or Shopify — whichever fits your business, budget, and team. We recommend the platform that serves you long-term, not the one that locks you into the agency.',
-  },
-  {
-    question: 'How long does a typical project take?',
-    answer: 'A focused website build typically launches in around 60 days, depending on scope and content readiness. SEO and marketing are ongoing and compound over months. We set a realistic timeline during the discovery call before any work begins.',
-  },
-  {
-    question: 'What makes ZyrithTech different from other agencies?',
-    answer: 'One accountable partner covers strategy, design, development, and marketing — so there are no hand-offs between vendors and no lost context. We lead with strategy, stay platform-agnostic, and report against real business outcomes like leads and revenue, not just deliverables.',
-  },
-  {
-    question: 'Do you work with businesses outside India?',
-    answer: 'Yes. Our primary market is India, and we also work with clients in the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and transparent reporting.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('homepage');
 ---
 
 <Layout 
@@ -163,18 +134,20 @@ const faqs = [
   <!-- =====================================================
        CLIENT LOGO MARQUEE
        ===================================================== -->
-  <section class="marquee-section">
-    <div class="container">
-      <p class="caption marquee-label">Trusted by growing teams across India, the US, UK & beyond</p>
-    </div>
-    <div class="marquee-track-wrap">
-      <div class="marquee-track">
-        {[...clientLogos, ...clientLogos].map((name) => (
-          <span class="marquee-wordmark">{name}</span>
-        ))}
+  {clientLogos.length > 0 && (
+    <section class="marquee-section">
+      <div class="container">
+        <p class="caption marquee-label">Trusted by growing teams across India, the US, UK & beyond</p>
       </div>
-    </div>
-  </section>
+      <div class="marquee-track-wrap">
+        <div class="marquee-track">
+          {[...clientLogos, ...clientLogos].map((name) => (
+            <span class="marquee-wordmark">{name}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- =====================================================
        SERVICES GRID
@@ -311,45 +284,47 @@ const faqs = [
   <!-- =====================================================
        TESTIMONIALS SLIDER
        ===================================================== -->
-  <section class="section bg-white">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Testimonials"
-        heading="What Our Clients Say"
-        description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
-      />
+  {testimonials.length > 0 && (
+    <section class="section bg-white">
+      <div class="container">
+        <SectionHeader
+          eyebrow="Testimonials"
+          heading="What Our Clients Say"
+          description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
+        />
 
-      <div class="testimonials-wrap">
-        <!-- TEMP dummy quotes (see `testimonials` above) — swap in real client
-             testimonials before launch. -->
-        <div class="testimonials-track" id="testimonial-track">
-          {testimonials.map((t, index) => (
-            <article class={`testimonial-slide${index === 0 ? ' active' : ''}`}>
-              <div class="card-testimonial">
-                <span class="quote-mark" aria-hidden="true">"</span>
-                <p class="body-large testimonial-quote">"{t.quote}"</p>
-                <div class="caption">— {t.client} · {t.service}</div>
-              </div>
-            </article>
-          ))}
+        <div class="testimonials-wrap">
+          <div class="testimonials-track" id="testimonial-track">
+            {testimonials.map((t, index) => (
+              <article class={`testimonial-slide${index === 0 ? ' active' : ''}`}>
+                <div class="card-testimonial">
+                  <span class="quote-mark" aria-hidden="true">"</span>
+                  <p class="body-large testimonial-quote">"{t.quote}"</p>
+                  <div class="caption">— {t.client}{t.service && ` · ${t.service}`}</div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
-        <div class="testimonial-dots" id="testimonial-dots">
-          {testimonials.map((t, index) => (
-            <button
-              class={`testimonial-dot${index === 0 ? ' active' : ''}`}
-              data-index={index}
-              role="tab"
-              aria-selected={index === 0 ? 'true' : 'false'}
-              aria-label={`Testimonial ${index + 1}`}
-            ></button>
-          ))}
-        </div>
+        {testimonials.length > 1 && (
+          <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
+            <div class="testimonial-dots" id="testimonial-dots">
+              {testimonials.map((t, index) => (
+                <button
+                  class={`testimonial-dot${index === 0 ? ' active' : ''}`}
+                  data-index={index}
+                  role="tab"
+                  aria-selected={index === 0 ? 'true' : 'false'}
+                  aria-label={`Testimonial from ${t.client}`}
+                ></button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- =====================================================
        LATEST BLOG POSTS (FROM SANITY)
@@ -433,7 +408,7 @@ const faqs = [
         heading="Questions, Answered"
         description="The things growing teams ask us most before starting a project."
       />
-      <FAQAccordion faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 
@@ -1008,6 +983,8 @@ const faqs = [
       current = i;
       show(current);
     }));
+
+    if (total < 2) return;
 
     setInterval(() => {
       current = (current + 1) % total;

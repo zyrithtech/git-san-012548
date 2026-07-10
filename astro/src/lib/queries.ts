@@ -21,7 +21,7 @@ export async function getAllCaseStudies() {
         approach,
         results[] { metric, value, description },
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
-        testimonial { quote, name, role, company },
+        testimonial { quote, name, role },
         publishedAt,
         featuredImage { asset-> { _id, url }, alt },
         featured,
@@ -55,6 +55,47 @@ export async function getFeaturedCaseStudies() {
   }
 }
 
+// Homepage testimonial slider. `showOnHomepage` is compared against false rather
+// than true so a case study that predates the field still opts in, matching the
+// schema's `initialValue: true`.
+export async function getHomepageTestimonials() {
+  try {
+    return await client.fetch(`
+      *[_type == "caseStudy"
+        && defined(testimonial.quote)
+        && testimonial.showOnHomepage != false
+      ] | order(coalesce(displayOrder, 9999) asc, client asc) {
+        _id,
+        "quote": testimonial.quote,
+        "client": client,
+        "service": coalesce(testimonial.serviceLabel, services[0])
+      }
+    `);
+  } catch (error) {
+    console.error('Error fetching homepage testimonials:', error);
+    return [];
+  }
+}
+
+// Client names for the homepage marquee below the hero.
+export async function getMarqueeClients() {
+  try {
+    const rows = await client.fetch(`
+      *[_type == "caseStudy"
+        && defined(client)
+        && showInClientMarquee != false
+      ] | order(coalesce(displayOrder, 9999) asc, client asc) {
+        "client": client
+      }
+    `);
+    // Two case studies can share a client; the marquee should name them once.
+    return [...new Set(rows.map((row: { client: string }) => row.client))] as string[];
+  } catch (error) {
+    console.error('Error fetching marquee clients:', error);
+    return [];
+  }
+}
+
 export async function getCaseStudyBySlug(slug: string) {
   try {
     return await client.fetch(
@@ -69,7 +110,7 @@ export async function getCaseStudyBySlug(slug: string) {
         approach,
         results[] { metric, value, description },
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
-        testimonial { quote, name, role, company },
+        testimonial { quote, name, role },
         publishedAt,
         featuredImage { asset-> { _id, url }, alt },
         seo { metaTitle, metaDescription, ogImage }
@@ -217,6 +258,83 @@ export async function getPostsByCategory(categorySlug: string) {
     );
   } catch (error) {
     console.error(`Error fetching posts for category ${categorySlug}:`, error);
+    return [];
+  }
+}
+
+// ========================================
+// FAQs
+// ========================================
+
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export interface FaqSection {
+  /** Heading above the accordion. Undefined on pages that render it bare. */
+  sectionTitle?: string;
+  faqs: Faq[];
+}
+
+// FAQs are rendered as visible copy *and* as schema.org FAQPage structured data
+// that search and AI answer engines index. A page that quietly builds with zero
+// FAQs would drop indexed content and emit an empty, invalid FAQPage block — a
+// silent SEO regression that no test would catch. So unlike the other queries in
+// this file, this one throws rather than returning [] and letting the build pass.
+export async function getFaqSection(categorySlug: string): Promise<FaqSection> {
+  let section: FaqSection | null;
+
+  try {
+    section = await client.fetch(
+      `*[_type == "faqCategory" && slug.current == $slug][0] {
+        sectionTitle,
+        "faqs": *[_type == "faq" && references(^._id)]
+          | order(coalesce(displayOrder, 9999) asc) {
+            question,
+            answer
+          }
+      }`,
+      { slug: categorySlug }
+    );
+  } catch (error) {
+    throw new Error(
+      `Failed to fetch FAQ category "${categorySlug}" from Sanity: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+
+  if (!section) {
+    throw new Error(
+      `No faqCategory in Sanity with slug "${categorySlug}". Create it in the ` +
+        `Studio, or fix the slug this page queries by.`
+    );
+  }
+
+  if (section.faqs.length === 0) {
+    throw new Error(
+      `faqCategory "${categorySlug}" has no FAQs. Refusing to build a page with ` +
+        `an empty FAQ section and invalid FAQPage structured data.`
+    );
+  }
+
+  return section;
+}
+
+export async function getAllFaqCategories() {
+  try {
+    return await client.fetch(`
+      *[_type == "faqCategory"] | order(coalesce(displayOrder, 9999) asc) {
+        _id,
+        title,
+        slug,
+        sectionTitle,
+        "faqCount": count(*[_type == "faq" && references(^._id)])
+      }
+    `);
+  } catch (error) {
+    console.error('Error fetching FAQ categories:', error);
     return [];
   }
 }

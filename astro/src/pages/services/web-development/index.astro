@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const challenges = [
@@ -89,32 +90,7 @@ const valueItems = [
 
 const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User Engagement', 'Conversion Rate Improvements'];
 
-const faqs = [
-  {
-    question: 'What does ZyrithTech’s web development service cover?',
-    answer: 'ZyrithTech builds conversion-focused websites and e-commerce stores on whichever platform fits your business — Astro, Webflow, Wix Studio, WordPress, or Shopify. Every build covers strategy, design, development, and launch, engineered to load fast, rank in search, and turn visitors into qualified inquiries rather than simply look good.',
-  },
-  {
-    question: 'Which platform should we build on?',
-    answer: 'It depends on your content needs, team, and budget. Astro and Next.js suit content- and performance-heavy sites; Webflow and Wix Studio suit teams that want visual editing; Shopify and WooCommerce suit e-commerce. We recommend the platform during discovery, not before it.',
-  },
-  {
-    question: 'Do you only build on Astro and Sanity?',
-    answer: 'No. Astro and Sanity are our primary stack, but we also build on Webflow, Wix Studio, WordPress, and Shopify depending on what fits your requirements and team.',
-  },
-  {
-    question: 'How long does a website project take?',
-    answer: 'Small business sites typically run 1–2 weeks, mid-market builds 2–6 weeks, and larger engagements 1–3 months, depending on scope and how quickly content and approvals come back to us.',
-  },
-  {
-    question: 'Do you write the copy and provide images, or do we?',
-    answer: 'We can work with content you provide or bring in copywriting and sourced imagery as part of the engagement. We’ll scope this during the discovery call so there’s no ambiguity about who owns what.',
-  },
-  {
-    question: 'What happens after the site launches?',
-    answer: 'Launch includes tracking setup and a QA pass. From there, ongoing maintenance, content updates, and security monitoring are available as a separate plan, so the site keeps performing after handoff.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('web-development');
 
 const title = "Web Development Services — Conversion-Focused Websites";
 const description = "Platform-agnostic website design, e-commerce, and hosting built around your buyers and conversion goals — not a template. Book a discovery call.";
@@ -271,7 +247,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-web-development.j
        ===================================================== -->
   <section class="section bg-surface">
     <div class="container wd-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

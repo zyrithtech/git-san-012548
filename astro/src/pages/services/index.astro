@@ -8,6 +8,7 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import ProcessStep from '../../components/ProcessStep.astro';
 import ValueItem from '../../components/ValueItem.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../lib/queries';
 import CTASection from '../../components/CTASection.astro';
 
 const categories = [
@@ -108,28 +109,7 @@ const comparisonRows = [
   { feature: 'Reporting tied to leads & revenue', values: ['Yes', 'Rarely', 'Depends on the team', 'No'] },
 ];
 
-const faqs = [
-  {
-    question: 'Do we have to use all three service areas, or can we start with just one?',
-    answer: 'Just one. Most clients start with a single service — often web development — and expand into marketing or branding later as needs come up. Nothing requires bundling.',
-  },
-  {
-    question: 'How do you decide which services we actually need?',
-    answer: 'During the discovery call and requirements assessment, we map your goals to the services that actually address them, rather than proposing a fixed package.',
-  },
-  {
-    question: 'Do you work with businesses that already have an existing website or brand in place?',
-    answer: 'Yes. We regularly work with existing sites and brands — through Website Hosting & Maintenance, Graphic & Visual Design applied to an existing identity, or digital marketing layered on top of what’s already live.',
-  },
-  {
-    question: 'What’s the typical engagement structure?',
-    answer: 'Engagements run as one-time projects (like a website build), monthly retainers (marketing, maintenance), or a mix of both, depending on the scope agreed in the proposal.',
-  },
-  {
-    question: 'Is pricing published, or do we need to talk first?',
-    answer: 'Pricing isn’t published publicly, since scope varies by business. We walk through service packages and expected deliverables on the discovery call, then confirm pricing in a proposal.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('services');
 
 const title = "Digital Growth Services — Web, Marketing & Branding";
 const description = "Web development, digital marketing, and creative branding run as one connected engagement, not five disconnected vendors. Book a discovery call.";
@@ -298,7 +278,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services.jpg";
        ===================================================== -->
   <section class="section bg-surface">
     <div class="container svc-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

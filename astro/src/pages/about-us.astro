@@ -8,6 +8,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import ProcessStep from '../components/ProcessStep.astro';
 import ValueItem from '../components/ValueItem.astro';
 import FAQAccordion from '../components/FAQAccordion.astro';
+import { getFaqSection, getMarqueeClients } from '../lib/queries';
 import CTASection from '../components/CTASection.astro';
 
 const transformation = [
@@ -79,32 +80,10 @@ const teamPods = [
   },
 ];
 
-const clientLogos = [
-  'Neuriphy', 'Emry Networks', 'Regentra', 'Quick Hire', 'New Era India', 'Minerva HRD', 'Logistics Coordinators'
-];
+// Same source as the homepage marquee, so the two strips can never drift apart.
+const clientLogos: string[] = await getMarqueeClients();
 
-const faqs = [
-  {
-    question: 'Is the investment worth it?',
-    answer: "It depends on scope, but every proposal is built around your business goals — inquiry volume, search visibility, or revenue — not a fixed package price. We size the engagement during the discovery call, so you know what you're paying for and why before you commit.",
-  },
-  {
-    question: 'How long will the project take?',
-    answer: 'Most small business websites launch in 1–2 weeks, mid-market projects take 2–6 weeks, and larger, multi-discipline engagements run 1–3 months. Your proposal includes a specific timeline, not a range.',
-  },
-  {
-    question: 'Which platform should we choose?',
-    answer: "We recommend Astro, Webflow, Wix Studio, WordPress, or Shopify based on your team's technical comfort, content needs, and budget — not on what we'd rather build. Platform recommendations come out of the discovery call.",
-  },
-  {
-    question: 'What results can we expect?',
-    answer: 'Outcomes vary by starting point and scope, but engagements are typically measured against lead growth, organic traffic growth, conversion rate improvements, and site performance. We agree on the specific metrics during discovery, then report against them.',
-  },
-  {
-    question: 'Will we receive ongoing support?',
-    answer: 'Yes. Every project includes documentation and training at handoff, and most clients move into a maintenance plan or growth retainer for continued support, updates, and optimization.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('about-us');
 
 const title = "About Us — Your Digital Growth Partner";
 const description = "ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms — strategy, branding, development, and marketing under one accountable team.";
@@ -281,7 +260,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-about.jpg";
        ===================================================== -->
   <section class="section bg-surface">
     <div class="container about-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

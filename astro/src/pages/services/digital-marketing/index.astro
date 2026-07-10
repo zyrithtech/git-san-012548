@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const challenges = [
@@ -107,32 +108,7 @@ const valueItems = [
 
 const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Engagement Growth'];
 
-const faqs = [
-  {
-    question: 'What do ZyrithTech’s digital marketing services include?',
-    answer: 'ZyrithTech’s digital marketing services combine SEO, content, social media, paid advertising, email, and analytics into one strategy built to generate qualified leads. Rather than running channels in isolation, we align them around your buyers’ journey — so each activity compounds toward a consistent, measurable inquiry pipeline instead of scattered vanity metrics.',
-  },
-  {
-    question: 'How soon will we see results?',
-    answer: 'Paid channels can generate qualified leads within the first few weeks. SEO and content compound over 3–6 months as search engines index and rank new pages. We set channel-specific expectations during the discovery call, not one blanket timeline.',
-  },
-  {
-    question: 'Do we have to sign a long-term contract?',
-    answer: 'Retainers run month-to-month after an initial setup period long enough to test channels properly. You’re never locked into a package that isn’t producing results.',
-  },
-  {
-    question: 'Which channels are right for our business?',
-    answer: 'It depends on where your buyers already are. Service firms often lean on SEO, content, and email; consumer and e-commerce brands often lean harder on paid and social. We recommend the mix during the audit, not before it.',
-  },
-  {
-    question: 'Do you work with our existing website, or do we need a new one?',
-    answer: 'Most digital marketing engagements run on your existing site. If technical issues are capping your results, we’ll flag them in the audit — a website rebuild is a separate, optional engagement, not a prerequisite.',
-  },
-  {
-    question: 'How do you report on performance?',
-    answer: 'Monthly reporting is tied to the metrics we agree on at kickoff — typically lead growth, organic traffic growth, and conversion rate — through unified dashboards, not raw platform screenshots.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('digital-marketing');
 
 const title = "Digital Marketing Services — SEO, PPC & Content Growth";
 const description = "SEO, content, social, paid, and email marketing run as one connected system — built to grow qualified leads, not just traffic. Book a discovery call.";
@@ -289,7 +265,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-digital-marketing
        ===================================================== -->
   <section class="section bg-surface">
     <div class="container dm-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

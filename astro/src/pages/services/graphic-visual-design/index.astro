@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Organic Traffic Growth', 'Improved User Engagement'];
 
-const faqs = [
-  {
-    question: 'What does a graphic design service include?',
-    answer: 'Graphic and visual design is the creation of the marketing creatives, UI elements, and visual systems that make every asset look like it belongs to one brand. ZyrithTech designs social creatives, presentations, ad visuals, and interface elements to a consistent system — so your brand looks credible and cohesive everywhere.',
-  },
-  {
-    question: 'Do you also design our logo, or is that separate?',
-    answer: 'Logo and full brand identity work is covered under Logo & Brand Identity. Graphic & Visual Design applies an existing identity across UI/UX, marketing creatives, and design systems.',
-  },
-  {
-    question: 'Can you build a design system if we don’t have one yet?',
-    answer: 'Yes. If a formal design system doesn’t exist, we establish one as part of the engagement — components, type, and color rules — so future pages and campaigns stay consistent.',
-  },
-  {
-    question: 'Do you design ads and social posts, or only the website?',
-    answer: 'Both. Marketing Creatives covers social posts, ad creatives, and presentation decks, built off the same visual system as your website and UI work.',
-  },
-  {
-    question: 'How many rounds of revisions are included?',
-    answer: 'Each engagement includes a defined number of structured revision rounds, scoped during the creative brief. This keeps direction moving forward rather than restarting from scratch each round.',
-  },
-  {
-    question: 'Will developers be able to implement the designs easily?',
-    answer: 'Yes. Design work is documented with specs, states, and reusable components at handoff, so development isn’t reverse-engineering static images.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('graphic-visual-design');
 
 const title = "Graphic & Visual Design Services — UI/UX & Creatives";
 const description = "UI/UX design, marketing creatives, and website design systems built on one visual system, not one-off files. Book a discovery call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-graphic-visual-de
        ===================================================== -->
   <section class="section bg-white">
     <div class="container gvd-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -110,32 +111,7 @@ const notFit = [
 
 const proofTags = ['Conversion Rate Improvements', 'Faster Website Performance', 'Organic Traffic Growth'];
 
-const faqs = [
-  {
-    question: 'What does ZyrithTech’s e-commerce development include?',
-    answer: 'E-commerce development is the design and build of an online store engineered to sell — clean product UX, fast checkout, and room to scale. ZyrithTech builds on Shopify and other platforms, handling design, development, and integrations so your store turns browsers into buyers rather than abandoned carts.',
-  },
-  {
-    question: 'Shopify or WooCommerce — which should we use?',
-    answer: 'It depends on your catalog and team. Shopify suits stores that want managed hosting and fast setup; WooCommerce suits stores that need custom logic or already run on WordPress. We recommend one during the discovery call based on your catalog audit, not before it.',
-  },
-  {
-    question: 'Can you migrate our existing store without losing SEO rankings?',
-    answer: 'Yes. Migrations include mapping existing URLs to their new equivalents and redirecting them, so indexed product and category pages don’t lose their search rankings.',
-  },
-  {
-    question: 'Do you handle payment gateway and shipping setup?',
-    answer: 'Yes. Payment gateway integration, tax and shipping configuration, and checkout flow are part of the build, tested end to end before launch.',
-  },
-  {
-    question: 'How do you handle catalogs with hundreds of SKUs?',
-    answer: 'Larger catalogs are scoped during the audit — including whether products need bulk import, variant structures, or category taxonomies — so the timeline reflects the real size of the catalog, not a flat estimate.',
-  },
-  {
-    question: 'What happens after launch — do you support the store ongoing?',
-    answer: 'Launch includes full QA of the purchase flow. Ongoing catalog updates, platform updates, and technical support are available through Website Hosting & Maintenance as a separate plan.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('ecommerce-solutions');
 
 const title = "E-commerce Solutions — Shopify & WooCommerce Development";
 const description = "Shopify and WooCommerce stores with product catalogs and checkout flows built around conversion, not just a working cart. Book a discovery call.";
@@ -327,7 +303,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-e-commerce-soluti
        ===================================================== -->
   <section class="section bg-white">
     <div class="container ecs-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 
