@@ -21,7 +21,7 @@ export async function getAllCaseStudies() {
         approach,
         results[] { metric, value, description },
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
-        testimonial { quote, name, role, company },
+        testimonial { quote, name, role },
         publishedAt,
         featuredImage { asset-> { _id, url }, alt },
         featured,
@@ -55,6 +55,47 @@ export async function getFeaturedCaseStudies() {
   }
 }
 
+// Homepage testimonial slider. `showOnHomepage` is compared against false rather
+// than true so a case study that predates the field still opts in, matching the
+// schema's `initialValue: true`.
+export async function getHomepageTestimonials() {
+  try {
+    return await client.fetch(`
+      *[_type == "caseStudy"
+        && defined(testimonial.quote)
+        && testimonial.showOnHomepage != false
+      ] | order(coalesce(displayOrder, 9999) asc, client asc) {
+        _id,
+        "quote": testimonial.quote,
+        "client": client,
+        "service": coalesce(testimonial.serviceLabel, services[0])
+      }
+    `);
+  } catch (error) {
+    console.error('Error fetching homepage testimonials:', error);
+    return [];
+  }
+}
+
+// Client names for the homepage marquee below the hero.
+export async function getMarqueeClients() {
+  try {
+    const rows = await client.fetch(`
+      *[_type == "caseStudy"
+        && defined(client)
+        && showInClientMarquee != false
+      ] | order(coalesce(displayOrder, 9999) asc, client asc) {
+        "client": client
+      }
+    `);
+    // Two case studies can share a client; the marquee should name them once.
+    return [...new Set(rows.map((row: { client: string }) => row.client))] as string[];
+  } catch (error) {
+    console.error('Error fetching marquee clients:', error);
+    return [];
+  }
+}
+
 export async function getCaseStudyBySlug(slug: string) {
   try {
     return await client.fetch(
@@ -69,7 +110,7 @@ export async function getCaseStudyBySlug(slug: string) {
         approach,
         results[] { metric, value, description },
         gallery[] { asset-> { _id, url }, alt, hotspot, crop },
-        testimonial { quote, name, role, company },
+        testimonial { quote, name, role },
         publishedAt,
         featuredImage { asset-> { _id, url }, alt },
         seo { metaTitle, metaDescription, ogImage }

@@ -9,21 +9,23 @@ import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import CTASection from '../components/CTASection.astro';
 import ValueItem from '../components/ValueItem.astro';
+import { getHomepageTestimonials, getMarqueeClients } from '../lib/queries';
 
-const clientLogos = [
-  'Neuriphy', 'Emry Networks', 'Regentra', 'Quick Hire', 'New Era India', 'Minerva HRD', 'Logistics Coordinators'
-];
+// Both driven from Sanity `caseStudy` documents. Editors opt a client in or out
+// of each strip with the "Show client name in homepage marquee" and "Show in
+// homepage testimonial slider" checkboxes, and order them with Homepage Display Order.
+// TEMP dummy copy — replace every quote in the Studio with the client's actual
+// words before launch.
+const clientLogos: string[] = await getMarqueeClients();
 
-// TEMP dummy copy — replace every quote with the client's actual words before launch.
-const testimonials = [
-  { quote: "Working with ZyrithTech felt less like hiring an agency and more like adding a strategic team. The new site is finally converting the way our brand deserves.", client: 'Neuriphy', service: 'Website Development' },
-  { quote: "They took the time to understand our positioning before touching a single pixel. The brand identity feels like us — just sharper.", client: 'Emry Networks', service: 'Branding' },
-  { quote: "Our organic visibility improved steadily month over month. What stood out was how clearly they explained the strategy behind every recommendation.", client: 'Regentra', service: 'SEO & Marketing' },
-  { quote: "From requirements to launch, the process stayed structured and transparent — no surprises, no scope creep, just steady progress.", client: 'Quick Hire', service: 'Website Development' },
-  { quote: "ZyrithTech gave our brand a cohesive presence across every touchpoint. It finally feels like one company, not five vendors stitched together.", client: 'New Era India', service: 'Branding & Design' },
-  { quote: "They approached our marketing like a growth partner, not a task-taker — asking the right questions before proposing tactics.", client: 'Minerva HRD', service: 'Digital Marketing' },
-  { quote: "The new site is faster, cleaner, and easier for our team to manage, and support has been responsive whenever we've needed changes.", client: 'Logistics Coordinators', service: 'Website Maintenance & Support' },
-];
+interface HomepageTestimonial {
+  _id: string;
+  quote: string;
+  client: string;
+  service?: string;
+}
+
+const testimonials: HomepageTestimonial[] = await getHomepageTestimonials();
 
 const values = [
   {
@@ -163,18 +165,20 @@ const faqs = [
   <!-- =====================================================
        CLIENT LOGO MARQUEE
        ===================================================== -->
-  <section class="marquee-section">
-    <div class="container">
-      <p class="caption marquee-label">Trusted by growing teams across India, the US, UK & beyond</p>
-    </div>
-    <div class="marquee-track-wrap">
-      <div class="marquee-track">
-        {[...clientLogos, ...clientLogos].map((name) => (
-          <span class="marquee-wordmark">{name}</span>
-        ))}
+  {clientLogos.length > 0 && (
+    <section class="marquee-section">
+      <div class="container">
+        <p class="caption marquee-label">Trusted by growing teams across India, the US, UK & beyond</p>
       </div>
-    </div>
-  </section>
+      <div class="marquee-track-wrap">
+        <div class="marquee-track">
+          {[...clientLogos, ...clientLogos].map((name) => (
+            <span class="marquee-wordmark">{name}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- =====================================================
        SERVICES GRID
@@ -311,45 +315,47 @@ const faqs = [
   <!-- =====================================================
        TESTIMONIALS SLIDER
        ===================================================== -->
-  <section class="section bg-white">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Testimonials"
-        heading="What Our Clients Say"
-        description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
-      />
+  {testimonials.length > 0 && (
+    <section class="section bg-white">
+      <div class="container">
+        <SectionHeader
+          eyebrow="Testimonials"
+          heading="What Our Clients Say"
+          description="Feedback from the teams we've partnered with — full quotes are being finalized with each client."
+        />
 
-      <div class="testimonials-wrap">
-        <!-- TEMP dummy quotes (see `testimonials` above) — swap in real client
-             testimonials before launch. -->
-        <div class="testimonials-track" id="testimonial-track">
-          {testimonials.map((t, index) => (
-            <article class={`testimonial-slide${index === 0 ? ' active' : ''}`}>
-              <div class="card-testimonial">
-                <span class="quote-mark" aria-hidden="true">"</span>
-                <p class="body-large testimonial-quote">"{t.quote}"</p>
-                <div class="caption">— {t.client} · {t.service}</div>
-              </div>
-            </article>
-          ))}
+        <div class="testimonials-wrap">
+          <div class="testimonials-track" id="testimonial-track">
+            {testimonials.map((t, index) => (
+              <article class={`testimonial-slide${index === 0 ? ' active' : ''}`}>
+                <div class="card-testimonial">
+                  <span class="quote-mark" aria-hidden="true">"</span>
+                  <p class="body-large testimonial-quote">"{t.quote}"</p>
+                  <div class="caption">— {t.client}{t.service && ` · ${t.service}`}</div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
-        <div class="testimonial-dots" id="testimonial-dots">
-          {testimonials.map((t, index) => (
-            <button
-              class={`testimonial-dot${index === 0 ? ' active' : ''}`}
-              data-index={index}
-              role="tab"
-              aria-selected={index === 0 ? 'true' : 'false'}
-              aria-label={`Testimonial ${index + 1}`}
-            ></button>
-          ))}
-        </div>
+        {testimonials.length > 1 && (
+          <div style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-top:var(--space-12)">
+            <div class="testimonial-dots" id="testimonial-dots">
+              {testimonials.map((t, index) => (
+                <button
+                  class={`testimonial-dot${index === 0 ? ' active' : ''}`}
+                  data-index={index}
+                  role="tab"
+                  aria-selected={index === 0 ? 'true' : 'false'}
+                  aria-label={`Testimonial from ${t.client}`}
+                ></button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- =====================================================
        LATEST BLOG POSTS (FROM SANITY)
@@ -1008,6 +1014,8 @@ const faqs = [
       current = i;
       show(current);
     }));
+
+    if (total < 2) return;
 
     setInterval(() => {
       current = (current + 1) % total;
