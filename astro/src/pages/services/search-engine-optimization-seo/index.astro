@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Organic Traffic Growth', 'Lead Growth'];
 
-const faqs = [
-  {
-    question: 'What are SEO services?',
-    answer: 'SEO services are the ongoing work of improving a website’s technical health, on-page content, and authority so it ranks higher in search and AI answer engines. At ZyrithTech we fix technical issues first, then structure content around real buyer intent — and report against traffic and leads, not rankings in isolation.',
-  },
-  {
-    question: 'How soon will we see results from SEO?',
-    answer: 'Technical fixes can improve crawlability and indexing within weeks. Rankings and organic traffic typically compound over 3–6 months as search engines re-index and trust new content. We set expectations specific to your site during the audit, not a blanket timeline.',
-  },
-  {
-    question: 'Do you guarantee first-page rankings?',
-    answer: 'No. No search engine, including us, controls ranking algorithms directly, so we don’t promise a specific position. We commit to the technical fixes, content structure, and reporting that give your site the best realistic chance to rank.',
-  },
-  {
-    question: 'Do we need a new website, or can you optimize our existing site?',
-    answer: 'Most SEO engagements run on your existing site. If a technical issue is capping results — like site architecture or platform limitations — we’ll flag it in the audit; a rebuild is a separate, optional engagement, not a prerequisite.',
-  },
-  {
-    question: 'Is local SEO included, or is that separate?',
-    answer: 'Local SEO is scoped in when it’s relevant to your market — most valuable for businesses targeting a specific city or region such as India. For primarily national or international targeting, we focus the engagement on technical and content SEO instead.',
-  },
-  {
-    question: 'How do you report on SEO performance?',
-    answer: 'Monthly reporting through GA4 and Search Console, tied to the metrics we agree on at kickoff — typically organic traffic growth and lead growth — not just keyword rank movement in isolation.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('search-engine-optimization-seo');
 
 const title = "SEO Services — Technical, On-Page & Local SEO";
 const description = "Technical SEO, on-page optimization, and local SEO built around buyer intent, not just keyword volume. Book a discovery call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-seo.jpg";
        ===================================================== -->
   <section class="section bg-white">
     <div class="container seo-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Lead Growth', 'Conversion Rate Improvements'];
 
-const faqs = [
-  {
-    question: 'What is PPC advertising and how does it work?',
-    answer: 'PPC (pay-per-click) advertising places your business at the top of search and social results, and you pay only when someone clicks. ZyrithTech plans, launches, and optimizes Google and paid-social campaigns toward return on ad spend — turning budget into qualified, trackable leads rather than clicks that don’t convert.',
-  },
-  {
-    question: 'Which platforms do you run ads on?',
-    answer: 'Google Ads, Meta, and LinkedIn are the primary platforms, chosen based on your audience and goals during the discovery call rather than run as a default bundle.',
-  },
-  {
-    question: 'How much should we budget for ad spend?',
-    answer: 'Budget depends on your goals, market, and competition, so we recommend a starting range during the discovery call rather than quoting a fixed number that applies to every client.',
-  },
-  {
-    question: 'Do you build the landing pages too?',
-    answer: 'We can adjust or build landing pages as part of the engagement so they match the ad’s offer. A full website build falls under Website Design & Development if that’s what’s needed.',
-  },
-  {
-    question: 'How fast will we see leads?',
-    answer: 'Paid channels can generate qualified leads within the first few weeks, since campaigns don’t need to be indexed or ranked the way organic content does.',
-  },
-  {
-    question: 'Do you guarantee a specific cost per lead?',
-    answer: 'No. We don’t promise a fixed cost per lead before real campaign data exists. Early weeks establish a baseline, and budget is optimized from there based on what’s actually converting.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('ppc-advertising');
 
 const title = "PPC Advertising Services — Search & Social Ad Campaigns";
 const description = "Structured paid campaigns across search and social that generate qualified inquiries while your organic channels compound. Book a call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-ppc-advertising.j
        ===================================================== -->
   <section class="section bg-white">
     <div class="container ppc-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

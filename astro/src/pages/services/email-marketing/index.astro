@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Conversion Rate Improvements', 'Engagement Growth'];
 
-const faqs = [
-  {
-    question: 'What does an email marketing service include?',
-    answer: 'Email marketing uses automated sequences, newsletters, and lifecycle campaigns to nurture leads and drive repeat revenue from people who already know you. ZyrithTech sets up the automation, writes the emails, and reports on what converts — turning your list into a reliable, owned channel that isn’t at the mercy of ad costs.',
-  },
-  {
-    question: 'Do you build our list, or do we need one already?',
-    answer: 'Either. We can work with an existing list or help build one through opt-ins on your site and content. We only work with permission-based lists — we don’t purchase or scrape contacts.',
-  },
-  {
-    question: 'What email platform do you use?',
-    answer: 'We work with your existing platform where possible, or recommend one during discovery based on your CRM and current stack, rather than requiring a specific vendor.',
-  },
-  {
-    question: 'How often will you send campaign emails?',
-    answer: 'Cadence is set during strategy based on your goals and list size, not a fixed schedule applied to every client.',
-  },
-  {
-    question: 'Do you write the copy and design the templates?',
-    answer: 'Yes. Sequence and campaign copy and design are built from your existing brand system as part of the engagement.',
-  },
-  {
-    question: 'How do you measure success?',
-    answer: 'Monthly reporting ties back to booked calls and conversions attributed to email, not just open rates and click rates reported without business context.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('email-marketing');
 
 const title = "Email Marketing Services — Lifecycle & Campaign Email";
 const description = "Lifecycle and campaign email that turns subscribers and past inquiries into booked calls, not just open-rate reports. Book a call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-email-marketing.j
        ===================================================== -->
   <section class="section bg-white">
     <div class="container em-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

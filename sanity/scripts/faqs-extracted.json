@@ -1,0 +1,727 @@
+[
+  {
+    "file": "index.astro",
+    "slug": "homepage",
+    "title": "Homepage",
+    "displayOrder": 10,
+    "faqs": [
+      {
+        "question": "What does ZyrithTech do?",
+        "answer": "ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms. We bring strategy, design, development, and marketing under one accountable team — building websites, brand systems, and SEO-driven marketing that turn your digital presence into a consistent inquiry pipeline, instead of five disconnected vendors.",
+        "displayOrder": 10
+      },
+      {
+        "question": "What services does ZyrithTech offer?",
+        "answer": "ZyrithTech offers three connected pillars: digital marketing (SEO, content, social, PPC, email, analytics), web development (websites and e-commerce), and creative branding (brand identity, logo, and design). Strategy, design, development, and marketing sit under one accountable team rather than separate vendors.",
+        "displayOrder": 20
+      },
+      {
+        "question": "How much does a website or marketing project cost?",
+        "answer": "Pricing is scoped to your goals, not sold as fixed packages. Websites are quoted by scope; marketing runs as a monthly retainer. We give you a clear, itemised proposal after a discovery call, so you know exactly what you are paying for before committing.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Which platforms do you build on?",
+        "answer": "We are platform-agnostic and build on Astro, Webflow, Wix Studio, WordPress, or Shopify — whichever fits your business, budget, and team. We recommend the platform that serves you long-term, not the one that locks you into the agency.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How long does a typical project take?",
+        "answer": "A focused website build typically launches in around 60 days, depending on scope and content readiness. SEO and marketing are ongoing and compound over months. We set a realistic timeline during the discovery call before any work begins.",
+        "displayOrder": 50
+      },
+      {
+        "question": "What makes ZyrithTech different from other agencies?",
+        "answer": "One accountable partner covers strategy, design, development, and marketing — so there are no hand-offs between vendors and no lost context. We lead with strategy, stay platform-agnostic, and report against real business outcomes like leads and revenue, not just deliverables.",
+        "displayOrder": 60
+      },
+      {
+        "question": "Do you work with businesses outside India?",
+        "answer": "Yes. Our primary market is India, and we also work with clients in the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and transparent reporting.",
+        "displayOrder": 70
+      }
+    ]
+  },
+  {
+    "file": "about-us.astro",
+    "slug": "about-us",
+    "title": "About Us",
+    "displayOrder": 20,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "Is the investment worth it?",
+        "answer": "It depends on scope, but every proposal is built around your business goals — inquiry volume, search visibility, or revenue — not a fixed package price. We size the engagement during the discovery call, so you know what you're paying for and why before you commit.",
+        "displayOrder": 10
+      },
+      {
+        "question": "How long will the project take?",
+        "answer": "Most small business websites launch in 1–2 weeks, mid-market projects take 2–6 weeks, and larger, multi-discipline engagements run 1–3 months. Your proposal includes a specific timeline, not a range.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Which platform should we choose?",
+        "answer": "We recommend Astro, Webflow, Wix Studio, WordPress, or Shopify based on your team's technical comfort, content needs, and budget — not on what we'd rather build. Platform recommendations come out of the discovery call.",
+        "displayOrder": 30
+      },
+      {
+        "question": "What results can we expect?",
+        "answer": "Outcomes vary by starting point and scope, but engagements are typically measured against lead growth, organic traffic growth, conversion rate improvements, and site performance. We agree on the specific metrics during discovery, then report against them.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Will we receive ongoing support?",
+        "answer": "Yes. Every project includes documentation and training at handoff, and most clients move into a maintenance plan or growth retainer for continued support, updates, and optimization.",
+        "displayOrder": 50
+      }
+    ]
+  },
+  {
+    "file": "contact.astro",
+    "slug": "contact",
+    "title": "Contact",
+    "displayOrder": 30,
+    "sectionTitle": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "How quickly will you respond after I get in touch?",
+        "answer": "We reply within one business day. Your first message goes straight to our team — not a ticket queue — and we follow up to schedule a short discovery call at a time that works for you.",
+        "displayOrder": 10
+      },
+      {
+        "question": "What happens after I submit the form?",
+        "answer": "You will get a reply within one business day, followed by a discovery call to understand your goals. From there we send a scoped proposal tailored to your project — no generic packages and no obligation to proceed.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Is the discovery call free?",
+        "answer": "Yes. The discovery call is free and carries no obligation. It is where we learn about your business and goals and work out whether we are the right partner — before any proposal or commitment.",
+        "displayOrder": 30
+      },
+      {
+        "question": "What should I include in my message?",
+        "answer": "A short note on your business, what you are trying to achieve (a new site, more leads, better branding), your rough timeline, and a link to your current site if you have one. Enough for us to make the first call useful.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Do you work with businesses outside India?",
+        "answer": "Yes. We work with clients across India, the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and clear reporting, so location is never a barrier.",
+        "displayOrder": 50
+      }
+    ]
+  },
+  {
+    "file": "portfolio/index.astro",
+    "slug": "portfolio",
+    "title": "Portfolio",
+    "displayOrder": 40,
+    "sectionTitle": "Questions About Working With Us",
+    "faqs": [
+      {
+        "question": "What kind of results do your case studies show?",
+        "answer": "Each case study documents the starting challenge, what we did, and the measurable outcome — such as organic traffic growth, more qualified inquiries, or a faster, higher-converting site. We report real client metrics, not invented numbers, and only feature work the client has approved.",
+        "displayOrder": 10
+      },
+      {
+        "question": "What industries do you work with?",
+        "answer": "We work with startups, SMBs, and professional service firms, with particular experience in healthcare, technology, recruitment, e-commerce, and manufacturing. Our strategy-first process adapts to each sector, so the work fits your buyers rather than a generic template.",
+        "displayOrder": 20
+      },
+      {
+        "question": "How long does a typical engagement take?",
+        "answer": "A focused website build typically launches in around 60 days, while SEO and marketing are ongoing engagements that compound over months. We scope a realistic timeline during the discovery call, based on your goals and the state of your current site.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Do you work with clients outside India?",
+        "answer": "Yes. We serve clients across India, the United States, the United Kingdom, Australia, and the Middle East. Work runs remotely with structured milestones and clear reporting, so distance never means losing visibility into progress.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Can we talk to you before committing to a project?",
+        "answer": "Always. Every engagement starts with a discovery call to understand your business and goals before any proposal. There is no obligation — it is where we work out whether we are the right partner for what you need.",
+        "displayOrder": 50
+      }
+    ]
+  },
+  {
+    "file": "services/index.astro",
+    "slug": "services",
+    "title": "Services Overview",
+    "displayOrder": 50,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "Do we have to use all three service areas, or can we start with just one?",
+        "answer": "Just one. Most clients start with a single service — often web development — and expand into marketing or branding later as needs come up. Nothing requires bundling.",
+        "displayOrder": 10
+      },
+      {
+        "question": "How do you decide which services we actually need?",
+        "answer": "During the discovery call and requirements assessment, we map your goals to the services that actually address them, rather than proposing a fixed package.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Do you work with businesses that already have an existing website or brand in place?",
+        "answer": "Yes. We regularly work with existing sites and brands — through Website Hosting & Maintenance, Graphic & Visual Design applied to an existing identity, or digital marketing layered on top of what’s already live.",
+        "displayOrder": 30
+      },
+      {
+        "question": "What’s the typical engagement structure?",
+        "answer": "Engagements run as one-time projects (like a website build), monthly retainers (marketing, maintenance), or a mix of both, depending on the scope agreed in the proposal.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Is pricing published, or do we need to talk first?",
+        "answer": "Pricing isn’t published publicly, since scope varies by business. We walk through service packages and expected deliverables on the discovery call, then confirm pricing in a proposal.",
+        "displayOrder": 50
+      }
+    ]
+  },
+  {
+    "file": "services/web-development/index.astro",
+    "slug": "web-development",
+    "title": "Web Development",
+    "displayOrder": 60,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does ZyrithTech’s web development service cover?",
+        "answer": "ZyrithTech builds conversion-focused websites and e-commerce stores on whichever platform fits your business — Astro, Webflow, Wix Studio, WordPress, or Shopify. Every build covers strategy, design, development, and launch, engineered to load fast, rank in search, and turn visitors into qualified inquiries rather than simply look good.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Which platform should we build on?",
+        "answer": "It depends on your content needs, team, and budget. Astro and Next.js suit content- and performance-heavy sites; Webflow and Wix Studio suit teams that want visual editing; Shopify and WooCommerce suit e-commerce. We recommend the platform during discovery, not before it.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Do you only build on Astro and Sanity?",
+        "answer": "No. Astro and Sanity are our primary stack, but we also build on Webflow, Wix Studio, WordPress, and Shopify depending on what fits your requirements and team.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How long does a website project take?",
+        "answer": "Small business sites typically run 1–2 weeks, mid-market builds 2–6 weeks, and larger engagements 1–3 months, depending on scope and how quickly content and approvals come back to us.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Do you write the copy and provide images, or do we?",
+        "answer": "We can work with content you provide or bring in copywriting and sourced imagery as part of the engagement. We’ll scope this during the discovery call so there’s no ambiguity about who owns what.",
+        "displayOrder": 50
+      },
+      {
+        "question": "What happens after the site launches?",
+        "answer": "Launch includes tracking setup and a QA pass. From there, ongoing maintenance, content updates, and security monitoring are available as a separate plan, so the site keeps performing after handoff.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/digital-marketing/index.astro",
+    "slug": "digital-marketing",
+    "title": "Digital Marketing",
+    "displayOrder": 70,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What do ZyrithTech’s digital marketing services include?",
+        "answer": "ZyrithTech’s digital marketing services combine SEO, content, social media, paid advertising, email, and analytics into one strategy built to generate qualified leads. Rather than running channels in isolation, we align them around your buyers’ journey — so each activity compounds toward a consistent, measurable inquiry pipeline instead of scattered vanity metrics.",
+        "displayOrder": 10
+      },
+      {
+        "question": "How soon will we see results?",
+        "answer": "Paid channels can generate qualified leads within the first few weeks. SEO and content compound over 3–6 months as search engines index and rank new pages. We set channel-specific expectations during the discovery call, not one blanket timeline.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Do we have to sign a long-term contract?",
+        "answer": "Retainers run month-to-month after an initial setup period long enough to test channels properly. You’re never locked into a package that isn’t producing results.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Which channels are right for our business?",
+        "answer": "It depends on where your buyers already are. Service firms often lean on SEO, content, and email; consumer and e-commerce brands often lean harder on paid and social. We recommend the mix during the audit, not before it.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Do you work with our existing website, or do we need a new one?",
+        "answer": "Most digital marketing engagements run on your existing site. If technical issues are capping your results, we’ll flag them in the audit — a website rebuild is a separate, optional engagement, not a prerequisite.",
+        "displayOrder": 50
+      },
+      {
+        "question": "How do you report on performance?",
+        "answer": "Monthly reporting is tied to the metrics we agree on at kickoff — typically lead growth, organic traffic growth, and conversion rate — through unified dashboards, not raw platform screenshots.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/creative-branding/index.astro",
+    "slug": "creative-branding",
+    "title": "Creative Branding",
+    "displayOrder": 80,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What’s included in ZyrithTech’s branding and design services?",
+        "answer": "ZyrithTech’s branding and design services cover brand identity, logo design, visual systems, and UI/UX — the assets that give a growing business one cohesive, credible presence. We define how your brand looks, sounds, and feels across every touchpoint, so your marketing and website reinforce a single, consistent story.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you design a full brand identity, or just a logo?",
+        "answer": "Both, depending on scope. Logo & Brand Identity covers the mark, color, and type system; Graphic & Visual Design extends that system into UI/UX and marketing creatives. Most engagements start with identity and expand from there.",
+        "displayOrder": 20
+      },
+      {
+        "question": "How does branding fit with a website project?",
+        "answer": "If you already have a website underway, we work from the identity you have or refresh it in parallel so the site launches on-brand rather than needing a redesign later. It doesn’t have to hold up the website timeline.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Will we get usable brand guidelines, or just design files?",
+        "answer": "Every identity engagement includes a usage guide covering logo variants, color, type, and application rules — so any future designer, developer, or vendor can apply the brand consistently without guessing.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How long does a branding engagement take?",
+        "answer": "A focused logo and identity system typically runs 1–2 weeks; a fuller identity with marketing creatives and UI/UX direction runs 2–6 weeks, depending on rounds of feedback and how many touchpoints are in scope.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Can you refresh our existing brand instead of starting from scratch?",
+        "answer": "Yes. We start with a brand audit to see what’s already working — logo equity, color recognition, existing assets — and evolve from there rather than defaulting to a full rebuild.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/web-design-development/index.astro",
+    "slug": "web-design-development",
+    "title": "Website Design & Development",
+    "displayOrder": 90,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "How much does a website cost and what’s involved?",
+        "answer": "A professional website’s cost depends on scope, but every ZyrithTech project follows the same path: strategy, design, development, and launch. We build custom, conversion-focused sites — on the platform that fits your business — engineered to load fast, rank in search, and turn visitors into qualified inquiries.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you provide the copy and images, or do we?",
+        "answer": "Either. We can write copy and source imagery as part of the engagement, or build from content you provide. We scope this during discovery so ownership is clear before design starts.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Which platform is right for our project?",
+        "answer": "It depends on your content needs, team, and budget. We recommend Astro or Next.js for performance- and content-heavy sites, Webflow or Wix Studio for teams that want visual editing, and WordPress for teams already standardized on it. We confirm this during discovery, not before it.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How many pages does this typically include?",
+        "answer": "Small business sites usually run 5–10 pages; corporate and CMS-driven sites often run higher depending on services, locations, and content types. Page count is scoped against your sitemap during discovery.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Will we be able to update the site ourselves after launch?",
+        "answer": "Yes. Every build connects to a CMS suited to your team, so pages, blog posts, and case studies can be updated without a developer for routine content changes.",
+        "displayOrder": 50
+      },
+      {
+        "question": "What happens if we need changes after launch?",
+        "answer": "Minor content updates go through the CMS directly. For ongoing technical support, security monitoring, or larger changes, Website Hosting & Maintenance covers that as a separate plan.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/ecommerce-solutions/index.astro",
+    "slug": "ecommerce-solutions",
+    "title": "E-commerce Solutions",
+    "displayOrder": 100,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does ZyrithTech’s e-commerce development include?",
+        "answer": "E-commerce development is the design and build of an online store engineered to sell — clean product UX, fast checkout, and room to scale. ZyrithTech builds on Shopify and other platforms, handling design, development, and integrations so your store turns browsers into buyers rather than abandoned carts.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Shopify or WooCommerce — which should we use?",
+        "answer": "It depends on your catalog and team. Shopify suits stores that want managed hosting and fast setup; WooCommerce suits stores that need custom logic or already run on WordPress. We recommend one during the discovery call based on your catalog audit, not before it.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Can you migrate our existing store without losing SEO rankings?",
+        "answer": "Yes. Migrations include mapping existing URLs to their new equivalents and redirecting them, so indexed product and category pages don’t lose their search rankings.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Do you handle payment gateway and shipping setup?",
+        "answer": "Yes. Payment gateway integration, tax and shipping configuration, and checkout flow are part of the build, tested end to end before launch.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How do you handle catalogs with hundreds of SKUs?",
+        "answer": "Larger catalogs are scoped during the audit — including whether products need bulk import, variant structures, or category taxonomies — so the timeline reflects the real size of the catalog, not a flat estimate.",
+        "displayOrder": 50
+      },
+      {
+        "question": "What happens after launch — do you support the store ongoing?",
+        "answer": "Launch includes full QA of the purchase flow. Ongoing catalog updates, platform updates, and technical support are available through Website Hosting & Maintenance as a separate plan.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/website-maintenance/index.astro",
+    "slug": "website-maintenance",
+    "title": "Website Hosting & Maintenance",
+    "displayOrder": 110,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does website maintenance include?",
+        "answer": "Website maintenance is the ongoing hosting, updates, backups, security, and support that keep a site fast, secure, and current after launch. ZyrithTech offers predictable care plans covering platform updates, monitoring, and content changes — so your site keeps performing without you managing it in-house.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you only support sites you built, or others too?",
+        "answer": "We support Astro, WordPress, Webflow, Wix Studio, and Shopify sites regardless of who originally built them. We start with an audit so we understand the site before taking on maintenance.",
+        "displayOrder": 20
+      },
+      {
+        "question": "What’s included in the monthly plan vs. billed separately?",
+        "answer": "Each plan covers the scope listed against it — monitoring, patching, and a defined level of content updates or support. Larger requests, like new pages or feature builds, are scoped and quoted separately.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How fast do you respond if the site goes down?",
+        "answer": "Response speed depends on the plan — Priority Care is built for sites where downtime directly affects pipeline. We confirm response expectations for your plan during the discovery call.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Can we change or cancel our plan?",
+        "answer": "Plans run month-to-month after an initial setup period, so you can move between plans or step away without being locked into a long-term contract.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Do you provide hosting itself, or just maintenance on our existing host?",
+        "answer": "Both. We can host your site on modern infrastructure as part of the plan, or manage maintenance on your existing host — whichever fits how your site is already set up.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/search-engine-optimization-seo/index.astro",
+    "slug": "search-engine-optimization-seo",
+    "title": "Search Engine Optimization (SEO)",
+    "displayOrder": 120,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What are SEO services?",
+        "answer": "SEO services are the ongoing work of improving a website’s technical health, on-page content, and authority so it ranks higher in search and AI answer engines. At ZyrithTech we fix technical issues first, then structure content around real buyer intent — and report against traffic and leads, not rankings in isolation.",
+        "displayOrder": 10
+      },
+      {
+        "question": "How soon will we see results from SEO?",
+        "answer": "Technical fixes can improve crawlability and indexing within weeks. Rankings and organic traffic typically compound over 3–6 months as search engines re-index and trust new content. We set expectations specific to your site during the audit, not a blanket timeline.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Do you guarantee first-page rankings?",
+        "answer": "No. No search engine, including us, controls ranking algorithms directly, so we don’t promise a specific position. We commit to the technical fixes, content structure, and reporting that give your site the best realistic chance to rank.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Do we need a new website, or can you optimize our existing site?",
+        "answer": "Most SEO engagements run on your existing site. If a technical issue is capping results — like site architecture or platform limitations — we’ll flag it in the audit; a rebuild is a separate, optional engagement, not a prerequisite.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Is local SEO included, or is that separate?",
+        "answer": "Local SEO is scoped in when it’s relevant to your market — most valuable for businesses targeting a specific city or region such as India. For primarily national or international targeting, we focus the engagement on technical and content SEO instead.",
+        "displayOrder": 50
+      },
+      {
+        "question": "How do you report on SEO performance?",
+        "answer": "Monthly reporting through GA4 and Search Console, tied to the metrics we agree on at kickoff — typically organic traffic growth and lead growth — not just keyword rank movement in isolation.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/content-marketing/index.astro",
+    "slug": "content-marketing",
+    "title": "Content Marketing",
+    "displayOrder": 130,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What is content marketing?",
+        "answer": "Content marketing is the practice of publishing articles, guides, and landing pages that attract and convert buyers by answering their real questions. ZyrithTech maps content to search intent and buying stage, so each piece ranks, gets cited by AI, and moves prospects toward an inquiry — not just page views.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you write the content, or do we need to provide it?",
+        "answer": "We write blog articles, guides, and case studies as part of the engagement, drawing on your subject matter expertise and any existing materials you can share.",
+        "displayOrder": 20
+      },
+      {
+        "question": "How does content marketing tie into SEO?",
+        "answer": "Content is structured around keyword and buyer-intent research, whether that comes from a parallel SEO engagement or standalone research, so pieces are built to rank as well as inform.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Will you also turn content into social posts and emails?",
+        "answer": "Yes. Content repurposing turns long-form pieces into social posts and email content, feeding Social Media Marketing and Email Marketing without writing everything from scratch twice.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How often will you publish?",
+        "answer": "Cadence is set during content strategy based on your goals and resourcing, not a fixed number applied to every client.",
+        "displayOrder": 50
+      },
+      {
+        "question": "How do you measure content marketing success?",
+        "answer": "Monthly reporting covers organic traffic, engagement, and leads tied to published content — not just word count or how often something goes live.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/social-media-marketing/index.astro",
+    "slug": "social-media-marketing",
+    "title": "Social Media Marketing",
+    "displayOrder": 140,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does a social media marketing service include?",
+        "answer": "Social media marketing is the practice of building brand presence and demand through organic content and paid campaigns on the platforms your buyers use. ZyrithTech handles strategy, content creation, community engagement, and paid social together — so your channels build recognition and pipeline, not just followers.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Which platforms will you manage for us?",
+        "answer": "We recommend platforms based on your audience during the discovery call and audit, rather than defaulting to a fixed bundle. Most B2B service firms lean on LinkedIn; consumer brands often lean harder on Instagram and similar visual platforms.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Do you also run paid social ads?",
+        "answer": "Paid social campaigns are covered under PPC Advertising, a separate service. Social Media Marketing focuses on organic content, community management, and partnerships.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How often will you post?",
+        "answer": "Cadence is set during content calendar planning based on your goals, capacity, and budget — not a fixed universal number applied to every client.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Do you write the captions and design the graphics?",
+        "answer": "Yes. Post design and copy are built from your existing brand system as part of the engagement, so the feed stays consistent with your website and other marketing.",
+        "displayOrder": 50
+      },
+      {
+        "question": "How do you measure success?",
+        "answer": "Monthly reporting covers engagement, follower growth, and reach, tied to the goals agreed at kickoff — not vanity metrics reported without context.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/ppc-advertising/index.astro",
+    "slug": "ppc-advertising",
+    "title": "PPC Advertising",
+    "displayOrder": 150,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What is PPC advertising and how does it work?",
+        "answer": "PPC (pay-per-click) advertising places your business at the top of search and social results, and you pay only when someone clicks. ZyrithTech plans, launches, and optimizes Google and paid-social campaigns toward return on ad spend — turning budget into qualified, trackable leads rather than clicks that don’t convert.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Which platforms do you run ads on?",
+        "answer": "Google Ads, Meta, and LinkedIn are the primary platforms, chosen based on your audience and goals during the discovery call rather than run as a default bundle.",
+        "displayOrder": 20
+      },
+      {
+        "question": "How much should we budget for ad spend?",
+        "answer": "Budget depends on your goals, market, and competition, so we recommend a starting range during the discovery call rather than quoting a fixed number that applies to every client.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Do you build the landing pages too?",
+        "answer": "We can adjust or build landing pages as part of the engagement so they match the ad’s offer. A full website build falls under Website Design & Development if that’s what’s needed.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How fast will we see leads?",
+        "answer": "Paid channels can generate qualified leads within the first few weeks, since campaigns don’t need to be indexed or ranked the way organic content does.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Do you guarantee a specific cost per lead?",
+        "answer": "No. We don’t promise a fixed cost per lead before real campaign data exists. Early weeks establish a baseline, and budget is optimized from there based on what’s actually converting.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/email-marketing/index.astro",
+    "slug": "email-marketing",
+    "title": "Email Marketing",
+    "displayOrder": 160,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does an email marketing service include?",
+        "answer": "Email marketing uses automated sequences, newsletters, and lifecycle campaigns to nurture leads and drive repeat revenue from people who already know you. ZyrithTech sets up the automation, writes the emails, and reports on what converts — turning your list into a reliable, owned channel that isn’t at the mercy of ad costs.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you build our list, or do we need one already?",
+        "answer": "Either. We can work with an existing list or help build one through opt-ins on your site and content. We only work with permission-based lists — we don’t purchase or scrape contacts.",
+        "displayOrder": 20
+      },
+      {
+        "question": "What email platform do you use?",
+        "answer": "We work with your existing platform where possible, or recommend one during discovery based on your CRM and current stack, rather than requiring a specific vendor.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How often will you send campaign emails?",
+        "answer": "Cadence is set during strategy based on your goals and list size, not a fixed schedule applied to every client.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Do you write the copy and design the templates?",
+        "answer": "Yes. Sequence and campaign copy and design are built from your existing brand system as part of the engagement.",
+        "displayOrder": 50
+      },
+      {
+        "question": "How do you measure success?",
+        "answer": "Monthly reporting ties back to booked calls and conversions attributed to email, not just open rates and click rates reported without business context.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/analytics-and-performance-reporting/index.astro",
+    "slug": "analytics-and-performance-reporting",
+    "title": "Analytics & Performance Reporting",
+    "displayOrder": 170,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What is marketing analytics and performance reporting?",
+        "answer": "Marketing analytics and performance reporting is the setup and interpretation of tracking — GA4, Search Console, and conversion events — so you can see what actually drives leads and revenue. ZyrithTech configures accurate tracking and delivers monthly reporting tied to business outcomes, not vanity metrics like impressions alone.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you set this up even if we’re not running other digital marketing services with you?",
+        "answer": "Yes, we can set up tracking and reporting independently. It delivers the most value alongside an active SEO, PPC, social, or email engagement, since there’s more to measure and attribute.",
+        "displayOrder": 20
+      },
+      {
+        "question": "What tools do you use for tracking and reporting?",
+        "answer": "GA4 and Google Search Console are the core tools, integrated with your CRM and other marketing platforms where relevant, rather than a single fixed toolset for every client.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Can you connect our CRM to see which leads come from which channel?",
+        "answer": "Yes. CRM and lead source attribution is part of the setup, so leads are tied back to the channel that actually generated them, not just the last thing someone clicked.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How often do we get a report?",
+        "answer": "Monthly, tied to the metrics agreed at kickoff — typically lead growth, organic traffic growth, engagement, and conversion rate.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Will you also recommend where to shift budget?",
+        "answer": "Yes. Monthly reporting includes optimization recommendations, so the numbers come with a next step rather than a chart you need to interpret alone.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/logo-and-brand-identity/index.astro",
+    "slug": "logo-and-brand-identity",
+    "title": "Logo & Brand Identity",
+    "displayOrder": 180,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What’s the difference between a logo and a brand identity?",
+        "answer": "A logo is a single mark; a brand identity is the full system around it — colours, typography, imagery, and usage guidelines that keep your brand consistent everywhere. ZyrithTech delivers the complete identity, not just a logo, so your business looks unified across its website, marketing, and every touchpoint.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do we need a brand refresh or a brand-new identity?",
+        "answer": "It depends on whether your current brand has recognizable equity worth keeping. We start with a brand audit to see what’s working, then recommend a refresh or a full rebuild based on what we find — not a default answer.",
+        "displayOrder": 20
+      },
+      {
+        "question": "What if we already have a logo we like — can you build around it?",
+        "answer": "Yes. If the logo itself is working, we can build the color, type, and guidelines system around it rather than replacing it just to have something new to deliver.",
+        "displayOrder": 30
+      },
+      {
+        "question": "How many logo concepts will we see?",
+        "answer": "A small number of considered directions grounded in your positioning, not a large batch to sort through. This keeps the process focused on refining the right idea rather than picking blind from many.",
+        "displayOrder": 40
+      },
+      {
+        "question": "Will we get files for both digital and print use?",
+        "answer": "Yes. Full asset delivery includes the file formats needed for web, print, and social, so you’re not stuck extracting formats from a single source file later.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Does this include the website design, or just the identity?",
+        "answer": "This service covers the identity itself — logo, color, type, and guidelines. Applying it to your website falls under Website Design & Development or Graphic & Visual Design, depending on scope.",
+        "displayOrder": 60
+      }
+    ]
+  },
+  {
+    "file": "services/graphic-visual-design/index.astro",
+    "slug": "graphic-visual-design",
+    "title": "Graphic & Visual Design",
+    "displayOrder": 190,
+    "sectionTitle": "Questions Before You Book a Call",
+    "faqs": [
+      {
+        "question": "What does a graphic design service include?",
+        "answer": "Graphic and visual design is the creation of the marketing creatives, UI elements, and visual systems that make every asset look like it belongs to one brand. ZyrithTech designs social creatives, presentations, ad visuals, and interface elements to a consistent system — so your brand looks credible and cohesive everywhere.",
+        "displayOrder": 10
+      },
+      {
+        "question": "Do you also design our logo, or is that separate?",
+        "answer": "Logo and full brand identity work is covered under Logo & Brand Identity. Graphic & Visual Design applies an existing identity across UI/UX, marketing creatives, and design systems.",
+        "displayOrder": 20
+      },
+      {
+        "question": "Can you build a design system if we don’t have one yet?",
+        "answer": "Yes. If a formal design system doesn’t exist, we establish one as part of the engagement — components, type, and color rules — so future pages and campaigns stay consistent.",
+        "displayOrder": 30
+      },
+      {
+        "question": "Do you design ads and social posts, or only the website?",
+        "answer": "Both. Marketing Creatives covers social posts, ad creatives, and presentation decks, built off the same visual system as your website and UI work.",
+        "displayOrder": 40
+      },
+      {
+        "question": "How many rounds of revisions are included?",
+        "answer": "Each engagement includes a defined number of structured revision rounds, scoped during the creative brief. This keeps direction moving forward rather than restarting from scratch each round.",
+        "displayOrder": 50
+      },
+      {
+        "question": "Will developers be able to implement the designs easily?",
+        "answer": "Yes. Design work is documented with specs, states, and reusable components at handoff, so development isn’t reverse-engineering static images.",
+        "displayOrder": 60
+      }
+    ]
+  }
+]

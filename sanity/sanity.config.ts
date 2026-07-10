@@ -8,6 +8,8 @@ import {caseStudyType} from './schemaTypes/caseStudy'
 import {postType} from './schemaTypes/post'
 import {categoryType} from './schemaTypes/category'
 import {personType} from './schemaTypes/person'
+import {faqType} from './schemaTypes/faq'
+import {faqCategoryType} from './schemaTypes/faqCategory'
 
 
 export default defineConfig({
@@ -25,6 +27,8 @@ export default defineConfig({
       postType,
       categoryType,
       personType,
+      faqType,
+      faqCategoryType,
     ],
   },
 })

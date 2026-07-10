@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Lead Growth', 'Organic Traffic Growth', 'Conversion Rate Improvements', 'Engagement Growth'];
 
-const faqs = [
-  {
-    question: 'What is marketing analytics and performance reporting?',
-    answer: 'Marketing analytics and performance reporting is the setup and interpretation of tracking — GA4, Search Console, and conversion events — so you can see what actually drives leads and revenue. ZyrithTech configures accurate tracking and delivers monthly reporting tied to business outcomes, not vanity metrics like impressions alone.',
-  },
-  {
-    question: 'Do you set this up even if we’re not running other digital marketing services with you?',
-    answer: 'Yes, we can set up tracking and reporting independently. It delivers the most value alongside an active SEO, PPC, social, or email engagement, since there’s more to measure and attribute.',
-  },
-  {
-    question: 'What tools do you use for tracking and reporting?',
-    answer: 'GA4 and Google Search Console are the core tools, integrated with your CRM and other marketing platforms where relevant, rather than a single fixed toolset for every client.',
-  },
-  {
-    question: 'Can you connect our CRM to see which leads come from which channel?',
-    answer: 'Yes. CRM and lead source attribution is part of the setup, so leads are tied back to the channel that actually generated them, not just the last thing someone clicked.',
-  },
-  {
-    question: 'How often do we get a report?',
-    answer: 'Monthly, tied to the metrics agreed at kickoff — typically lead growth, organic traffic growth, engagement, and conversion rate.',
-  },
-  {
-    question: 'Will you also recommend where to shift budget?',
-    answer: 'Yes. Monthly reporting includes optimization recommendations, so the numbers come with a next step rather than a chart you need to interpret alone.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('analytics-and-performance-reporting');
 
 const title = "Analytics & Reporting Services — Unified Dashboards";
 const description = "Unified dashboards across GA4 and Search Console, so you see what's driving leads, not just traffic. Book a discovery call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-analytics-and-per
        ===================================================== -->
   <section class="section bg-white">
     <div class="container ar-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

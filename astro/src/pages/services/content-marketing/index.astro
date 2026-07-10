@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -111,32 +112,7 @@ const notFit = [
 
 const proofTags = ['Organic Traffic Growth', 'Engagement Growth'];
 
-const faqs = [
-  {
-    question: 'What is content marketing?',
-    answer: 'Content marketing is the practice of publishing articles, guides, and landing pages that attract and convert buyers by answering their real questions. ZyrithTech maps content to search intent and buying stage, so each piece ranks, gets cited by AI, and moves prospects toward an inquiry — not just page views.',
-  },
-  {
-    question: 'Do you write the content, or do we need to provide it?',
-    answer: 'We write blog articles, guides, and case studies as part of the engagement, drawing on your subject matter expertise and any existing materials you can share.',
-  },
-  {
-    question: 'How does content marketing tie into SEO?',
-    answer: 'Content is structured around keyword and buyer-intent research, whether that comes from a parallel SEO engagement or standalone research, so pieces are built to rank as well as inform.',
-  },
-  {
-    question: 'Will you also turn content into social posts and emails?',
-    answer: 'Yes. Content repurposing turns long-form pieces into social posts and email content, feeding Social Media Marketing and Email Marketing without writing everything from scratch twice.',
-  },
-  {
-    question: 'How often will you publish?',
-    answer: 'Cadence is set during content strategy based on your goals and resourcing, not a fixed number applied to every client.',
-  },
-  {
-    question: 'How do you measure content marketing success?',
-    answer: 'Monthly reporting covers organic traffic, engagement, and leads tied to published content — not just word count or how often something goes live.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('content-marketing');
 
 const title = "Content Marketing Services — Blog, Guides & Case Studies";
 const description = "Blog articles, guides, and case studies that build search authority and give social and email something worth sending. Book a call.";
@@ -328,7 +304,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-content-marketing
        ===================================================== -->
   <section class="section bg-white">
     <div class="container cm-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

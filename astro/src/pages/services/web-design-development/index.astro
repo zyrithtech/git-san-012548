@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const deliverables = [
@@ -113,32 +114,7 @@ const notFit = [
 
 const proofTags = ['Faster Website Performance', 'Lead Growth', 'Improved User Engagement', 'Conversion Rate Improvements'];
 
-const faqs = [
-  {
-    question: 'How much does a website cost and what’s involved?',
-    answer: 'A professional website’s cost depends on scope, but every ZyrithTech project follows the same path: strategy, design, development, and launch. We build custom, conversion-focused sites — on the platform that fits your business — engineered to load fast, rank in search, and turn visitors into qualified inquiries.',
-  },
-  {
-    question: 'Do you provide the copy and images, or do we?',
-    answer: 'Either. We can write copy and source imagery as part of the engagement, or build from content you provide. We scope this during discovery so ownership is clear before design starts.',
-  },
-  {
-    question: 'Which platform is right for our project?',
-    answer: 'It depends on your content needs, team, and budget. We recommend Astro or Next.js for performance- and content-heavy sites, Webflow or Wix Studio for teams that want visual editing, and WordPress for teams already standardized on it. We confirm this during discovery, not before it.',
-  },
-  {
-    question: 'How many pages does this typically include?',
-    answer: 'Small business sites usually run 5–10 pages; corporate and CMS-driven sites often run higher depending on services, locations, and content types. Page count is scoped against your sitemap during discovery.',
-  },
-  {
-    question: 'Will we be able to update the site ourselves after launch?',
-    answer: 'Yes. Every build connects to a CMS suited to your team, so pages, blog posts, and case studies can be updated without a developer for routine content changes.',
-  },
-  {
-    question: 'What happens if we need changes after launch?',
-    answer: 'Minor content updates go through the CMS directly. For ongoing technical support, security monitoring, or larger changes, Website Hosting & Maintenance covers that as a separate plan.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('web-design-development');
 
 const title = "Website Design & Development Services — Built to Convert";
 const description = "Conversion-focused website design and development on Astro, Next.js, Webflow, WordPress, or Wix Studio — built around your buyers. Book a call.";
@@ -330,7 +306,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-website-design-an
        ===================================================== -->
   <section class="section bg-white">
     <div class="container wdd-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

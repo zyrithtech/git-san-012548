@@ -10,6 +10,7 @@ import SectionHeader from '../../../components/SectionHeader.astro';
 import ProcessStep from '../../../components/ProcessStep.astro';
 import ValueItem from '../../../components/ValueItem.astro';
 import FAQAccordion from '../../../components/FAQAccordion.astro';
+import { getFaqSection } from '../../../lib/queries';
 import CTASection from '../../../components/CTASection.astro';
 
 const challenges = [
@@ -83,32 +84,7 @@ const valueItems = [
 
 const proofTags = ['Improved User Engagement', 'Conversion Rate Improvements', 'Lead Growth'];
 
-const faqs = [
-  {
-    question: 'What’s included in ZyrithTech’s branding and design services?',
-    answer: 'ZyrithTech’s branding and design services cover brand identity, logo design, visual systems, and UI/UX — the assets that give a growing business one cohesive, credible presence. We define how your brand looks, sounds, and feels across every touchpoint, so your marketing and website reinforce a single, consistent story.',
-  },
-  {
-    question: 'Do you design a full brand identity, or just a logo?',
-    answer: 'Both, depending on scope. Logo & Brand Identity covers the mark, color, and type system; Graphic & Visual Design extends that system into UI/UX and marketing creatives. Most engagements start with identity and expand from there.',
-  },
-  {
-    question: 'How does branding fit with a website project?',
-    answer: 'If you already have a website underway, we work from the identity you have or refresh it in parallel so the site launches on-brand rather than needing a redesign later. It doesn’t have to hold up the website timeline.',
-  },
-  {
-    question: 'Will we get usable brand guidelines, or just design files?',
-    answer: 'Every identity engagement includes a usage guide covering logo variants, color, type, and application rules — so any future designer, developer, or vendor can apply the brand consistently without guessing.',
-  },
-  {
-    question: 'How long does a branding engagement take?',
-    answer: 'A focused logo and identity system typically runs 1–2 weeks; a fuller identity with marketing creatives and UI/UX direction runs 2–6 weeks, depending on rounds of feedback and how many touchpoints are in scope.',
-  },
-  {
-    question: 'Can you refresh our existing brand instead of starting from scratch?',
-    answer: 'Yes. We start with a brand audit to see what’s already working — logo equity, color recognition, existing assets — and evolve from there rather than defaulting to a full rebuild.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('creative-branding');
 
 const title = "Creative & Branding Services — Identity & Design Systems";
 const description = "Logo, brand identity, and visual design systems built to stay consistent across your website, product, and marketing. Book a discovery call.";
@@ -265,7 +241,7 @@ const ogImage = "https://www.zyrithtech.com/images/og-services-creative-branding
        ===================================================== -->
   <section class="section bg-surface">
     <div class="container cb-faq">
-      <FAQAccordion title="Questions Before You Book a Call" faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

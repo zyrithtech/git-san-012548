@@ -9,7 +9,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import Button from '../components/Button.astro';
 import CTASection from '../components/CTASection.astro';
 import ValueItem from '../components/ValueItem.astro';
-import { getHomepageTestimonials, getMarqueeClients } from '../lib/queries';
+import { getHomepageTestimonials, getMarqueeClients, getFaqSection } from '../lib/queries';
 
 // Both driven from Sanity `caseStudy` documents. Editors opt a client in or out
 // of each strip with the "Show client name in homepage marquee" and "Show in
@@ -67,36 +67,7 @@ const description = "ZyrithTech (Zyrith Technologies) is a digital growth partne
 const canonicalURL = "https://www.zyrithtech.com/";
 const ogImage = "https://www.zyrithtech.com/images/og-home.jpg";
 
-const faqs = [
-  {
-    question: 'What does ZyrithTech do?',
-    answer: 'ZyrithTech is a digital growth partner for startups, SMBs, and professional service firms. We bring strategy, design, development, and marketing under one accountable team — building websites, brand systems, and SEO-driven marketing that turn your digital presence into a consistent inquiry pipeline, instead of five disconnected vendors.',
-  },
-  {
-    question: 'What services does ZyrithTech offer?',
-    answer: 'ZyrithTech offers three connected pillars: digital marketing (SEO, content, social, PPC, email, analytics), web development (websites and e-commerce), and creative branding (brand identity, logo, and design). Strategy, design, development, and marketing sit under one accountable team rather than separate vendors.',
-  },
-  {
-    question: 'How much does a website or marketing project cost?',
-    answer: 'Pricing is scoped to your goals, not sold as fixed packages. Websites are quoted by scope; marketing runs as a monthly retainer. We give you a clear, itemised proposal after a discovery call, so you know exactly what you are paying for before committing.',
-  },
-  {
-    question: 'Which platforms do you build on?',
-    answer: 'We are platform-agnostic and build on Astro, Webflow, Wix Studio, WordPress, or Shopify — whichever fits your business, budget, and team. We recommend the platform that serves you long-term, not the one that locks you into the agency.',
-  },
-  {
-    question: 'How long does a typical project take?',
-    answer: 'A focused website build typically launches in around 60 days, depending on scope and content readiness. SEO and marketing are ongoing and compound over months. We set a realistic timeline during the discovery call before any work begins.',
-  },
-  {
-    question: 'What makes ZyrithTech different from other agencies?',
-    answer: 'One accountable partner covers strategy, design, development, and marketing — so there are no hand-offs between vendors and no lost context. We lead with strategy, stay platform-agnostic, and report against real business outcomes like leads and revenue, not just deliverables.',
-  },
-  {
-    question: 'Do you work with businesses outside India?',
-    answer: 'Yes. Our primary market is India, and we also work with clients in the United States, the United Kingdom, Australia, and the Middle East. Projects run remotely with structured milestones and transparent reporting.',
-  },
-];
+const { sectionTitle, faqs } = await getFaqSection('homepage');
 ---
 
 <Layout 
@@ -439,7 +410,7 @@ const faqs = [
         heading="Questions, Answered"
         description="The things growing teams ask us most before starting a project."
       />
-      <FAQAccordion faqs={faqs} />
+      <FAQAccordion title={sectionTitle} faqs={faqs} />
     </div>
   </section>
 

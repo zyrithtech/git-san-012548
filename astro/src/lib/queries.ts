@@ -263,6 +263,83 @@ export async function getPostsByCategory(categorySlug: string) {
 }
 
 // ========================================
+// FAQs
+// ========================================
+
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export interface FaqSection {
+  /** Heading above the accordion. Undefined on pages that render it bare. */
+  sectionTitle?: string;
+  faqs: Faq[];
+}
+
+// FAQs are rendered as visible copy *and* as schema.org FAQPage structured data
+// that search and AI answer engines index. A page that quietly builds with zero
+// FAQs would drop indexed content and emit an empty, invalid FAQPage block — a
+// silent SEO regression that no test would catch. So unlike the other queries in
+// this file, this one throws rather than returning [] and letting the build pass.
+export async function getFaqSection(categorySlug: string): Promise<FaqSection> {
+  let section: FaqSection | null;
+
+  try {
+    section = await client.fetch(
+      `*[_type == "faqCategory" && slug.current == $slug][0] {
+        sectionTitle,
+        "faqs": *[_type == "faq" && references(^._id)]
+          | order(coalesce(displayOrder, 9999) asc) {
+            question,
+            answer
+          }
+      }`,
+      { slug: categorySlug }
+    );
+  } catch (error) {
+    throw new Error(
+      `Failed to fetch FAQ category "${categorySlug}" from Sanity: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+
+  if (!section) {
+    throw new Error(
+      `No faqCategory in Sanity with slug "${categorySlug}". Create it in the ` +
+        `Studio, or fix the slug this page queries by.`
+    );
+  }
+
+  if (section.faqs.length === 0) {
+    throw new Error(
+      `faqCategory "${categorySlug}" has no FAQs. Refusing to build a page with ` +
+        `an empty FAQ section and invalid FAQPage structured data.`
+    );
+  }
+
+  return section;
+}
+
+export async function getAllFaqCategories() {
+  try {
+    return await client.fetch(`
+      *[_type == "faqCategory"] | order(coalesce(displayOrder, 9999) asc) {
+        _id,
+        title,
+        slug,
+        sectionTitle,
+        "faqCount": count(*[_type == "faq" && references(^._id)])
+      }
+    `);
+  } catch (error) {
+    console.error('Error fetching FAQ categories:', error);
+    return [];
+  }
+}
+
+// ========================================
 // METADATA & UTILITIES
 // ========================================
 
