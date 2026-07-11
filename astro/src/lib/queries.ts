@@ -173,7 +173,7 @@ export async function getAllPosts() {
         body,
         publishedAt,
         _updatedAt,
-        mainImage { asset-> { _id, url }, alt },
+        mainImage { asset-> { _id, url, "dimensions": metadata.dimensions }, alt },
         author -> { name, slug, role, bio, photo { asset-> { _id, url } }, linkedIn, twitter, website, expertise },
         categories[] -> { title, slug },
         cta { heading, subtext, buttonText },

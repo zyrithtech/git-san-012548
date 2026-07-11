@@ -32,6 +32,13 @@ export async function getStaticPaths() {
 const { post, allPosts } = Astro.props;
 
 const mainImageUrl = post.mainImage ? sanityImageUrl(post.mainImage, 1400) : null;
+// Reserve the box at the image's *real* aspect ratio so the browser doesn't
+// resize it on load (avoids CLS). Falls back to 16:9 if metadata is missing.
+const MAIN_IMAGE_W = 1400;
+const mainImageAspect = post.mainImage?.asset?.dimensions?.aspectRatio;
+const mainImageH = mainImageAspect
+  ? Math.round(MAIN_IMAGE_W / mainImageAspect)
+  : Math.round(MAIN_IMAGE_W * 9 / 16);
 const publishDate = post.publishedAt
   ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
   : '';
@@ -182,7 +189,7 @@ const faqSchema = faqs.length > 0 ? {
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
   <section class="section bg-white post-header">
-    <div class="container post-header-inner">
+    <div class="container post-column">
       <Breadcrumb
         items={[{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }]}
         currentPage={post.title}
@@ -207,14 +214,14 @@ const faqSchema = faqs.length > 0 ? {
   </section>
 
   <section class="post-image-section">
-    <div class="container">
+    <div class="container post-column">
       <div class="post-image-wrap">
         {mainImageUrl ? (
           <img
             src={mainImageUrl}
             alt={post.mainImage?.alt || post.title}
-            width="1400"
-            height="735"
+            width={MAIN_IMAGE_W}
+            height={mainImageH}
             loading="eager"
             decoding="async"
           />
@@ -355,7 +362,9 @@ const faqSchema = faqs.length > 0 ? {
     padding-bottom: var(--space-8);
   }
 
-  .post-header-inner {
+  /* Shared reading column: the header text and the featured image use the same
+     max-width + container padding so their left/right edges line up. */
+  .post-column {
     max-width: 800px;
   }
 
@@ -395,15 +404,16 @@ const faqSchema = faqs.length > 0 ? {
   }
 
   .post-image-section {
-    padding-bottom: var(--space-16);
+    /* This section is transparent (shows the gray page background), so it reads
+       as its own band between the white header and white body. Symmetric padding
+       centers the image within that gray band. */
+    padding-block: var(--space-12);
   }
 
   .post-image-wrap {
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
-    max-width: 800px;
-    margin-inline: auto;
   }
 
   .post-image-wrap img {
