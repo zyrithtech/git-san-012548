@@ -16,6 +16,28 @@ try {
   // Sanity not configured — page still renders with an empty state
 }
 
+// Build the filter facets from the posts we actually render, not from the full
+// category list — 5 of the 11 defined categories have no posts, and a chip that
+// leads to an empty grid is worse than no chip. Sorted by count desc so the
+// densest categories (SEO, Web Design) lead.
+const categoryMap = new Map<string, { title: string; count: number }>();
+for (const post of posts) {
+  for (const cat of post.categories ?? []) {
+    const slug = cat?.slug?.current;
+    if (!slug) continue;
+    const existing = categoryMap.get(slug);
+    if (existing) existing.count++;
+    else categoryMap.set(slug, { title: cat.title, count: 1 });
+  }
+}
+const categories = [...categoryMap.entries()]
+  .map(([slug, { title, count }]) => ({ slug, title, count }))
+  .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title));
+
+// Numbered pager renders 18 (6 rows of 3) per page. Kept in a data-attribute so
+// the client script is the single source of truth for the page size.
+const POSTS_PER_PAGE = 18;
+
 const title = "Blog — Web, Marketing & Brand Insights";
 const description = "Strategies and trends on web development, SEO, social media, email marketing, and brand identity — from the team behind ZyrithTech client engagements.";
 const canonicalURL = "https://www.zyrithtech.com/blog/";
@@ -44,10 +66,49 @@ const ogImage = "https://www.zyrithtech.com/images/og-blog.jpg";
   <section class="section bg-surface blog-grid-section">
     <div class="container">
       {posts.length > 0 ? (
-        <div class="grid-3">
-          {posts.map((post) => (
-            <BlogPostCard post={post} headingLevel={2} />
-          ))}
+        <div class="blog-listing" data-per-page={POSTS_PER_PAGE}>
+          {categories.length > 1 && (
+            <div class="blog-filter-bar">
+              {/* Desktop: chip buttons */}
+              <div class="blog-filter" id="blog-filter" role="group" aria-label="Filter posts by category">
+                <button class="filter-chip is-active" type="button" data-category="all" aria-pressed="true">
+                  All <span class="filter-count">{posts.length}</span>
+                </button>
+                {categories.map((c) => (
+                  <button class="filter-chip" type="button" data-category={c.slug} aria-pressed="false">
+                    {c.title} <span class="filter-count">{c.count}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Mobile: dropdown (kept in sync with the chips by the script) */}
+              <div class="blog-filter-select-wrap">
+                <select id="blog-filter-select" class="blog-filter-select" aria-label="Filter posts by category">
+                  <option value="all">All ({posts.length})</option>
+                  {categories.map((c) => (
+                    <option value={c.slug}>{c.title} ({c.count})</option>
+                  ))}
+                </select>
+                <svg class="blog-filter-select-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          )}
+
+          <div class="grid-3" id="blog-grid">
+            {posts.map((post) => (
+              <div class="blog-item" data-categories={(post.categories ?? []).map((c: any) => c?.slug?.current).filter(Boolean).join(' ')}>
+                <BlogPostCard post={post} headingLevel={2} />
+              </div>
+            ))}
+          </div>
+
+          <p class="blog-noresults" id="blog-noresults" role="status" hidden>
+            No posts in this category yet.
+          </p>
+
+          <nav class="pager" id="blog-pager" aria-label="Blog pagination" hidden></nav>
         </div>
       ) : (
         <div class="blog-empty">
@@ -80,4 +141,303 @@ const ogImage = "https://www.zyrithtech.com/images/og-blog.jpg";
     padding: var(--space-16);
     color: var(--color-text-muted);
   }
+
+  /* ---- Category filter ---- */
+  .blog-filter-bar {
+    margin-bottom: var(--space-8);
+  }
+
+  /* Desktop: chip buttons. Mobile (<=768px): swapped for the dropdown below. */
+  .blog-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .blog-filter-select-wrap {
+    display: none;
+    position: relative;
+    max-width: 420px;
+  }
+
+  .blog-filter-select {
+    width: 100%;
+    padding: var(--space-3) var(--space-10) var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    background-color: var(--white);
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .blog-filter-select-icon {
+    position: absolute;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .blog-filter {
+      display: none;
+    }
+    .blog-filter-select-wrap {
+      display: block;
+    }
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-full);
+    background-color: var(--white);
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--duration-base) var(--ease-out),
+                border-color var(--duration-base) var(--ease-out),
+                color var(--duration-base) var(--ease-out);
+  }
+
+  .filter-chip:hover {
+    border-color: var(--sky-300);
+    color: var(--sky-500);
+  }
+
+  .filter-chip.is-active {
+    background-color: var(--navy-500);
+    border-color: var(--navy-500);
+    color: var(--white);
+  }
+
+  .filter-count {
+    font-size: var(--text-xs);
+    opacity: 0.7;
+  }
+
+  /* ---- Card wrapper: display:contents keeps the card as the direct grid
+     item, so the existing equal-height layout is untouched. ---- */
+  .blog-item {
+    display: contents;
+  }
+
+  .blog-item.is-hidden {
+    display: none;
+  }
+
+  .blog-noresults {
+    text-align: center;
+    padding: var(--space-16);
+    color: var(--color-text-muted);
+  }
+
+  /* ---- Numbered pager ---- */
+  .pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-12);
+  }
+
+  /* Pager buttons are created in JS, so they don't carry Astro's scope
+     attribute. Reach them through the authored #blog-pager ancestor with
+     :global() so the styles still apply. */
+  #blog-pager :global(.pager-btn) {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    background-color: var(--white);
+    color: var(--color-text-body);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--duration-base) var(--ease-out),
+                border-color var(--duration-base) var(--ease-out),
+                color var(--duration-base) var(--ease-out);
+  }
+
+  #blog-pager :global(.pager-btn:hover:not(:disabled):not([aria-current="page"])) {
+    border-color: var(--sky-300);
+    color: var(--sky-500);
+  }
+
+  #blog-pager :global(.pager-btn[aria-current="page"]) {
+    background-color: var(--navy-500);
+    border-color: var(--navy-500);
+    color: var(--white);
+    cursor: default;
+  }
+
+  #blog-pager :global(.pager-btn:disabled) {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .filter-chip,
+    #blog-pager :global(.pager-btn) {
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  // Progressive enhancement: with no JS, all posts render unfiltered and
+  // unpaginated (fully usable). This script layers on category filtering plus a
+  // numbered pager, both operating on the same client-rendered card set. State
+  // is mirrored into ?category= / ?page= so filtered views are shareable and the
+  // back button works.
+  function initBlogListing() {
+    const listing = document.querySelector<HTMLElement>('.blog-listing');
+    if (!listing) return;
+
+    const grid = listing.querySelector<HTMLElement>('#blog-grid');
+    const pager = listing.querySelector<HTMLElement>('#blog-pager');
+    const noResults = listing.querySelector<HTMLElement>('#blog-noresults');
+    const chips = Array.from(listing.querySelectorAll<HTMLButtonElement>('.filter-chip'));
+    const select = listing.querySelector<HTMLSelectElement>('#blog-filter-select');
+    if (!grid || !pager || !noResults) return;
+
+    const items = Array.from(grid.querySelectorAll<HTMLElement>('.blog-item'));
+    const perPage = parseInt(listing.dataset.perPage || '18', 10);
+
+    let activeCategory = 'all';
+    let currentPage = 1;
+
+    const matches = (item: HTMLElement) =>
+      activeCategory === 'all' ||
+      (item.dataset.categories || '').split(' ').includes(activeCategory);
+
+    const updateURL = () => {
+      const params = new URLSearchParams();
+      if (activeCategory !== 'all') params.set('category', activeCategory);
+      if (currentPage > 1) params.set('page', String(currentPage));
+      const qs = params.toString();
+      history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+    };
+
+    const scrollToTop = () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      listing.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    };
+
+    const renderPager = (totalPages: number) => {
+      pager.innerHTML = '';
+      if (totalPages <= 1) {
+        pager.hidden = true;
+        return;
+      }
+      pager.hidden = false;
+
+      const makeBtn = (
+        label: string,
+        page: number,
+        opts: { current?: boolean; disabled?: boolean; ariaLabel?: string; scroll?: boolean } = {},
+      ) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pager-btn';
+        b.textContent = label;
+        if (opts.ariaLabel) b.setAttribute('aria-label', opts.ariaLabel);
+        if (opts.current) b.setAttribute('aria-current', 'page');
+        if (opts.disabled) b.disabled = true;
+        if (!opts.current && !opts.disabled) {
+          b.addEventListener('click', () => {
+            currentPage = page;
+            render();
+            updateURL();
+            if (opts.scroll !== false) scrollToTop();
+          });
+        }
+        return b;
+      };
+
+      pager.appendChild(
+        makeBtn('‹', currentPage - 1, { disabled: currentPage === 1, ariaLabel: 'Previous page' }),
+      );
+      for (let p = 1; p <= totalPages; p++) {
+        pager.appendChild(makeBtn(String(p), p, { current: p === currentPage, ariaLabel: `Page ${p}` }));
+      }
+      pager.appendChild(
+        makeBtn('›', currentPage + 1, { disabled: currentPage === totalPages, ariaLabel: 'Next page' }),
+      );
+    };
+
+    function render() {
+      const filtered = items.filter(matches);
+      const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
+      if (currentPage > totalPages) currentPage = totalPages;
+      const start = (currentPage - 1) * perPage;
+      const end = start + perPage;
+
+      items.forEach((item) => item.classList.add('is-hidden'));
+      filtered.slice(start, end).forEach((item) => item.classList.remove('is-hidden'));
+
+      noResults.hidden = filtered.length > 0;
+      renderPager(totalPages);
+    }
+
+    const setCategory = (category: string) => {
+      activeCategory = category;
+      currentPage = 1;
+      chips.forEach((chip) => {
+        const on = chip.dataset.category === category;
+        chip.classList.toggle('is-active', on);
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (select && select.value !== category) select.value = category;
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        setCategory(chip.dataset.category || 'all');
+        render();
+        updateURL();
+      });
+    });
+
+    select?.addEventListener('change', () => {
+      setCategory(select.value);
+      render();
+      updateURL();
+    });
+
+    // Restore state from the URL on load (validated against real chips/range).
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('category');
+    if (cat && chips.some((c) => c.dataset.category === cat)) {
+      setCategory(cat);
+    }
+    const pageParam = parseInt(params.get('page') || '1', 10);
+    if (!Number.isNaN(pageParam) && pageParam > 1) currentPage = pageParam;
+
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBlogListing);
+  } else {
+    initBlogListing();
+  }
+</script>

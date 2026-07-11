@@ -1,7 +1,7 @@
 ---
 // src/components/BlogPostCard.astro
 // Blog post card — used on /blog listing and "related posts" sections
-import { sanityImageUrl } from '../lib/sanity';
+import { sanityImageUrl, sanityImageSrcSet } from '../lib/sanity';
 
 interface Props {
   post: {
@@ -20,6 +20,9 @@ interface Props {
 const { post, headingLevel = 3 } = Astro.props;
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
 const imageUrl = post.mainImage ? sanityImageUrl(post.mainImage, 600) : null;
+const imageSrcSet = post.mainImage ? sanityImageSrcSet(post.mainImage) : null;
+// Cards sit in .grid-3: 3-up above 1024px, 2-up to 768px, then full width.
+const CARD_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw';
 const publishDate = post.publishedAt
   ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
   : '';
@@ -30,6 +33,8 @@ const publishDate = post.publishedAt
     {imageUrl ? (
       <img
         src={imageUrl}
+        srcset={imageSrcSet}
+        sizes={CARD_SIZES}
         alt={post.mainImage?.alt || post.title}
         width="600"
         height="315"
