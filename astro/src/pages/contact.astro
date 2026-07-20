@@ -144,7 +144,16 @@ const { sectionTitle, faqs } = await getFaqSection('contact');
 
               <p class="form-error" id="captchaErr1357533000000539001" style="visibility:hidden;"></p>
 
-              <script>
+              <!--
+                is:inline is REQUIRED, do not remove. Without it Astro compiles this
+                into an ES module, which is always strict mode. Zoho's checkMandatory
+                uses an undeclared `i` in its for-loop, which throws ReferenceError under
+                strict mode; the throw escapes the submit handler before e.preventDefault()
+                runs, so the browser does a native GET submit and the lead never reaches
+                the CRM. is:inline also keeps these functions global, which the select's
+                inline onchange= attribute depends on.
+              -->
+              <script is:inline>
                 function addAriaSelected1357533000000539001(){
                   var optionElem = event.target;
                   var previousSelectedOption = optionElem.querySelector('[aria-selected=true]');
